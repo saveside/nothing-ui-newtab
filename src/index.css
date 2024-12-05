@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Nothing';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(/fonts/nothing.ttf) format('ttf');
+    }
+}
+
+@layer base {
+    :root {
+        --background: 240, 10%, 4%;
+        --foreground: 240, 5%, 96%;
+        --card: 0 0% 11%;
+        --card-foreground: 0 0% 95%;
+        --destructive: 357 79% 47%;
+        --destructive-foreground: 270 15% 95%;
+    }
+}
+
+@layer base {
+    body {
+        @apply bg-background text-foreground font-nothing;
+    }
+}
