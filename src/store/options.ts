@@ -14,7 +14,7 @@ export const useOptionsStore = create(
         format24: false,
         greetings: false,
 
-        customText: "Clock here to edit",
+        customText: "Click here to edit",
         selectedEngine: "Brave",
 
         // Misc
