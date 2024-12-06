@@ -1,5 +1,6 @@
 import { useOptionsStore } from "../../../store/options"
-import ToggleOption from "../toggle-option"
+import OptionsGroup from "./shared/options-group"
+import ToggleOption from "./shared/toggle-option"
 
 const ClockOptions = () => {
   const {
@@ -11,8 +12,7 @@ const ClockOptions = () => {
     toggelGreetings,
   } = useOptionsStore()
   return (
-    <div className="flex w-full flex-col gap-3">
-      <span className="font-medium text-sm">Clock</span>
+    <OptionsGroup title="Clock">
       <ToggleOption
         label="Digital clock"
         enabled={enableDigitalClock}
@@ -30,7 +30,7 @@ const ClockOptions = () => {
         onChange={toggelGreetings}
         disabled={!enableDigitalClock}
       />
-    </div>
+    </OptionsGroup>
   )
 }
 

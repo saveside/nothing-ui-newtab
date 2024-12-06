@@ -64,16 +64,17 @@ export const searchProviders = [
   },
 ] satisfies SearchProviders[]
 
-export type DockApps = {
+export type DockApp = {
+  name: string
   icon: string
   url: string
 }
 
 export const dockApps = [
-  { icon: "simple-icons:youtube", url: "youtube.com" },
-  { icon: "ic:baseline-reddit", url: "reddit.com" },
-  { icon: "simple-icons:anilist", url: "anilist.co" },
-  { icon: "simple-icons:monkeytype", url: "monkeytype.com" },
-  { icon: "mdi:spotify", url: "open.spotify.com" },
-  { icon: "ic:baseline-whatsapp", url: "web.whatsapp.com" },
-] satisfies DockApps[]
+  { name: "YouTube", icon: "simple-icons:youtube", url: "youtube.com" },
+  { name: "Reddit", icon: "ic:baseline-reddit", url: "reddit.com" },
+  { name: "AniList", icon: "simple-icons:anilist", url: "anilist.co" },
+  { name: "Type", icon: "simple-icons:monkeytype", url: "monkeytype.com" },
+  { name: "Spotify", icon: "mdi:spotify", url: "open.spotify.com" },
+  { name: "WhatsApp", icon: "ic:baseline-whatsapp", url: "web.whatsapp.com" },
+] satisfies DockApp[]

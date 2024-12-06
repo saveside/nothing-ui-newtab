@@ -22,12 +22,12 @@ const SidebarContent = () => {
       initial={{ x: 400, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 400, opacity: 0 }}
-      transition={{ ease: "linear", duration: 0.4 }}
-      className="fixed top-0 right-0 z-20 h-full w-96 select-none p-3 font-rubik"
+      transition={{ ease: "linear", duration: 0.3 }}
+      className="fixed top-0 right-0 z-20 h-full w-96 select-none p-1 font-rubik"
     >
       <div className="flex h-full w-full flex-col rounded-xl bg-card p-4 text-card-foreground">
-        <span className="pt-3 pb-8 pl-2 font-bold text-2xl">Settings</span>
-        <div className="inline-flex w-full justify-between px-2">
+        <span className="pt-3 pb-8 pl-4 font-bold text-2xl">Settings</span>
+        <div className="inline-flex w-full justify-between overflow-y-auto overflow-x-hidden px-4">
           <SidebarOptions />
         </div>
       </div>

@@ -14,20 +14,10 @@ const Clock = ({ clockType }: ClockProps) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setSeconds((prevSecs) => {
-        if (prevSecs === 59) {
-          setMiniutes((prevMins) => {
-            if (prevMins === 59) {
-              setHours((prevHours) => (prevHours + 1) % 12)
-              return 0
-            }
-            return (prevMins + 1) % 60
-          })
-          return 0
-        }
-
-        return (prevSecs + 1) % 60
-      })
+      const newDate = new Date()
+      setSeconds(newDate.getSeconds())
+      setMiniutes(newDate.getMinutes())
+      setHours(newDate.getHours())
     }, 1000)
 
     return () => clearInterval(intervalId)
