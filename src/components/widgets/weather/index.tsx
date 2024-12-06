@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { icons } from "../../../lib/icons"
 import type { CurrentWeather } from "../../../types/weather"
 
 const Weather = () => {
@@ -18,6 +19,20 @@ const Weather = () => {
     })()
   }, [weatherData])
 
+  const weatherIcon = useMemo(() => {
+    const hours = new Date().getHours()
+    const isDay = hours <= 18 && hours > 6
+    const altImg = `https://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`
+
+    const status = weatherData?.weather[0].main.toLowerCase()
+    if (!status) return altImg
+
+    return (
+      // biome-ignore lint/suspicious/noExplicitAny: <too much work>
+      (icons.weather_icons as any)[status]?.[isDay ? "day" : "night"] || altImg
+    )
+  }, [weatherData])
+
   return (
     <div className="flex size-48 select-none flex-col items-center justify-between rounded-xl bg-card p-3">
       {weatherData && (
@@ -25,11 +40,7 @@ const Weather = () => {
           <span className="text-lg">
             {Math.round(weatherData.main.temp - 273.15)}&deg;C
           </span>
-          <img
-            src="https://res.cloudinary.com/stylesh/image/upload/v1733338463/nothing-new-tab/weather-icons/mfjgk2jpos0lmngvx0cb.png"
-            alt="wather-icon"
-            width={94}
-          />
+          <img src={weatherIcon} alt="wather-icon" width={78} />
           <span>{weatherData.name}</span>
         </>
       )}
