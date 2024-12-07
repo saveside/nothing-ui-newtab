@@ -4,17 +4,17 @@ import React from "react"
 import { cn } from "../../utils"
 
 const buttonVariants = cva(
-  "button active:scale-95 flex size-12 items-center justify-center rounded-xl",
+  "button active:scale-95 flex size-12 items-center justify-center rounded-xl transition-colors duration-300",
   {
     variants: {
       variant: {
         primary: "bg-card text-card-foreground hover:bg-card-foreground/20",
-        secondary: "bg-background text-foreground hover:bg-foreground/20",
+        secondary: "bg-background text-foreground hover:bg-card-foreground/10",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/80",
       },
       size: {
-        default: "px-3 py-2",
+        default: "px-10 h-9",
         icon: "size-11 rounded-full",
       },
     },

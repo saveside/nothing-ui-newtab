@@ -19,6 +19,9 @@ export const useOptionsStore = create(
 
         // Misc
         image: placeHolder,
+        weatherAPI: "",
+        weatherLocation: "",
+        isScaleFahrenheit: false,
 
         // DockApp
         dockApps: initialDockApps as DockApp[],
@@ -33,6 +36,13 @@ export const useOptionsStore = create(
 
         // Misc Setters
         setImage: (url: string) => set({ image: url }),
+        setWeatherAPI: (key: string) => set({ weatherAPI: key }),
+        setWeatherLocation: (location: string) =>
+          set({ weatherLocation: location }),
+        toggleFahrenheitScale: () =>
+          set((state) => ({
+            isScaleFahrenheit: !state.isScaleFahrenheit,
+          })),
 
         // DockApp Setters
         addDockApp: () => {

@@ -3,6 +3,7 @@ import { useSidebarOptions } from "../sidebar-store"
 import AppsOptions from "./apps-options"
 import ClockOptions from "./clock-options"
 import MiscOptions from "./misc-options"
+import WeatherOptions from "./weather-options"
 
 const MotionDiv = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -19,14 +20,15 @@ const MotionDiv = ({ children }: { children: React.ReactNode }) => {
 }
 
 const SidebarOptions = () => {
-  const { tab, setTab } = useSidebarOptions()
+  const tab = useSidebarOptions((s) => s.tab)
 
   return (
     <div className="w-full">
       {tab === "default" && (
         <MotionDiv>
           <ClockOptions />
-          <MiscOptions setCurrentTab={setTab} />
+          <MiscOptions />
+          <WeatherOptions />
         </MotionDiv>
       )}
       {tab === "apps" && (

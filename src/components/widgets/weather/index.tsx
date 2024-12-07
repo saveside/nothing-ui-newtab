@@ -1,23 +1,28 @@
 import { useEffect, useMemo, useState } from "react"
 import { icons } from "../../../lib/icons"
+import { useOptionsStore } from "../../../store/options"
 import type { CurrentWeather } from "../../../types/weather"
 
 const Weather = () => {
+  const { weatherAPI, weatherLocation, isScaleFahrenheit } = useOptionsStore()
+
   const [weatherData, setWeatherData] = useState<CurrentWeather | null>(null)
   useEffect(() => {
     if (weatherData) return
     ;(async () => {
       try {
         const data = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=51.509865&lon=-0.118092&appid=${import.meta.env.VITE_WEATHER_API}`,
+          `https://api.openweathermap.org/data/2.5/weather?q=${weatherLocation}&appid=${weatherAPI || import.meta.env.VITE_WEATHER_API}`,
         )
-        const jsonData = await data.json()
-        setWeatherData(jsonData)
+        if (data.ok) {
+          const jsonData = await data.json()
+          setWeatherData(jsonData)
+        }
       } catch (error) {
         console.error(error)
       }
     })()
-  }, [weatherData])
+  }, [weatherData, weatherAPI, weatherLocation])
 
   const weatherIcon = useMemo(() => {
     const hours = new Date().getHours()
@@ -35,17 +40,32 @@ const Weather = () => {
 
   return (
     <div className="flex size-48 select-none flex-col items-center justify-between rounded-xl bg-card p-3">
-      {weatherData && (
+      {weatherData ? (
         <>
           <span className="text-lg">
-            {Math.round(weatherData.main.temp - 273.15)}&deg;C
+            {isScaleFahrenheit
+              ? convertFromKelvin(weatherData.main.temp, "F")
+              : convertFromKelvin(weatherData.main.temp, "C")}
+            &deg;{isScaleFahrenheit ? "F" : "C"}
           </span>
           <img src={weatherIcon} alt="wather-icon" width={78} />
           <span>{weatherData.name}</span>
         </>
+      ) : (
+        <span className="flex h-full items-center justify-center text-center">
+          Make sure your given location and API Key is valid
+        </span>
       )}
     </div>
   )
+}
+
+function convertFromKelvin(kelvin: number, to: "F" | "C") {
+  const celcious = kelvin - 273.15
+  if (to === "F") {
+    return Math.round((celcious * 9) / 5 + 32)
+  }
+  return Math.round(celcious)
 }
 
 export default Weather

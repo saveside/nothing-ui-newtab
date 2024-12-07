@@ -1,13 +1,10 @@
 import { Icon } from "@iconify/react"
-import type { Setter } from "../../../types/react"
-import type { Tab } from "../sidebar-store"
+import { useSidebarOptions } from "../sidebar-store"
 import OptionsGroup from "./shared/options-group"
 
-interface MiscOptions {
-  setCurrentTab: Setter<Tab>
-}
+const MiscOptions = () => {
+  const setTab = useSidebarOptions((s) => s.setTab)
 
-const MiscOptions = ({ setCurrentTab }: MiscOptions) => {
   return (
     <OptionsGroup title="Misc">
       <span className="inline-flex items-start justify-between">
@@ -17,7 +14,7 @@ const MiscOptions = ({ setCurrentTab }: MiscOptions) => {
             Add, edit and delete apps
           </span>
         </span>
-        <button type="button" onClick={() => setCurrentTab("apps")}>
+        <button type="button" onClick={() => setTab("apps")}>
           <Icon icon="mingcute:settings-6-line" fontSize={20} />
         </button>
       </span>

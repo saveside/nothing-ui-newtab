@@ -27,7 +27,7 @@ const SidebarContent = () => {
     >
       <div className="flex h-full w-full flex-col rounded-xl bg-card p-4 text-card-foreground">
         <span className="pt-3 pb-8 pl-4 font-bold text-2xl">Settings</span>
-        <div className="inline-flex w-full justify-between overflow-y-auto overflow-x-hidden px-4">
+        <div className="inline-flex size-full justify-between overflow-y-auto overflow-x-hidden px-4">
           <SidebarOptions />
         </div>
       </div>
