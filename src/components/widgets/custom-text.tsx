@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useOptionsStore } from "../../store/options"
 import { getGreetings } from "../../utils/datetime"
 import { parseDate } from "../../utils/datetime"
+import Input from "../ui/input"
 
 const date = new Date()
 
@@ -22,15 +23,16 @@ export const CustomText = () => {
   }, [openInput])
 
   return (
-    <div className="flex flex-col items-start text-foreground text-lg">
+    <div className="flex w-full flex-col items-start text-foreground text-lg">
       {openInput ? (
-        <input
+        <Input
           ref={inputRef}
           id="custom-text"
           placeholder="Type here"
           value={customText}
           onInput={(e) => setCustomText(e.currentTarget.value)}
-          className="bg-background"
+          outline="ghost"
+          className="w-full bg-background px-0 py-0 text-lg"
         />
       ) : (
         <button type="button" onClick={() => setOpenInput(true)}>
