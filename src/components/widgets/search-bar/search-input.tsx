@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useDebounceValue } from "usehooks-ts"
 import { searchProviders } from "../../../lib/variables"
 import { useOptionsStore } from "../../../store/options"
+import Input from "../../ui/input"
 
 const SearchInput = () => {
   const { selectedEngine, setSelectedEngine } = useOptionsStore()
@@ -45,12 +46,13 @@ const SearchInput = () => {
           <Icon icon="tabler:search" className="mx-auto" />
         </div>
       </span>
-      <input
+      <Input
         id="search-engine-query"
+        outline="ghost"
         value={query}
         onInput={(e) => setQuery(e.currentTarget.value)}
         placeholder="Type here..."
-        className="h-11 w-full bg-card text-card-foreground focus:outline-none"
+        className="h-11 w-full bg-card px-0 text-card-foreground"
       />
       <button
         type="button"

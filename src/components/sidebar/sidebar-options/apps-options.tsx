@@ -1,11 +1,15 @@
 import { Icon } from "@iconify/react"
 import { useOptionsStore } from "../../../store/options"
 import Button from "../../ui/button"
+import Input from "../../ui/input"
 import NewTabHeader from "./shared/newtab-header"
 
 const AppsOptions = () => {
   const { addDockApp, updateDockApp, dockApps, resetDockApp, removeDockApp } =
     useOptionsStore()
+
+  const inputClass =
+    "h-1 rounded-none bg-inherit px-0 text-inherit focus:outline-none"
 
   return (
     <div className="space-y-6">
@@ -45,8 +49,9 @@ const AppsOptions = () => {
               className="hover:bg-background active:scale-100"
             />
             <div className="w-[68.2%]">
-              <input
+              <Input
                 id={`app-name-${index}`}
+                outline="ghost"
                 value={app.name}
                 onInput={(e) =>
                   updateDockApp(index, {
@@ -54,10 +59,11 @@ const AppsOptions = () => {
                     name: e.currentTarget.value,
                   })
                 }
-                className="bg-inherit text-inherit focus:outline-none"
+                className={inputClass}
               />
-              <input
+              <Input
                 id={`app-url-${index}`}
+                outline="ghost"
                 value={app.url}
                 onInput={(e) => {
                   updateDockApp(index, {
@@ -65,7 +71,7 @@ const AppsOptions = () => {
                     url: e.currentTarget.value,
                   })
                 }}
-                className="bg-inherit text-inherit focus:outline-none"
+                className={inputClass}
               />
             </div>
             <div className="inline-flex items-center">
