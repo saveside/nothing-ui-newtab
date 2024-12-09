@@ -22,6 +22,7 @@ export const useOptionsStore = create(
         weatherAPI: "",
         weatherLocation: "",
         isScaleFahrenheit: false,
+        isAIToolsEnabled: true,
 
         // DockApp
         dockApps: initialDockApps as DockApp[],
@@ -43,6 +44,8 @@ export const useOptionsStore = create(
           set((state) => ({
             isScaleFahrenheit: !state.isScaleFahrenheit,
           })),
+        toggleEnableAITools: () =>
+          set((prev) => ({ isAIToolsEnabled: !prev.isAIToolsEnabled })),
 
         // DockApp Setters
         addDockApp: () => {

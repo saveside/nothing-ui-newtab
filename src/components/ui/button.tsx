@@ -4,7 +4,7 @@ import React from "react"
 import { cn } from "../../utils"
 
 const buttonVariants = cva(
-  "button active:scale-95 flex size-12 items-center justify-center rounded-xl transition-colors duration-300",
+  "button active:scale-95 flex items-center justify-center rounded-xl transition-colors duration-300 gap-1",
   {
     variants: {
       variant: {
@@ -14,7 +14,7 @@ const buttonVariants = cva(
           "bg-destructive text-destructive-foreground hover:bg-destructive/80",
       },
       size: {
-        default: "px-10 h-9",
+        default: "px-4 h-10",
         icon: "size-11 rounded-full",
       },
     },

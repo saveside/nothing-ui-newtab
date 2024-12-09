@@ -42,10 +42,9 @@ const Sidebar = () => {
       <AnimatePresence mode="wait">
         {!open && (
           <motion.button
-            initial={{ y: 10 }}
+            initial={{ y: 20 }}
             animate={{ y: 0 }}
-            exit={{ y: 10, opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            exit={{ y: 20, opacity: 0 }}
             type="button"
             onClick={() => setOpen(true)}
             className="fixed right-4 bottom-4 z-10 size-12 rounded-full bg-card text-white active:scale-95"

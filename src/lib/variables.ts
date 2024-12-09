@@ -78,3 +78,13 @@ export const dockApps = [
   { name: "Spotify", icon: "mdi:spotify", url: "open.spotify.com" },
   { name: "WhatsApp", icon: "ic:baseline-whatsapp", url: "web.whatsapp.com" },
 ] satisfies DockApp[]
+
+export type AITool = DockApp
+export const aiTools = [
+  { name: "ChatGPT", icon: "ph:open-ai-logo", url: "chatgpt.com" },
+  { name: "Gemini", icon: "ri:gemini-fill", url: "gemini.google.com/app" },
+  { name: "Copilot", icon: "lineicons:copilot", url: "copilot.microsoft.com" },
+  { name: "Perplexity", icon: "ri:perplexity-fill", url: "perplexity.ai" },
+  // { name: "", icon: "", url: "" },
+  // { name: "", icon: "", url: "" },
+] satisfies AITool[]
