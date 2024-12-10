@@ -64,22 +64,16 @@ export const searchProviders = [
   },
 ] satisfies SearchProviders[]
 
-export type DockApp = {
+// ------------
+// Apps Section
+// ------------
+
+export type App = {
   name: string
   icon: string
   url: string
 }
 
-export const dockApps = [
-  { name: "YouTube", icon: "simple-icons:youtube", url: "youtube.com" },
-  { name: "Reddit", icon: "ic:baseline-reddit", url: "reddit.com" },
-  { name: "AniList", icon: "simple-icons:anilist", url: "anilist.co" },
-  { name: "Type", icon: "simple-icons:monkeytype", url: "monkeytype.com" },
-  { name: "Spotify", icon: "mdi:spotify", url: "open.spotify.com" },
-  { name: "WhatsApp", icon: "ic:baseline-whatsapp", url: "web.whatsapp.com" },
-] satisfies DockApp[]
-
-export type AITool = DockApp
 export const aiTools = [
   { name: "ChatGPT", icon: "ph:open-ai-logo", url: "chatgpt.com" },
   { name: "Gemini", icon: "ri:gemini-fill", url: "gemini.google.com/app" },
@@ -87,4 +81,47 @@ export const aiTools = [
   { name: "Perplexity", icon: "ri:perplexity-fill", url: "perplexity.ai" },
   // { name: "", icon: "", url: "" },
   // { name: "", icon: "", url: "" },
-] satisfies AITool[]
+] satisfies App[]
+
+export const drawerApps = [
+  { name: "P-Mail", icon: "lineicons:proton-mail-symbol", url: "" },
+  { name: "Gmail", icon: "mdi:gmail", url: "" },
+  {
+    name: "Translate",
+    icon: "material-symbols:g-translate",
+    url: "translate.google.com",
+  },
+  { name: "YouTube", icon: "simple-icons:youtube", url: "youtube.com" },
+  { name: "YTMusic", icon: "simple-icons:youtubemusic", url: "" },
+  { name: "Drive", icon: "ri:drive-fill", url: "" },
+  { name: "Maps", icon: "simple-icons:googlemaps", url: "" },
+  { name: "Docs", icon: "material-symbols:docs", url: "" },
+  { name: "Reddit", icon: "ic:baseline-reddit", url: "reddit.com" },
+  { name: "AniList", icon: "simple-icons:anilist", url: "anilist.co" },
+  { name: "Type", icon: "simple-icons:monkeytype", url: "monkeytype.com" },
+  { name: "Spotify", icon: "mdi:spotify", url: "open.spotify.com" },
+  { name: "WhatsApp", icon: "ic:baseline-whatsapp", url: "web.whatsapp.com" },
+  { name: "Pixiv", icon: "fa6-brands:pixiv", url: "" },
+  {
+    name: "Icons",
+    icon: "simple-icons:iconify",
+    url: "https://icon-sets.iconify.design",
+  },
+  {
+    name: "Colors",
+    icon: "mdi:tailwind",
+    url: "https://tailwindcss.com/docs/customizing-colors",
+  },
+] satisfies App[]
+
+export const dockApps = drawerApps.filter(({ name }) =>
+  [
+    "AniList",
+    "YouTube",
+    "Reddit",
+    "Anilist",
+    "Type",
+    "Spotify",
+    "WhatsApp",
+  ].includes(name),
+)

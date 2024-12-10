@@ -1,6 +1,10 @@
 import { create } from "zustand"
 import { combine, persist } from "zustand/middleware"
-import { type DockApp, dockApps as initialDockApps } from "../lib/variables"
+import {
+  type App,
+  dockApps as initialDockApps,
+  drawerApps as initialDrawerApps,
+} from "../lib/variables"
 
 const placeHolder = // Temp
   "https://images.pexels.com/photos/3419791/pexels-photo-3419791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -23,9 +27,11 @@ export const useOptionsStore = create(
         weatherLocation: "",
         isScaleFahrenheit: false,
         isAIToolsEnabled: true,
+        isAppDrawerEnabled: true,
+        drawerApps: sortApps(initialDrawerApps),
 
         // DockApp
-        dockApps: initialDockApps as DockApp[],
+        dockApps: sortApps(initialDockApps),
       },
       (set, get) => ({
         // Clock Setters
@@ -47,6 +53,26 @@ export const useOptionsStore = create(
         toggleEnableAITools: () =>
           set((prev) => ({ isAIToolsEnabled: !prev.isAIToolsEnabled })),
 
+        // App Drwaer setters
+        toggleEnableAppDrawer: () =>
+          set((prev) => ({
+            isAppDrawerEnabled: !prev.isAppDrawerEnabled,
+          })),
+        removeDrawerApp: (name: string) => {
+          set((prev) => ({
+            drawerApps: removeApp(prev.drawerApps, name),
+          }))
+        },
+        updateDrawerApp: (id: number, app: App) => {
+          set((prev) => ({ drawerApps: updateApp(prev.dockApps, id, app) }))
+        },
+        resetDrawerApp: () => {
+          // This check ain't necessary, but overall a better perf approach
+          if (!appListIsMatching(get().drawerApps, initialDrawerApps)) {
+            set({ drawerApps: initialDrawerApps })
+          }
+        },
+
         // DockApp Setters
         addDockApp: () => {
           set((prev) => ({
@@ -56,27 +82,20 @@ export const useOptionsStore = create(
                 name: "NothingUiNewTab",
                 url: "github.com/ImRayy/nothing-ui-new-tab",
                 icon: "mdi:github",
-              } satisfies DockApp,
+              } satisfies App,
             ],
           }))
         },
-        removeDockApp: (id: number) => {
+        removeDockApp: (name: string) => {
           set((prev) => ({
-            dockApps: prev.dockApps.filter((_, index) => index !== id),
+            dockApps: removeApp(prev.dockApps, name),
           }))
         },
-        updateDockApp: (id: number, app: DockApp) => {
-          set((state) => {
-            const updatedData = [...state.dockApps]
-            updatedData[id] = app
-            return { dockApps: updatedData }
-          })
+        updateDockApp: (id: number, app: App) => {
+          set((prev) => ({ dockApps: updateApp(prev.dockApps, id, app) }))
         },
         resetDockApp: () => {
-          // This check ain't necessary, but overall a better perf approach
-          const prevObjects = JSON.stringify(get().dockApps)
-          const current = JSON.stringify(initialDockApps)
-          if (prevObjects !== current) {
+          if (!appListIsMatching(get().dockApps, initialDockApps)) {
             set({ dockApps: initialDockApps })
           }
         },
@@ -90,3 +109,22 @@ export const useOptionsStore = create(
     },
   ),
 )
+
+// App list actions
+function sortApps(list: App[]) {
+  return list.sort((a, b) => a.name.localeCompare(b.name))
+}
+
+function removeApp(list: App[], name: string) {
+  return list.filter((app) => app.name !== name)
+}
+
+function updateApp(list: App[], id: number, updatedApp: App) {
+  const updatedList = list
+  updatedList[id] = updatedApp
+  return updatedList
+}
+
+function appListIsMatching(list1: App[], list2: App[]) {
+  return JSON.stringify(list1) === JSON.stringify(list2)
+}

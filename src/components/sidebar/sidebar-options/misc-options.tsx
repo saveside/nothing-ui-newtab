@@ -6,7 +6,12 @@ import ToggleOption from "./shared/toggle-option"
 
 const MiscOptions = () => {
   const setTab = useSidebarOptions((s) => s.setTab)
-  const { isAIToolsEnabled, toggleEnableAITools } = useOptionsStore()
+  const {
+    isAIToolsEnabled,
+    toggleEnableAITools,
+    isAppDrawerEnabled,
+    toggleEnableAppDrawer,
+  } = useOptionsStore()
 
   return (
     <OptionsGroup title="Misc">
@@ -25,6 +30,11 @@ const MiscOptions = () => {
         label="Enable AI tools"
         enabled={isAIToolsEnabled}
         onChange={toggleEnableAITools}
+      />
+      <ToggleOption
+        label="Enable app drawer"
+        enabled={isAppDrawerEnabled}
+        onChange={toggleEnableAppDrawer}
       />
     </OptionsGroup>
   )

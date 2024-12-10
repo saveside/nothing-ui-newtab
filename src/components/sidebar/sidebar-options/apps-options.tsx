@@ -80,7 +80,7 @@ const AppsOptions = () => {
                 variant="destructive"
                 size="icon"
                 className="size-8"
-                onClick={() => removeDockApp(index)}
+                onClick={() => removeDockApp(app.name)}
               />
             </div>
           </div>
