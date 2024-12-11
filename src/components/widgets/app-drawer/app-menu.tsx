@@ -7,9 +7,11 @@ import {
   Trigger,
 } from "@radix-ui/react-context-menu"
 import type React from "react"
+import { useEffect } from "react"
 import type { App } from "../../../lib/variables"
 import { useOptionsStore } from "../../../store/options"
 import Button from "../../ui/button"
+import { appListStore } from "./selected-app.store"
 
 interface AppMenuProps {
   children: React.ReactNode
@@ -18,10 +20,15 @@ interface AppMenuProps {
 
 const AppMenu = ({ children, app }: AppMenuProps) => {
   const { removeDrawerApp, dockApps, addToDock } = useOptionsStore()
+  const setSelectedApp = appListStore((s) => s.setSelectedApp)
 
   const isCurrentAppInDock = (): boolean => {
     return typeof dockApps.find(({ name }) => name === app.name) !== "undefined"
   }
+
+  useEffect(() => {
+    return () => setSelectedApp(null)
+  }, [setSelectedApp])
 
   return (
     <Root>
@@ -40,6 +47,16 @@ const AppMenu = ({ children, app }: AppMenuProps) => {
               disabled={isCurrentAppInDock()}
             >
               Add to dock
+            </Button>
+          </Item>
+          <Item>
+            <Button
+              variant="secondary"
+              icon="tabler:mood-edit"
+              className="h-9 w-full justify-start"
+              onClick={() => setSelectedApp(app)}
+            >
+              Edit/Update
             </Button>
           </Item>
           <Item>

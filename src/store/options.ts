@@ -70,7 +70,7 @@ export const useOptionsStore = create(
           }))
         },
         updateDrawerApp: (id: number, app: App) => {
-          set((prev) => ({ drawerApps: updateApp(prev.dockApps, id, app) }))
+          set((prev) => ({ drawerApps: updateApp(prev.drawerApps, id, app) }))
         },
         resetDrawerApp: () => {
           // This check ain't necessary, but overall a better perf approach

@@ -3,8 +3,8 @@ import { useState } from "react"
 import { useOptionsStore } from "../../../store/options"
 import type { Setter } from "../../../types/react"
 import Button from "../../ui/button"
-import Input from "../../ui/input"
-import Modal from "../../ui/modal"
+import AppForm from "./app-form"
+import { appListStore } from "./selected-app.store"
 
 interface EditAppListProps {
   removeMode: boolean
@@ -12,21 +12,10 @@ interface EditAppListProps {
 }
 
 const EditAppList = ({ removeMode, setRemoveMode }: EditAppListProps) => {
-  // Store functions
-  const { resetDrawerApp, addDrawerApp } = useOptionsStore()
-
-  // Modal functions
+  const resetDrawerApp = useOptionsStore((s) => s.resetDrawerApp)
   const [isOpen, setIsOpen] = useState(false)
 
-  // Form functions
-  const [name, setName] = useState("")
-  const [url, setUrl] = useState("")
-
-  const submitHandler = () => {
-    if (!name || !url) return
-    addDrawerApp({ name, url, icon: "mdi:web" })
-    setIsOpen(false)
-  }
+  const { selectedApp, setSelectedApp } = appListStore()
 
   return (
     <>
@@ -54,30 +43,13 @@ const EditAppList = ({ removeMode, setRemoveMode }: EditAppListProps) => {
           iconSize={20}
         />
       </div>
-      <Modal
-        title="Add new app/website to app drawer"
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        btnFunc={submitHandler}
-        btnDisabled={!name || !url}
-      >
-        <div className="mt-4 space-y-3">
-          <Input
-            id="add-app-name"
-            value={name}
-            onInput={(e) => setName(e.currentTarget.value)}
-            placeholder="e.g. Wallhaven"
-            className="h-11"
-          />
-          <Input
-            id="add-app-url"
-            value={url}
-            onInput={(e) => setUrl(e.currentTarget.value)}
-            placeholder="e.g. https://wallhaven.cc/"
-            className="h-11"
-          />
-        </div>
-      </Modal>
+      <AppForm
+        isOpen={isOpen || selectedApp !== null}
+        setIsOpen={
+          selectedApp !== null ? () => setSelectedApp(null) : setIsOpen
+        }
+        app={selectedApp}
+      />
     </>
   )
 }

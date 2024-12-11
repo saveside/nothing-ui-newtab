@@ -7,7 +7,7 @@ interface AppListProps {
 }
 
 const AppList = ({ isRemoveMode }: AppListProps) => {
-  const { drawerApps, removeDrawerApp } = useOptionsStore()
+  const { drawerApps } = useOptionsStore()
 
   return (
     <motion.div
