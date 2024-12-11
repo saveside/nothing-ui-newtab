@@ -61,6 +61,9 @@ export const useOptionsStore = create(
         addDrawerApp: (app: App) => {
           set((prev) => ({ drawerApps: addApp(prev.drawerApps, app) }))
         },
+        addToDock: (app: App) => {
+          set((prev) => ({ dockApps: addApp(prev.dockApps, app) }))
+        },
         removeDrawerApp: (name: string) => {
           set((prev) => ({
             drawerApps: removeApp(prev.drawerApps, name),
@@ -121,6 +124,7 @@ function sortApps(list: App[]) {
 function addApp(list: App[], newApp: App): App[] {
   if (!list.find(({ name }) => name === newApp.name)) {
     list.push(newApp)
+    return list
   }
   alert("You can't add another app with same name")
   return list

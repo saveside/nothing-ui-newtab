@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { SetStateAction, useState } from "react"
+import { useState } from "react"
 import { useOptionsStore } from "../../../store/options"
 import type { Setter } from "../../../types/react"
 import Button from "../../ui/button"
