@@ -84,24 +84,36 @@ export const aiTools = [
 ] satisfies App[]
 
 export const drawerApps = [
-  { name: "P-Mail", icon: "lineicons:proton-mail-symbol", url: "" },
-  { name: "Gmail", icon: "mdi:gmail", url: "" },
+  {
+    name: "P-Mail",
+    icon: "lineicons:proton-mail-symbol",
+    url: "proton.me/mail",
+  },
+  { name: "Gmail", icon: "mdi:gmail", url: "mail.google.com" },
   {
     name: "Translate",
     icon: "material-symbols:g-translate",
     url: "translate.google.com",
   },
   { name: "YouTube", icon: "simple-icons:youtube", url: "youtube.com" },
-  { name: "YTMusic", icon: "simple-icons:youtubemusic", url: "" },
-  { name: "Drive", icon: "ri:drive-fill", url: "" },
-  { name: "Maps", icon: "simple-icons:googlemaps", url: "" },
-  { name: "Docs", icon: "material-symbols:docs", url: "" },
+  {
+    name: "YTMusic",
+    icon: "simple-icons:youtubemusic",
+    url: "music.youtube.com",
+  },
+  { name: "Drive", icon: "ri:drive-fill", url: "drive.google.com" },
+  { name: "Maps", icon: "simple-icons:googlemaps", url: "maps.google.com" },
+  {
+    name: "Docs",
+    icon: "material-symbols:docs",
+    url: "docs.google.com/document",
+  },
   { name: "Reddit", icon: "ic:baseline-reddit", url: "reddit.com" },
   { name: "AniList", icon: "simple-icons:anilist", url: "anilist.co" },
   { name: "Type", icon: "simple-icons:monkeytype", url: "monkeytype.com" },
   { name: "Spotify", icon: "mdi:spotify", url: "open.spotify.com" },
   { name: "WhatsApp", icon: "ic:baseline-whatsapp", url: "web.whatsapp.com" },
-  { name: "Pixiv", icon: "fa6-brands:pixiv", url: "" },
+  { name: "Pixiv", icon: "fa6-brands:pixiv", url: "pixiv.net" },
   {
     name: "Icons",
     icon: "simple-icons:iconify",
