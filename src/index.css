@@ -5,16 +5,6 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-        font-family: 'Nothing';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url(/fonts/nothing.ttf) format('ttf');
-    }
-}
-
-@layer base {
     :root {
         --background: 240, 10%, 4%;
         --foreground: 240, 5%, 96%;
@@ -27,6 +17,18 @@
 
 @layer base {
     body {
-        @apply bg-background text-foreground font-nothing;
+        @apply bg-background text-foreground font-pt-serif;
+    }
+
+    * ::-webkit-scrollbar {
+        @apply fixed h-1 w-[3px];
+    }
+
+    * ::-webkit-scrollbar-track {
+        @apply mx-1 rounded-md bg-transparent my-1;
+    }
+
+    * ::-webkit-scrollbar-thumb {
+        @apply cursor-pointer rounded-md bg-card-foreground/20;
     }
 }
