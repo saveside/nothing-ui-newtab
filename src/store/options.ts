@@ -28,9 +28,12 @@ export const useOptionsStore = create(
         isScaleFahrenheit: false,
         isAIToolsEnabled: true,
         isAppDrawerEnabled: true,
+
+        // AppDrawer
         drawerApps: sortApps(initialDrawerApps),
 
         // DockApp
+        isDockEnabled: true,
         dockApps: sortApps(initialDockApps),
       },
       (set, get) => ({
@@ -80,6 +83,8 @@ export const useOptionsStore = create(
         },
 
         // DockApp Setters
+        toggleDock: () =>
+          set((prev) => ({ isDockEnabled: !prev.isDockEnabled })),
         addDockApp: () => {
           set((prev) => ({
             dockApps: [

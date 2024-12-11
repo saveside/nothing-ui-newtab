@@ -11,10 +11,17 @@ const MiscOptions = () => {
     toggleEnableAITools,
     isAppDrawerEnabled,
     toggleEnableAppDrawer,
+    isDockEnabled,
+    toggleDock,
   } = useOptionsStore()
 
   return (
     <OptionsGroup title="Misc">
+      <ToggleOption
+        label="Enable AI tools"
+        enabled={isDockEnabled}
+        onChange={toggleDock}
+      />
       <span className="inline-flex items-start justify-between">
         <span className="flex flex-col">
           <span>Dock Apps</span>
