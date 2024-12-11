@@ -21,6 +21,7 @@ const AppItem = ({ app, isRemoveMode }: AppButtonProps) => {
           "relative flex cursor-pointer select-none flex-col items-center justify-center gap-1 text-[12px]",
           drawerApps.length <= 16 && "grid-rows-4",
         )}
+        onClick={(e) => isRemoveMode && e.preventDefault()}
       >
         <span>
           <Button
