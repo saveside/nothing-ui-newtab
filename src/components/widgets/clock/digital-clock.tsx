@@ -23,7 +23,7 @@ const DigitalClock = ({ miniutes, hours }: DigitalClockProps) => {
         <span>{formatPad(miniutes)}</span>
         {!is24HoursEnabled && (
           <span className="absolute top-1 right-2 text-destructive text-red text-sm">
-            {hours > 11 ? "AM" : "PM"}
+            {hours > 11 ? "PM" : "AM"}
           </span>
         )}
       </div>
