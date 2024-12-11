@@ -26,17 +26,26 @@ interface InputProps
     VariantProps<typeof input> {
   isError?: boolean
   errorTxt?: string
+  label?: string
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ type, className, variant, outline, ...props }, ref) => {
+  ({ type, id, className, label, variant, outline, ...props }, ref) => {
     return (
-      <input
-        type={type}
-        className={cn(input({ variant, outline, className }))}
-        ref={ref}
-        {...props}
-      />
+      <div className="w-full space-y-1">
+        {label && (
+          <label htmlFor={id} className="ml-1">
+            {label}
+          </label>
+        )}
+        <input
+          id={id}
+          type={type}
+          className={cn(input({ variant, outline, className }))}
+          ref={ref}
+          {...props}
+        />
+      </div>
     )
   },
 )

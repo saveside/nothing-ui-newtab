@@ -58,6 +58,9 @@ export const useOptionsStore = create(
           set((prev) => ({
             isAppDrawerEnabled: !prev.isAppDrawerEnabled,
           })),
+        addDrawerApp: (app: App) => {
+          set((prev) => ({ drawerApps: addApp(prev.drawerApps, app) }))
+        },
         removeDrawerApp: (name: string) => {
           set((prev) => ({
             drawerApps: removeApp(prev.drawerApps, name),
@@ -113,6 +116,14 @@ export const useOptionsStore = create(
 // App list actions
 function sortApps(list: App[]) {
   return list.sort((a, b) => a.name.localeCompare(b.name))
+}
+
+function addApp(list: App[], newApp: App): App[] {
+  if (!list.find(({ name }) => name === newApp.name)) {
+    list.push(newApp)
+  }
+  alert("You can't add another app with same name")
+  return list
 }
 
 function removeApp(list: App[], name: string) {

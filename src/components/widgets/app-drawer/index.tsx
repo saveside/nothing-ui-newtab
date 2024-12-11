@@ -5,7 +5,7 @@ import AppList from "./app-list"
 import EditAppList from "./edit-applist"
 
 const AppDrawer = () => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const [removeMode, setRemoveMode] = useState(false)
 
   return (

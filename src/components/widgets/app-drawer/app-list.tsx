@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react/dist/iconify.js"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import { useOptionsStore } from "../../../store/options"
+import { ensureHttpPrefix } from "../../../utils"
 import Button from "../../ui/button"
 
 function stringTruncate(str: string, maxCharLen: number) {
@@ -32,7 +33,8 @@ const AppList = ({ isRemoveMode }: AppListProps) => {
         className="grid w-full grid-cols-4 gap-4"
       >
         {drawerApps.map((app, index) => (
-          <span
+          <a
+            href={ensureHttpPrefix(app.url)}
             key={`drawer-${app}-${index.toString().padStart(2, "0")}`}
             className={clsx(
               "relative flex flex-col items-center justify-center gap-1 text-[12px]",
@@ -59,7 +61,7 @@ const AppList = ({ isRemoveMode }: AppListProps) => {
                 onClick={() => removeDrawerApp(app.name)}
               />
             )}
-          </span>
+          </a>
         ))}
       </motion.div>
     </motion.div>
