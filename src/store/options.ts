@@ -28,6 +28,7 @@ export const useOptionsStore = create(
         isScaleFahrenheit: false,
         isAIToolsEnabled: true,
         isAppDrawerEnabled: true,
+        isMonochromeIcon: false,
 
         // AppDrawer
         drawerApps: sortApps(initialDrawerApps),
@@ -55,6 +56,9 @@ export const useOptionsStore = create(
           })),
         toggleEnableAITools: () =>
           set((prev) => ({ isAIToolsEnabled: !prev.isAIToolsEnabled })),
+        toggleMonochromeIcon: () => {
+          set((prev) => ({ isMonochromeIcon: !prev.isMonochromeIcon }))
+        },
 
         // App Drwaer setters
         toggleEnableAppDrawer: () =>

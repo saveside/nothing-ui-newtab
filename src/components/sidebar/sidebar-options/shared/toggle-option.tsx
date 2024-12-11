@@ -3,6 +3,7 @@ import Switch from "../../../switch"
 
 interface ToggleOptionProps {
   label: string
+  desc?: string
   enabled: boolean
   onChange: (state: boolean) => void
   disabled?: boolean
@@ -10,19 +11,23 @@ interface ToggleOptionProps {
 
 const ToggleOption = ({
   label,
+  desc,
   enabled,
   onChange,
   disabled = false,
 }: ToggleOptionProps) => {
   return (
-    <div
-      className={clsx(
-        "inline-flex w-full justify-between",
-        disabled && "text-card-foreground/40",
-      )}
-    >
-      <span>{label}</span>
-      <Switch {...{ enabled, onChange, disabled }} />
+    <div>
+      <div
+        className={clsx(
+          "inline-flex w-full justify-between",
+          disabled && "text-card-foreground/40",
+        )}
+      >
+        <span>{label}</span>
+        <Switch {...{ enabled, onChange, disabled }} />
+      </div>
+      <span className="text-destructive-foreground/50 text-sm">{desc}</span>
     </div>
   )
 }

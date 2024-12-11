@@ -31,7 +31,7 @@ export default function Modal({
     <Dialog
       open={isOpen}
       as="div"
-      className="relative z-10 select-none focus:outline-none"
+      className="relative z-10 select-none font-rubik focus:outline-none"
       onClose={close}
     >
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -49,13 +49,15 @@ export default function Modal({
           >
             <DialogTitle
               as="h3"
-              className="font-medium text-base/7 text-card-foreground"
+              className="pb-4 font-medium text-base/7 text-card-foreground"
             >
               {title}
             </DialogTitle>
-            <p className="mt-2 text-card-foreground/50 text-sm/6">
-              {description}
-            </p>
+            {description && (
+              <p className="mt-2 text-card-foreground/50 text-sm/6">
+                {description}
+              </p>
+            )}
             {children}
             <div className="mt-4">
               <Button

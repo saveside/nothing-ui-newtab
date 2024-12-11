@@ -13,12 +13,14 @@ const MiscOptions = () => {
     toggleEnableAppDrawer,
     isDockEnabled,
     toggleDock,
+    isMonochromeIcon,
+    toggleMonochromeIcon,
   } = useOptionsStore()
 
   return (
     <OptionsGroup title="Misc">
       <ToggleOption
-        label="Enable AI tools"
+        label="Enable dock"
         enabled={isDockEnabled}
         onChange={toggleDock}
       />
@@ -42,6 +44,12 @@ const MiscOptions = () => {
         label="Enable app drawer"
         enabled={isAppDrawerEnabled}
         onChange={toggleEnableAppDrawer}
+      />
+      <ToggleOption
+        label="Enable monochrom icon"
+        desc="Grayscale icon for newly added apps"
+        enabled={isMonochromeIcon}
+        onChange={toggleMonochromeIcon}
       />
     </OptionsGroup>
   )

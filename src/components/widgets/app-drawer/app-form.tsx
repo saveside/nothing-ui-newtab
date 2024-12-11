@@ -1,9 +1,47 @@
+import { Icon, disableCache, enableCache } from "@iconify/react/dist/iconify.js"
+import clsx from "clsx"
+import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { useDebounceValue } from "usehooks-ts"
 import type { App } from "../../../lib/variables"
 import { useOptionsStore } from "../../../store/options"
 import type { Setter } from "../../../types/react"
+import Button from "../../ui/button"
 import Input from "../../ui/input"
 import Modal from "../../ui/modal"
+
+const IconPreview = (props: {
+  url: string
+  icon: string
+  btnFunc: () => void
+}) => {
+  const [debouncedUrl] = useDebounceValue(props.url, 300)
+  const [debouncedIcon] = useDebounceValue(props.icon, 300)
+
+  return (
+    <motion.span
+      layoutId="app-preview-icon"
+      className="relative z-10 flex size-20 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-background p-4"
+    >
+      {!props.icon ? (
+        <img
+          src={`https://www.google.com/s2/favicons?domain=${debouncedUrl}&sz=128`}
+          alt="website-favicon"
+          width={40}
+        />
+      ) : (
+        <Icon icon={debouncedIcon} fontSize={30} />
+      )}
+      <Button
+        variant="accent"
+        icon="tabler:pencil"
+        iconSize={18}
+        onClick={props.btnFunc}
+        className="absolute right-3 bottom-3 size-6 flex-shrink-0 p-0"
+      />
+    </motion.span>
+  )
+}
 
 interface AppFormProps {
   isOpen: boolean
@@ -15,15 +53,24 @@ const AppForm = ({ isOpen, setIsOpen, app }: AppFormProps) => {
   // Store functions
   const { drawerApps, addDrawerApp, updateDrawerApp } = useOptionsStore()
 
-  // Form functions
+  // Modal vars
+  const [modalTitle, setModalTitle] = useState("Add app")
+
+  // Form vars
   const [name, setName] = useState("")
   const [url, setUrl] = useState("")
+  const [icon, setIcon] = useState("")
+  const [isIconInput, setIsIconInput] = useState(true)
 
   const submitHandler = () => {
     if (!name || !url) return
 
     if (!app) {
-      addDrawerApp({ name, url, icon: "mdi:web" })
+      addDrawerApp({
+        name,
+        url,
+        icon: `webicon:${url}`,
+      })
     } else {
       updateDrawerApp(
         drawerApps.indexOf(drawerApps.find((_app) => app.name === _app.name)!),
@@ -34,40 +81,103 @@ const AppForm = ({ isOpen, setIsOpen, app }: AppFormProps) => {
   }
 
   useEffect(() => {
+    // Do not cache iconify icons while adding/updating apps
+    if (isOpen) {
+      disableCache("all")
+    }
+    return () => enableCache("local")
+  }, [isOpen])
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>
+
+    timeoutId = setTimeout(() => {
+      setName("")
+      setUrl("")
+      setIcon("")
+      setModalTitle("Add app")
+      setIsIconInput(false)
+    }, 400)
+
     if (app) {
+      clearTimeout(timeoutId)
+
       setName(app.name)
       setUrl(app.url)
+      setIcon(app.icon)
+      setModalTitle("Update app")
+      setIsIconInput(true)
+      return
     }
 
     return () => {
-      setName("")
-      setUrl("")
+      clearTimeout(timeoutId)
     }
   }, [app])
 
   return (
     <Modal
-      title="Add new app/website to app drawer"
+      // title={!app ? "Add App" : "Update app"}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       btnFunc={submitHandler}
       btnDisabled={!name || !url || (app?.name === name && app?.url === url)}
     >
-      <div className="mt-4 space-y-3">
-        <Input
-          id="add-app-name"
-          value={name}
-          onInput={(e) => setName(e.currentTarget.value)}
-          placeholder="e.g. Wallhaven"
-          className="h-11"
-        />
-        <Input
-          id="add-app-url"
-          value={url}
-          onInput={(e) => setUrl(e.currentTarget.value)}
-          placeholder="e.g. https://wallhaven.cc/"
-          className="h-11"
-        />
+      <div
+        className={clsx(
+          "flex gap-3",
+          isIconInput ? "items-start" : "items-center",
+        )}
+      >
+        {(url || icon) && (
+          <div className="flex justify-center gap-3 pt-8">
+            <IconPreview
+              icon={icon}
+              url={url}
+              btnFunc={() => setIsIconInput((prev) => !prev)}
+            />
+          </div>
+        )}
+
+        <motion.div
+          initial={{ x: -20, opacity: 0, scale: 0.9 }}
+          animate={{ x: 0, opacity: 1, scale: 1 }}
+          transition={{ ease: "linear" }}
+          className="w-full"
+        >
+          <h3 className="pb-3 font-medium text-sm">{modalTitle}</h3>
+          {isIconInput && (
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <Input
+                id="add-app-icon"
+                value={icon}
+                onInput={(e) => setIcon(e.currentTarget.value)}
+                placeholder="e.g. solar:gallery-bold"
+                className="mb-2 h-11"
+              />
+            </motion.span>
+          )}
+          <motion.div layoutId="fucker" className="space-y-2">
+            <Input
+              id="add-app-name"
+              value={name}
+              onInput={(e) => setName(e.currentTarget.value)}
+              placeholder="e.g. Wallhaven"
+              className="h-11"
+            />
+            <Input
+              id="add-app-url"
+              value={url}
+              onInput={(e) => setUrl(e.currentTarget.value)}
+              placeholder="e.g. https://wallhaven.cc"
+              className="h-11"
+            />
+          </motion.div>
+        </motion.div>
       </div>
     </Modal>
   )
