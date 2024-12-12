@@ -1,7 +1,8 @@
 import { motion } from "framer-motion"
 import { useSidebarOptions } from "../sidebar-store"
-import AppsOptions from "./apps-options"
+import AppOptions from "./app-options"
 import ClockOptions from "./clock-options"
+import DockOptions from "./dock-options"
 import MiscOptions from "./misc-options"
 import WeatherOptions from "./weather-options"
 
@@ -27,13 +28,14 @@ const SidebarOptions = () => {
       {tab === "default" && (
         <MotionDiv>
           <ClockOptions />
+          <AppOptions />
           <MiscOptions />
           <WeatherOptions />
         </MotionDiv>
       )}
       {tab === "apps" && (
         <MotionDiv>
-          <AppsOptions />
+          <DockOptions />
         </MotionDiv>
       )}
     </div>

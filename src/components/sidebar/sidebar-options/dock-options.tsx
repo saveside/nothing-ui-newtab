@@ -4,7 +4,7 @@ import Button from "../../ui/button"
 import Input from "../../ui/input"
 import NewTabHeader from "./shared/newtab-header"
 
-const AppsOptions = () => {
+const DockOptions = () => {
   const { addDockApp, updateDockApp, dockApps, resetDockApp, removeDockApp } =
     useOptionsStore()
 
@@ -90,4 +90,4 @@ const AppsOptions = () => {
   )
 }
 
-export default AppsOptions
+export default DockOptions
