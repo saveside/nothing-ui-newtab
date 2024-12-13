@@ -12,7 +12,7 @@ const DigitalClock = ({ miniutes, hours }: DigitalClockProps) => {
   const { weekDay, day } = parseDate(new Date())
 
   return (
-    <div className="relative flex size-56 select-none flex-col justify-end gap-3 rounded-xl font-bold font-pt-serif text-card-foreground lg:justify-start">
+    <div className="relative flex size-56 select-none flex-col justify-end gap-3 rounded-xl font-bold font-lora font-pt-serif text-card-foreground lg:justify-start">
       <div className="relative inline-flex size-full h-[88px] items-center justify-center gap-2 rounded-xl bg-card text-5xl">
         <span>
           {!is24HoursEnabled

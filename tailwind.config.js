@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "pt-serif": '"PT Serif", serif',
-        doto: '"Doto", sans-serif',
-        rubik: '"Rubik", sans-serif',
+        rubik: ["Rubik", "serif"],
+        notoSerif: ["Noto Serif", "serif"],
+        lora: ["Lora", "serif"],
       },
       colors: {
         background: "hsl(var(--background))",

@@ -23,7 +23,7 @@ export const CustomText = () => {
   }, [openInput])
 
   return (
-    <div className="flex w-full flex-col items-start text-foreground text-lg text-white">
+    <div className="flex w-full flex-col items-start text-foreground text-lg">
       {openInput ? (
         <Input
           ref={inputRef}
@@ -32,7 +32,7 @@ export const CustomText = () => {
           value={customText}
           onInput={(e) => setCustomText(e.currentTarget.value)}
           outline="ghost"
-          className="w-full bg-inherit px-0 py-0 text-background text-lg"
+          className="w-full bg-inherit px-0 py-0 text-foreground text-xl"
         />
       ) : (
         <button
