@@ -5,6 +5,7 @@ import ClockOptions from "./clock-options"
 import DockOptions from "./dock-options"
 import GalleryOptions from "./gallery-options"
 import GalleryTab from "./gallery-options/gallery-tab"
+import GeneralOptions from "./general-options"
 import MiscOptions from "./misc-options"
 import WeatherOptions from "./weather-options"
 
@@ -29,6 +30,7 @@ const SidebarOptions = () => {
     <div className="w-full">
       {tab === "default" && (
         <MotionDiv>
+          <GeneralOptions />
           <ClockOptions />
           <AppOptions />
           <MiscOptions />

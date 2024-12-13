@@ -9,7 +9,7 @@ const SearchBarIcon = () => {
   const icon = searchProviders.find(({ name }) => name === selectedEngine)?.icon
 
   return (
-    <div className="flex size-[100px] items-center justify-center rounded-full bg-card">
+    <div className="flex size-[100px] items-center justify-center rounded-full bg-card text-card-foreground">
       {icon && <Icon icon={icon} fontSize={40} />}
     </div>
   )
@@ -22,7 +22,7 @@ const SearchBar = () => {
       <div className="flex gap-3">
         <div className="inline-flex gap-3">
           <SearchBarIcon />
-          <span className="h-full w-1 rounded-full bg-card-foreground/60" />
+          <span className="h-full w-1 rounded-full bg-muted" />
         </div>
         <div>
           <SearchEngines />

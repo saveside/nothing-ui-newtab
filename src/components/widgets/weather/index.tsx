@@ -4,7 +4,8 @@ import { useOptionsStore } from "../../../store/options"
 import type { CurrentWeather } from "../../../types/weather"
 
 const Weather = () => {
-  const { weatherAPI, weatherLocation, isScaleFahrenheit } = useOptionsStore()
+  const { weatherAPI, weatherLocation, isScaleFahrenheit, isLightMode } =
+    useOptionsStore()
 
   const [weatherData, setWeatherData] = useState<CurrentWeather | null>(null)
   useEffect(() => {
@@ -39,7 +40,7 @@ const Weather = () => {
   }, [weatherData])
 
   return (
-    <div className="flex size-48 select-none flex-col items-center justify-between rounded-xl bg-card p-3">
+    <div className="flex size-48 select-none flex-col items-center justify-between rounded-xl bg-card p-3 text-card-foreground">
       {weatherData ? (
         <>
           <span className="text-lg">
@@ -48,7 +49,12 @@ const Weather = () => {
               : convertFromKelvin(weatherData.main.temp, "C")}
             &deg;{isScaleFahrenheit ? "F" : "C"}
           </span>
-          <img src={weatherIcon} alt="wather-icon" width={78} />
+          <img
+            src={weatherIcon}
+            alt="wather-icon"
+            width={78}
+            style={isLightMode ? { filter: "invert(1)" } : {}}
+          />
           <span>{weatherData.name}</span>
         </>
       ) : (

@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-card text-card-foreground hover:bg-card-foreground/20",
+        primary: "bg-card text-card-foreground hover:bg-card-hover",
         secondary: "bg-background text-foreground hover:bg-card-foreground/10",
         accent: "bg-foreground text-background",
         destructive:

@@ -8,10 +8,19 @@ import { useImageStore } from "./store/image-store"
 import { useOptionsStore } from "./store/options"
 
 function App() {
-  const { isDockEnabled, isAIToolsEnabled, isAppDrawerEnabled } =
+  const { isDockEnabled, isAIToolsEnabled, isAppDrawerEnabled, isLightMode } =
     useOptionsStore()
 
   const fetchImages = useImageStore((s) => s.fetchImages)
+
+  useEffect(() => {
+    const html = document.documentElement
+    html.setAttribute("data-theme", "dark")
+
+    if (isLightMode) {
+      html.setAttribute("data-theme", "light")
+    }
+  }, [isLightMode])
 
   useEffect(() => {
     fetchImages()
@@ -19,7 +28,7 @@ function App() {
 
   return (
     <>
-      <div className="flex min-h-screen w-full items-center justify-center p-4">
+      <div className="relative flex min-h-screen w-full items-center justify-center p-4 ">
         <WidgetContainer />
         <Sidebar />
         {isDockEnabled && <Dock />}

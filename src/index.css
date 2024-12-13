@@ -5,14 +5,33 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
+
+    :root,
+    html[data-theme='dark'] {
         --background: 240 10% 4%;
+        --background-alt: 0 0% 19%;
         --foreground: 240 5% 96%;
         --card: 0 0% 11%;
+        --card-hover: 0 0% 16%;
         --card-foreground: 0 0% 95%;
+        --muted: 0 0% 57%;
         --destructive: 357 79% 47%;
         --destructive-foreground: 270 15% 95%;
     }
+
+    :root,
+    html[data-theme='light'] {
+        --background: 0 0% 100%;
+        --background-alt: 0 0% 88%;
+        --foreground: 240 10% 4%;
+        --card: 0 0% 95%;
+        --card-hover: 0 0% 86%;
+        --card-foreground: 0 0% 11%;
+        --muted: 0 0% 57%;
+        --destructive: 357 79% 47%;
+        --destructive-foreground: 270 14% 95%;
+    }
+
 }
 
 @layer base {

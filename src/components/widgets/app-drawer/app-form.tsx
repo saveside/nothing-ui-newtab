@@ -30,7 +30,7 @@ const IconPreview = (props: {
           width={40}
         />
       ) : (
-        <Icon icon={debouncedIcon} fontSize={30} />
+        <Icon icon={debouncedIcon} fontSize={30} className="text-foreground" />
       )}
       <Button
         variant="accent"

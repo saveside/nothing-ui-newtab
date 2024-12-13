@@ -12,7 +12,7 @@ const SearchEngines = () => {
         <button
           type="button"
           key={name}
-          className="inline-flex items-center gap-2 rounded-xl bg-card p-1 pr-4 font-medium text-sm transition-colors hover:bg-card-foreground/20"
+          className="inline-flex items-center gap-2 rounded-xl bg-card p-1 pr-4 font-medium text-card-foreground text-sm transition-colors hover:bg-card-hover"
           onClick={() => setSelectedEngine(name)}
         >
           <span

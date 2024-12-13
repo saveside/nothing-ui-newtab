@@ -52,7 +52,7 @@ const Sidebar = () => {
             <Icon
               icon="tabler:circle-dotted-letter-n"
               fontSize={36}
-              className="mx-auto"
+              className="mx-auto text-card-foreground"
             />
           </motion.button>
         )}

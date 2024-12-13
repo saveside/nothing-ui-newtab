@@ -54,7 +54,7 @@ const GalleryTab = () => {
             <span key={img.name} className="group relative">
               <img
                 loading="lazy"
-                className="rounded-xl"
+                className="rounded-xl shadow-md"
                 src={URL.createObjectURL(img.file)}
                 alt="gallary-image"
               />

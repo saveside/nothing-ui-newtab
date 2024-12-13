@@ -14,7 +14,7 @@ const AppList = ({ isRemoveMode }: AppListProps) => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="h-[352px] w-80 overflow-y-auto rounded-xl border-4 border-card-foreground/10 bg-card p-4"
+      className="h-[352px] w-80 overflow-y-auto rounded-xl border-4 border-card-foreground/10 bg-card p-4 text-card-foreground"
     >
       <motion.div
         initial={{ opacity: 0, y: 80 }}

@@ -31,7 +31,7 @@ const DigitalClock = ({ miniutes, hours }: DigitalClockProps) => {
         <span className="flex items-center justify-center rounded-xl bg-card">
           {weekDay.split("").splice(0, 3).join("").toUpperCase()}
         </span>
-        <span className="flex items-center justify-center rounded-xl bg-destructive">
+        <span className="flex items-center justify-center rounded-xl bg-destructive text-destructive-foreground">
           {day}
         </span>
       </div>

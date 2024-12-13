@@ -14,7 +14,7 @@ const Dock = () => {
           onClick={() => window.open(`https://${url}`, "_blank")}
           icon={icon}
           size="icon"
-          className="size-12"
+          className="hover:-translate-y-1 size-12 transition-transform"
           iconSize={26}
         />
       ))}
