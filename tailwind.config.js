@@ -4,7 +4,6 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        nothing: "Nothing",
         "pt-serif": '"PT Serif", serif',
         doto: '"Doto", sans-serif',
         rubik: '"Rubik", sans-serif',

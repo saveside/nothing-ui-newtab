@@ -3,6 +3,8 @@ import { useSidebarOptions } from "../sidebar-store"
 import AppOptions from "./app-options"
 import ClockOptions from "./clock-options"
 import DockOptions from "./dock-options"
+import GalleryOptions from "./gallery-options"
+import GalleryTab from "./gallery-options/gallery-tab"
 import MiscOptions from "./misc-options"
 import WeatherOptions from "./weather-options"
 
@@ -13,7 +15,7 @@ const MotionDiv = ({ children }: { children: React.ReactNode }) => {
       animate={{ x: 0 }}
       exit={{ x: 200, opacity: 0 }}
       transition={{ ease: "linear", duration: 0.2 }}
-      className="relative w-full space-y-10"
+      className="relative h-full w-full space-y-10"
     >
       {children}
     </motion.div>
@@ -30,12 +32,18 @@ const SidebarOptions = () => {
           <ClockOptions />
           <AppOptions />
           <MiscOptions />
+          <GalleryOptions />
           <WeatherOptions />
         </MotionDiv>
       )}
       {tab === "apps" && (
         <MotionDiv>
           <DockOptions />
+        </MotionDiv>
+      )}
+      {tab === "gallery" && (
+        <MotionDiv>
+          <GalleryTab />
         </MotionDiv>
       )}
     </div>

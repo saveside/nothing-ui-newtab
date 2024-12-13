@@ -6,9 +6,6 @@ import {
   drawerApps as initialDrawerApps,
 } from "../lib/variables"
 
-const placeHolder = // Temp
-  "https://images.pexels.com/photos/3419791/pexels-photo-3419791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-
 export const useOptionsStore = create(
   persist(
     combine(
@@ -22,7 +19,6 @@ export const useOptionsStore = create(
         selectedEngine: "Brave",
 
         // Misc
-        image: placeHolder,
         weatherAPI: "",
         weatherLocation: "",
         isScaleFahrenheit: false,
@@ -36,6 +32,9 @@ export const useOptionsStore = create(
         // DockApp
         isDockEnabled: true,
         dockApps: sortApps(initialDockApps),
+
+        // Image Options
+        isMonochromeWidgetImg: false,
       },
       (set, get) => ({
         // Clock Setters
@@ -46,7 +45,6 @@ export const useOptionsStore = create(
           set((state) => ({ greetings: !state.greetings })),
 
         // Misc Setters
-        setImage: (url: string) => set({ image: url }),
         setWeatherAPI: (key: string) => set({ weatherAPI: key }),
         setWeatherLocation: (location: string) =>
           set({ weatherLocation: location }),
@@ -117,6 +115,13 @@ export const useOptionsStore = create(
 
         setCustomText: (text: string) => set({ customText: text }),
         setSelectedEngine: (engine: string) => set({ selectedEngine: engine }),
+
+        // Image setters
+        toggleMonochromeWidgetImg: () => {
+          set((prev) => ({
+            isMonochromeWidgetImg: !prev.isMonochromeWidgetImg,
+          }))
+        },
       }),
     ),
     {

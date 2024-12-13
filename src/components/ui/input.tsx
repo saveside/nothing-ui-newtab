@@ -41,7 +41,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           id={id}
           type={type}
-          className={cn(input({ variant, outline, className }))}
+          className={cn(
+            input({ variant, outline, className }),
+            type === "file" &&
+              "input px-2 file:rounded-md file:border-none file:bg-destructive file:px-3 file:py-1.5 file:text-destructive-foreground",
+          )}
           ref={ref}
           {...props}
         />

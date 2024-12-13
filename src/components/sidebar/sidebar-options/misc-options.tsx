@@ -18,8 +18,8 @@ const MiscOptions = () => {
         onChange={toggleEnableAITools}
       />
       <ToggleOption
-        label="Enable monochrom icon"
-        desc="Grayscale icon for newly added apps"
+        label="Enable monochrome icon"
+        desc="For newly added apps"
         enabled={isMonochromeIcon}
         onChange={toggleMonochromeIcon}
       />

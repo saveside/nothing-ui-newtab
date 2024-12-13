@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import Button from "../../../ui/button"
 import { useSidebarOptions } from "../../sidebar-store"
 
 interface NewTabHeader {
@@ -9,10 +10,13 @@ const NewTabHeader = ({ rightButtons }: NewTabHeader) => {
   const setTab = useSidebarOptions((s) => s.setTab)
   return (
     <div className="inline-flex w-full items-center justify-between">
-      <button type="button" onClick={() => setTab("default")}>
-        <Icon icon="mingcute:left-line" fontSize={24} />
-      </button>
-      <div className="space-x-2">{rightButtons}</div>
+      <Button
+        variant="secondary"
+        size="icon"
+        icon="mingcute:left-line"
+        onClick={() => setTab("default")}
+      />
+      <div className="flex space-x-2">{rightButtons}</div>
     </div>
   )
 }
