@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
+import { useThemeStore } from "~/store/theme"
 import { icons } from "../../../lib/icons"
 import { useOptionsStore } from "../../../store/options"
 import type { CurrentWeather } from "../../../types/weather"
 
 const Weather = () => {
-  const { weatherAPI, weatherLocation, isScaleFahrenheit, isLightMode } =
-    useOptionsStore()
+  const { weatherAPI, weatherLocation, isScaleFahrenheit } = useOptionsStore()
+  const isLightMode = useThemeStore((s) => s.isLightMode)
 
   const [weatherData, setWeatherData] = useState<CurrentWeather | null>(null)
   useEffect(() => {

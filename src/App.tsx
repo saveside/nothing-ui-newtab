@@ -6,19 +6,20 @@ import Dock from "./components/widgets/dock"
 import WidgetContainer from "./components/widgets/widget-container"
 import { useImageStore } from "./store/image-store"
 import { useOptionsStore } from "./store/options"
+import { useThemeStore } from "./store/theme"
 
 function App() {
-  const { isDockEnabled, isAIToolsEnabled, isAppDrawerEnabled, isLightMode } =
+  const { isDockEnabled, isAIToolsEnabled, isAppDrawerEnabled } =
     useOptionsStore()
-
+  const isLightMode = useThemeStore((s) => s.isLightMode)
   const fetchImages = useImageStore((s) => s.fetchImages)
 
   useEffect(() => {
     const html = document.documentElement
-    html.setAttribute("data-theme", "dark")
-
     if (isLightMode) {
       html.setAttribute("data-theme", "light")
+    } else {
+      html.setAttribute("data-theme", "dark")
     }
   }, [isLightMode])
 

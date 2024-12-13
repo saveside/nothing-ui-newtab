@@ -10,9 +10,6 @@ export const useOptionsStore = create(
   persist(
     combine(
       {
-        // General
-        isLightMode: false,
-
         // Clock
         enableDigitalClock: false,
         format24: false,
@@ -40,11 +37,6 @@ export const useOptionsStore = create(
         isMonochromeWidgetImg: false,
       },
       (set, get) => ({
-        // General Setters
-        toggleLightMode: () => {
-          set((prev) => ({ isLightMode: !prev.isLightMode }))
-        },
-
         // Clock Setters
         toggleDidigtalClock: () =>
           set((state) => ({ enableDigitalClock: !state.enableDigitalClock })),

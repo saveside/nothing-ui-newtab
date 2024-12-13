@@ -1,11 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <script type="text/javascript">
+        const lsData = localStorage.getItem("data-theme");
+        const isLightModeEnabled = JSON.parse(lsData).state.isLightMode;
+        console.log(isLightModeEnabled)
+        document.documentElement.setAttribute(
+            "data-theme",
+            isLightModeEnabled ? "light" : "dark",
+        );
+    </script>
+    <title>Nothing UI New Tab</title>
 </head>
 
 <body>
