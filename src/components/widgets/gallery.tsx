@@ -5,9 +5,6 @@ import { useState } from "react"
 import { useImageStore } from "~/store/image-store"
 import { useOptionsStore } from "~/store/options"
 
-const fallbackImage =
-  "https://images.pexels.com/photos/3419791/pexels-photo-3419791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-
 const Gallery = () => {
   const { loading, images } = useImageStore()
 
@@ -52,7 +49,12 @@ const Gallery = () => {
             />
           </AnimatePresence>
         ) : (
-          !loading && <img src={fallbackImage} alt="fallback-image" />
+          !loading && (
+            <img
+              src="https://res.cloudinary.com/stylesh/image/upload/f_auto,q_auto/v1/placeholder/vxuhoiscbldol8nlg94x"
+              alt="fallback-image"
+            />
+          )
         )}
       </div>
     </div>

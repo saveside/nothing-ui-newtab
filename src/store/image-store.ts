@@ -38,10 +38,10 @@ export const useImageStore = create<ImageStore>((set, get) => ({
         }))
         set({
           images: newImgList,
-          loading: false,
         })
       }
     }
+    set({ loading: false })
   },
   removeImage: (name) =>
     set((prev) => ({
