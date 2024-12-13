@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react"
-import { set } from "idb-keyval"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import Button from "~/components/ui/button"
 import Input from "~/components/ui/input"
 import { useImageStore } from "~/store/image-store"

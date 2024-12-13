@@ -41,7 +41,6 @@ const AiTools = () => {
                 className="z-10 h-8 w-1 rounded-full bg-card-foreground/60"
               />
               {aiTools.map(({ name, icon, url }, index) => {
-                const dealy = 0.4
                 return (
                   <motion.a
                     initial={{ x: -120, opacity: 0 }}

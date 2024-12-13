@@ -27,7 +27,7 @@ const ToggleOption = ({
         <span>{label}</span>
         <Switch {...{ enabled, onChange, disabled }} />
       </div>
-      <span className="text-destructive-foreground/50 text-sm">{desc}</span>
+      <span className="text-foreground/60 text-sm">{desc}</span>
     </div>
   )
 }

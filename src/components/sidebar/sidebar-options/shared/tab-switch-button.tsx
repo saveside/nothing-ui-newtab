@@ -24,7 +24,7 @@ const TabSwitchButton = ({
     >
       <span className="flex flex-col">
         <span className="w-full text-start">{title}</span>
-        <span className="text-destructive-foreground/50 text-sm">{desc}</span>
+        <span className="text-foreground/60 text-sm">{desc}</span>
       </span>
       <span>
         <Icon icon={icon} fontSize={20} />
