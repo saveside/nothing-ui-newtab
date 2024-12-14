@@ -1,16 +1,8 @@
-import {
-  Content,
-  Item,
-  Label,
-  Portal,
-  Root,
-  Trigger,
-} from "@radix-ui/react-context-menu"
 import type React from "react"
 import { useEffect } from "react"
+import Menu from "~/components/ui/menu"
 import type { App } from "../../../lib/variables"
 import { useOptionsStore } from "../../../store/options"
-import Button from "../../ui/button"
 import { appListStore } from "./selected-app.store"
 
 interface AppMenuProps {
@@ -31,47 +23,28 @@ const AppMenu = ({ children, app }: AppMenuProps) => {
   }, [setSelectedApp])
 
   return (
-    <Root>
-      <Trigger className="ContextMenuTrigger">{children}</Trigger>
-      <Portal>
-        <Content className="z-10 w-44 select-none space-y-1 rounded-xl border border-card-foreground/20 bg-background p-1 text-black">
-          <Label className="truncate px-4 pt-2 text-destructive text-sm">
-            {app.name}
-          </Label>
-          <Item>
-            <Button
-              variant="secondary"
-              icon="tabler:layout-grid-add"
-              className="h-9 w-full justify-start"
-              onClick={() => addToDock(app)}
-              disabled={isCurrentAppInDock()}
-            >
-              Add to dock
-            </Button>
-          </Item>
-          <Item>
-            <Button
-              variant="secondary"
-              icon="tabler:mood-edit"
-              className="h-9 w-full justify-start"
-              onClick={() => setSelectedApp(app)}
-            >
-              Edit/Update
-            </Button>
-          </Item>
-          <Item>
-            <Button
-              variant="secondary"
-              icon="tabler:trash"
-              className="h-9 w-full justify-start"
-              onClick={() => removeDrawerApp(app.name)}
-            >
-              Remove
-            </Button>
-          </Item>
-        </Content>
-      </Portal>
-    </Root>
+    <Menu
+      title={app.name}
+      menuTrigger={children}
+      data={[
+        {
+          icon: "tabler:layout-grid-add",
+          label: "Add to dock",
+          func: () => addToDock(app),
+          disabled: isCurrentAppInDock(),
+        },
+        {
+          label: "Edit/Update",
+          icon: "tabler:mood-edit",
+          func: () => setSelectedApp(app),
+        },
+        {
+          label: "Remove",
+          icon: "tabler:trash",
+          func: () => removeDrawerApp(app.name),
+        },
+      ]}
+    />
   )
 }
 
