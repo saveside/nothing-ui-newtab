@@ -34,7 +34,7 @@ const AppMenu = ({ children, app }: AppMenuProps) => {
     <Root>
       <Trigger className="ContextMenuTrigger">{children}</Trigger>
       <Portal>
-        <Content className="z-10 w-44 select-none space-y-1 rounded-xl border border-card-foreground/20 bg-background p-1 text-black shadow-background shadow-lg">
+        <Content className="z-10 w-44 select-none space-y-1 rounded-xl border border-card-foreground/20 bg-background p-1 text-black">
           <Label className="truncate px-4 pt-2 text-destructive text-sm">
             {app.name}
           </Label>

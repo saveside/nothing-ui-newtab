@@ -4,11 +4,38 @@ import TabSwitchButton from "../shared/tab-switch-button"
 import ToggleOption from "../shared/toggle-option"
 
 const GalleryOptions = () => {
-  const { isMonochromeWidgetImg, toggleMonochromeWidgetImg } = useOptionsStore()
+  const {
+    isBgImage,
+    toggleBgImage,
+    isMonochromeWidgetImg,
+    toggleMonochromeWidgetImg,
+    isMonochromeBg,
+    toggleMonochromeBg,
+    isBgBlur,
+    toggleBgBlur,
+  } = useOptionsStore()
+
   return (
     <OptionsGroup title="Gallery">
       <ToggleOption
-        label="Enable monochrome images"
+        label="Enable background image"
+        enabled={isBgImage}
+        onChange={toggleBgImage}
+      />
+      <ToggleOption
+        label="Monochrome background"
+        enabled={isMonochromeBg}
+        onChange={toggleMonochromeBg}
+        disabled={!isBgImage}
+      />
+      <ToggleOption
+        label="Blur background"
+        enabled={isBgBlur}
+        onChange={toggleBgBlur}
+        disabled={!isBgImage}
+      />
+      <ToggleOption
+        label="Monochrome images"
         desc="For gallery widget"
         enabled={isMonochromeWidgetImg}
         onChange={toggleMonochromeWidgetImg}

@@ -35,6 +35,10 @@ export const useOptionsStore = create(
 
         // Image Options
         isMonochromeWidgetImg: false,
+        isBgImage: false,
+        bgImageIndex: null as number | null,
+        isMonochromeBg: false,
+        isBgBlur: true,
       },
       (set, get) => ({
         // Clock Setters
@@ -122,6 +126,12 @@ export const useOptionsStore = create(
             isMonochromeWidgetImg: !prev.isMonochromeWidgetImg,
           }))
         },
+        toggleBgImage: () => set((prev) => ({ isBgImage: !prev.isBgImage })),
+        toggleMonochromeBg: () => {
+          set((prev) => ({ isMonochromeBg: !prev.isMonochromeBg }))
+        },
+        toggleBgBlur: () => set((prev) => ({ isBgBlur: !prev.isBgBlur })),
+        setBgImageIndex: (index: number | null) => set({ bgImageIndex: index }),
       }),
     ),
     {

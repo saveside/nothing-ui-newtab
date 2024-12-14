@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import BackgroundImage from "./components/background-image"
 import Sidebar from "./components/sidebar"
 import AiTools from "./components/widgets/ai-tools"
 import AppDrawer from "./components/widgets/app-drawer"
@@ -29,7 +30,8 @@ function App() {
 
   return (
     <>
-      <div className="relative flex min-h-screen w-full items-center justify-center p-4 ">
+      <BackgroundImage />
+      <div className="flex min-h-screen w-full items-center justify-center p-4 ">
         <WidgetContainer />
         <Sidebar />
         {isDockEnabled && <Dock />}

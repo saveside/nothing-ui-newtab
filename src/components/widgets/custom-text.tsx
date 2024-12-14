@@ -1,4 +1,6 @@
+import clsx from "clsx"
 import { useEffect, useRef, useState } from "react"
+import { useThemeStore } from "~/store/theme"
 import { useOptionsStore } from "../../store/options"
 import { getGreetings } from "../../utils/datetime"
 import { parseDate } from "../../utils/datetime"
@@ -12,6 +14,7 @@ export const CustomText = () => {
   const { customText, setCustomText } = useOptionsStore()
   const { enableDigitalClock: isDigitalClockEnabled, greetings } =
     useOptionsStore()
+  const isLightMode = useThemeStore((s) => s.isLightMode)
 
   const [openInput, setOpenInput] = useState(false)
 
@@ -32,21 +35,35 @@ export const CustomText = () => {
           value={customText}
           onInput={(e) => setCustomText(e.currentTarget.value)}
           outline="ghost"
-          className="w-full bg-inherit px-0 py-0 text-foreground text-xl"
+          className={clsx(
+            "w-full rounded-none bg-inherit px-0 py-0 text-foreground text-xl",
+            isLightMode ? "text-shadow-light" : "text-shadow-dark",
+          )}
         />
       ) : (
         <button
           type="button"
-          className="text-xl"
+          className={clsx(
+            ["text-start text-xl"],
+            isLightMode ? "text-shadow-light" : "text-shadow-dark",
+          )}
           onClick={() => setOpenInput(true)}
         >
           {customText || "Click here to edit"}
         </button>
       )}
       {isDigitalClockEnabled ? (
-        greetings && <span>{getGreetings(date)}</span>
+        greetings && (
+          <span
+            className={isLightMode ? "text-shadow-light" : "text-shadow-dark"}
+          >
+            {getGreetings(date)}
+          </span>
+        )
       ) : (
-        <span>{`${getFirstWords(weekDay)}, ${getFirstWords(month)} ${day}`}</span>
+        <span
+          className={isLightMode ? "text-shadow-light" : "text-shadow-dark"}
+        >{`${getFirstWords(weekDay)}, ${getFirstWords(month)} ${day}`}</span>
       )}
     </div>
   )

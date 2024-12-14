@@ -11,7 +11,7 @@ export default {
       },
       colors: {
         background: "hsl(var(--background))",
-        backgroundAlt: "has(var(--background-alt))",
+        backgroundAlt: "hsl(var(--background-alt))",
         foreground: "hsl(var(--foreground))",
         muted: "hsl(var(--muted))",
         card: {

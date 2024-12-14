@@ -1,3 +1,4 @@
+import { image } from "framer-motion/client"
 import { get as idbGet, set as idbSet } from "idb-keyval"
 import { create } from "zustand"
 import type { ImageFile } from "~/types"
@@ -50,7 +51,10 @@ export const useImageStore = create<ImageStore>((set, get) => ({
     })),
   saveImagesToDB: async () => {
     try {
-      await idbSet("gallery-images", get().images)
+      await idbSet(
+        "gallery-images",
+        get().images.map(({ imageUrl, ...rest }) => rest),
+      )
       set({ shouldSave: false })
 
       // biome-ignore lint/suspicious/noConsoleLog: <explanation>

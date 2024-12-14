@@ -34,6 +34,7 @@
 
 }
 
+
 @layer base {
     body {
         @apply bg-background text-foreground font-notoSerif;
@@ -49,5 +50,17 @@
 
     * ::-webkit-scrollbar-thumb {
         @apply cursor-pointer rounded-md bg-card-foreground/20;
+    }
+}
+
+
+@layer utilities {
+
+    .text-shadow-light {
+        text-shadow: rgba(255, 255, 255, 0.9) 1px 1px 15px, rgba(255, 255, 255, 0.9) -1px -1px 15px, rgba(255, 255, 255, 0.9) 1px -1px 15px, rgba(255, 255, 255, 0.9) -1px 1px 15px;
+    }
+
+    .text-shadow-dark {
+        text-shadow: rgba(0, 0, 0, 0.9) 1px 1px 15px, rgba(0, 0, 0, 0.9) -1px -1px 15px, rgba(0, 0, 0, 0.9) 1px -1px 15px, rgba(0, 0, 0, 0.9) -1px 1px 15px;
     }
 }
