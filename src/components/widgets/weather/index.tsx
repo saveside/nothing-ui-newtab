@@ -1,3 +1,4 @@
+import { motion } from "framer-motion"
 import { useEffect, useMemo, useState } from "react"
 import { useThemeStore } from "~/store/theme"
 import { icons } from "../../../lib/icons"
@@ -7,6 +8,7 @@ import type { CurrentWeather } from "../../../types/weather"
 const Weather = () => {
   const { weatherAPI, weatherLocation, isScaleFahrenheit } = useOptionsStore()
   const isLightMode = useThemeStore((s) => s.isLightMode)
+  const [loading, setLoading] = useState(true)
 
   const [weatherData, setWeatherData] = useState<CurrentWeather | null>(null)
   useEffect(() => {
@@ -23,6 +25,7 @@ const Weather = () => {
       } catch (error) {
         console.error(error)
       }
+      setLoading(false)
     })()
   }, [weatherData, weatherAPI, weatherLocation])
 
@@ -41,9 +44,13 @@ const Weather = () => {
   }, [weatherData])
 
   return (
-    <div className="flex size-48 select-none flex-col items-center justify-between rounded-xl bg-card p-3 text-card-foreground">
+    <motion.div className="size-48 select-none rounded-xl bg-card p-3 text-card-foreground">
       {weatherData ? (
-        <>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex h-full flex-col items-center justify-between"
+        >
           <span className="text-lg">
             {isScaleFahrenheit
               ? convertFromKelvin(weatherData.main.temp, "F")
@@ -57,13 +64,15 @@ const Weather = () => {
             style={isLightMode ? { filter: "invert(1)" } : {}}
           />
           <span>{weatherData.name}</span>
-        </>
+        </motion.div>
       ) : (
-        <span className="flex h-full items-center justify-center text-center">
-          Make sure your given location and API Key is valid
-        </span>
+        !loading && (
+          <p className="h-full px-2 font-bold font-rubik text-sm">
+            Make sure your given location and API Key is valid
+          </p>
+        )
       )}
-    </div>
+    </motion.div>
   )
 }
 
