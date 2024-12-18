@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <BackgroundImage />
-      <div className="flex min-h-screen w-full items-center justify-center p-4 ">
+      <div className="flex min-h-screen w-full select-none items-center justify-center p-4">
         <WidgetContainer />
         <Sidebar />
         {isDockEnabled && <Dock />}

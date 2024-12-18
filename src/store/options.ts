@@ -21,7 +21,7 @@ export const useOptionsStore = create(
 
         // Misc
         weatherAPI: "",
-        weatherLocation: "",
+        weatherLocation: "Japan",
         isScaleFahrenheit: false,
         isAIToolsEnabled: true,
         isAppDrawerEnabled: true,

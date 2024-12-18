@@ -8,7 +8,6 @@
     <script type="text/javascript">
         const lsData = localStorage.getItem("data-theme");
         const isLightModeEnabled = JSON.parse(lsData).state.isLightMode;
-        console.log(isLightModeEnabled)
         document.documentElement.setAttribute(
             "data-theme",
             isLightModeEnabled ? "light" : "dark",

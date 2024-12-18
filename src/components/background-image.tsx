@@ -13,7 +13,7 @@ const BackgroundImage = () => {
 
   return (
     <>
-      <div className="-z-20 fixed size-full bg-white">
+      <div className="-z-20 fixed size-full select-none bg-white">
         <img
           src={images[bgImageIndex]?.imageUrl}
           style={isMonochromeBg ? { filter: "grayscale(100%)" } : {}}
@@ -24,7 +24,7 @@ const BackgroundImage = () => {
       </div>
       <div
         className={clsx(
-          "-z-10 fixed size-full",
+          "-z-10 fixed size-full select-none",
           isBgBlur && "backdrop-blur-md",
         )}
       />
