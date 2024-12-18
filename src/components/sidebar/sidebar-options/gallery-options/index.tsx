@@ -2,6 +2,7 @@ import { useOptionsStore } from "~/store/options"
 import OptionsGroup from "../shared/options-group"
 import TabSwitchButton from "../shared/tab-switch-button"
 import ToggleOption from "../shared/toggle-option"
+import IntervalInput from "./interval-input"
 
 const GalleryOptions = () => {
   const {
@@ -46,6 +47,7 @@ const GalleryOptions = () => {
         icon="solar:gallery-bold"
         tabToSwitch="gallery"
       />
+      <IntervalInput />
     </OptionsGroup>
   )
 }

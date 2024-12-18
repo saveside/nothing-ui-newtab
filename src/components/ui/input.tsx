@@ -3,7 +3,7 @@ import React from "react"
 import { cn } from "../../utils"
 
 const input = cva(
-  "w-full py-2 border-none rounded-xl px-4 focus:outline-none focus:ring-2 disabled:opacity-40 text-sm",
+  "w-full py-2 border-2 focus:border-transparent border-transparent rounded-xl px-4 focus:outline-none focus:ring-2 disabled:opacity-40 text-sm",
   {
     variants: {
       variant: {

@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { combine, persist } from "zustand/middleware"
+import type { ImageFile } from "~/types"
 import {
   type App,
   dockApps as initialDockApps,
@@ -35,10 +36,12 @@ export const useOptionsStore = create(
 
         // Image Options
         isMonochromeWidgetImg: false,
+        pinnedWidgetImgIndex: null as number | null,
         isBgImage: false,
         bgImageIndex: null as number | null,
         isMonochromeBg: false,
         isBgBlur: true,
+        gallaryImageInterval: 10,
       },
       (set, get) => ({
         // Clock Setters
@@ -126,12 +129,20 @@ export const useOptionsStore = create(
             isMonochromeWidgetImg: !prev.isMonochromeWidgetImg,
           }))
         },
+        setPinnedWidgetImgIndex: (index: number | null) => {
+          set({ pinnedWidgetImgIndex: index })
+        },
         toggleBgImage: () => set((prev) => ({ isBgImage: !prev.isBgImage })),
         toggleMonochromeBg: () => {
           set((prev) => ({ isMonochromeBg: !prev.isMonochromeBg }))
         },
         toggleBgBlur: () => set((prev) => ({ isBgBlur: !prev.isBgBlur })),
         setBgImageIndex: (index: number | null) => set({ bgImageIndex: index }),
+        setGallaryImageInterval: (interval: number) => {
+          if (get().gallaryImageInterval !== interval) {
+            set({ gallaryImageInterval: interval })
+          }
+        },
       }),
     ),
     {

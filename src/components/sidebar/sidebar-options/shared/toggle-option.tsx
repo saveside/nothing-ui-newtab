@@ -17,7 +17,7 @@ const ToggleOption = ({
   disabled = false,
 }: ToggleOptionProps) => {
   return (
-    <div>
+    <div className="flex flex-col gap-0">
       <div
         className={clsx(
           "inline-flex w-full justify-between",
