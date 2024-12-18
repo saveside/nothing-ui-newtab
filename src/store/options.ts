@@ -1,6 +1,6 @@
+import * as idb from "idb-keyval"
 import { create } from "zustand"
 import { combine, persist } from "zustand/middleware"
-import type { ImageFile } from "~/types"
 import {
   type App,
   dockApps as initialDockApps,
@@ -14,14 +14,14 @@ export const useOptionsStore = create(
         // Clock
         enableDigitalClock: false,
         format24: false,
-        greetings: false,
+        greetings: true,
 
         customText: "Click here to edit",
         selectedEngine: "Brave",
 
         // Misc
         weatherAPI: "",
-        weatherLocation: "Japan",
+        weatherLocation: "Delhi",
         isScaleFahrenheit: false,
         isAIToolsEnabled: true,
         isAppDrawerEnabled: true,
@@ -142,6 +142,10 @@ export const useOptionsStore = create(
           if (get().gallaryImageInterval !== interval) {
             set({ gallaryImageInterval: interval })
           }
+        },
+        restoreDefaults: async () => {
+          localStorage.removeItem("nothing-newtab-options")
+          await idb.clear().then(() => window.location.reload())
         },
       }),
     ),

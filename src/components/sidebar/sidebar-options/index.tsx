@@ -1,4 +1,6 @@
 import { motion } from "framer-motion"
+import Button from "~/components/ui/button"
+import { useOptionsStore } from "~/store/options"
 import { useSidebarOptions } from "../sidebar-store"
 import AppOptions from "./app-options"
 import ClockOptions from "./clock-options"
@@ -25,6 +27,7 @@ const MotionDiv = ({ children }: { children: React.ReactNode }) => {
 
 const SidebarOptions = () => {
   const tab = useSidebarOptions((s) => s.tab)
+  const restoreDefaults = useOptionsStore((s) => s.restoreDefaults)
 
   return (
     <div className="w-full">
@@ -36,6 +39,13 @@ const SidebarOptions = () => {
           <MiscOptions />
           <GalleryOptions />
           <WeatherOptions />
+          <Button
+            variant="accent"
+            className="ml-auto"
+            onClick={restoreDefaults}
+          >
+            Restore Defaults
+          </Button>
         </MotionDiv>
       )}
       {tab === "apps" && (
