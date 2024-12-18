@@ -1,6 +1,6 @@
 import clsx from "clsx"
 import { useState } from "react"
-import { useOptionsStore } from "../../../store/options"
+import { useAppStore } from "~/store/app-store"
 import type { Setter } from "../../../types/react"
 import Button from "../../ui/button"
 import AppForm from "./app-form"
@@ -12,7 +12,7 @@ interface EditAppListProps {
 }
 
 const EditAppList = ({ removeMode, setRemoveMode }: EditAppListProps) => {
-  const resetDrawerApp = useOptionsStore((s) => s.resetDrawerApp)
+  const resetDrawerApp = useAppStore((s) => s.resetDrawerApp)
   const [isOpen, setIsOpen] = useState(false)
 
   const { selectedApp, setSelectedApp } = appListStore()

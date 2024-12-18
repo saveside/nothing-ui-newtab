@@ -3,8 +3,8 @@ import clsx from "clsx"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useDebounceValue } from "usehooks-ts"
+import { useAppStore } from "~/store/app-store"
 import type { App } from "../../../lib/variables"
-import { useOptionsStore } from "../../../store/options"
 import type { Setter } from "../../../types/react"
 import Button from "../../ui/button"
 import Input from "../../ui/input"
@@ -51,7 +51,7 @@ interface AppFormProps {
 
 const AppForm = ({ isOpen, setIsOpen, app }: AppFormProps) => {
   // Store functions
-  const { drawerApps, addDrawerApp, updateDrawerApp } = useOptionsStore()
+  const { drawerApps, addDrawerApp, updateDrawerApp } = useAppStore()
 
   // Modal vars
   const [modalTitle, setModalTitle] = useState("Add app")

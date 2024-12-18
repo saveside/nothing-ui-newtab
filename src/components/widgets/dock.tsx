@@ -1,8 +1,9 @@
-import { useOptionsStore } from "../../store/options"
+import { useAppStore } from "~/store/app-store"
 import Button from "../ui/button"
 
 const Dock = () => {
-  const dockApps = useOptionsStore((s) => s.dockApps)
+  const dockApps = useAppStore((s) => s.dockApps)
+
   return (
     <div className="fixed bottom-0 left-0 flex w-full justify-center gap-3 p-4">
       {dockApps.map(({ url, icon }, index) => (

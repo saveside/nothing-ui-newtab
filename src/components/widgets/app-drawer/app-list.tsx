@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { useOptionsStore } from "../../../store/options"
+import { useAppStore } from "~/store/app-store"
 import AppItem from "./app-item"
 
 interface AppListProps {
@@ -7,7 +7,7 @@ interface AppListProps {
 }
 
 const AppList = ({ isRemoveMode }: AppListProps) => {
-  const { drawerApps } = useOptionsStore()
+  const drawerApps = useAppStore((s) => s.drawerApps)
 
   return (
     <motion.div
@@ -27,7 +27,7 @@ const AppList = ({ isRemoveMode }: AppListProps) => {
           <AppItem
             app={app}
             isRemoveMode={isRemoveMode}
-            key={`drawer-${app}-${index.toString().padStart(2, "0")}`}
+            key={`drawer-app-${index.toString().padStart(2, "0")}`}
           />
         ))}
       </motion.div>

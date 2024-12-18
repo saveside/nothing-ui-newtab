@@ -1,8 +1,8 @@
 import type React from "react"
 import { useEffect } from "react"
 import Menu from "~/components/ui/menu"
+import { useAppStore } from "~/store/app-store"
 import type { App } from "../../../lib/variables"
-import { useOptionsStore } from "../../../store/options"
 import { appListStore } from "./selected-app.store"
 
 interface AppMenuProps {
@@ -11,7 +11,7 @@ interface AppMenuProps {
 }
 
 const AppMenu = ({ children, app }: AppMenuProps) => {
-  const { removeDrawerApp, dockApps, addToDock } = useOptionsStore()
+  const { removeDrawerApp, dockApps, addToDock } = useAppStore()
   const setSelectedApp = appListStore((s) => s.setSelectedApp)
 
   const isCurrentAppInDock = (): boolean => {

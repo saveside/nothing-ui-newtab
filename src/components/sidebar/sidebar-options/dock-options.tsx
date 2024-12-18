@@ -1,12 +1,12 @@
 import { Icon } from "@iconify/react"
-import { useOptionsStore } from "../../../store/options"
+import { useAppStore } from "~/store/app-store"
 import Button from "../../ui/button"
 import Input from "../../ui/input"
 import NewTabHeader from "./shared/newtab-header"
 
 const DockOptions = () => {
   const { addDockApp, updateDockApp, dockApps, resetDockApp, removeDockApp } =
-    useOptionsStore()
+    useAppStore()
 
   const inputClass =
     "h-1 rounded-none bg-inherit px-0 text-inherit focus:outline-none"

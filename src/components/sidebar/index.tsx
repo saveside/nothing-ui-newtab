@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
-import Button from "../ui/button"
 import SidebarOptions from "./sidebar-options"
 
 const Backdrop = ({ onOpenChange }: { onOpenChange: () => void }) => {

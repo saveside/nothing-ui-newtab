@@ -1,4 +1,3 @@
-import { image } from "framer-motion/client"
 import { get as idbGet, set as idbSet } from "idb-keyval"
 import { create } from "zustand"
 import type { ImageFile } from "~/types"

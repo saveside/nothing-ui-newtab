@@ -1,6 +1,6 @@
 import clsx from "clsx"
+import { useAppStore } from "~/store/app-store"
 import type { App } from "../../../lib/variables"
-import { useOptionsStore } from "../../../store/options"
 import { ensureHttpPrefix } from "../../../utils"
 import Button from "../../ui/button"
 import AppMenu from "./app-menu"
@@ -11,7 +11,7 @@ interface AppButtonProps {
 }
 
 const AppItem = ({ app, isRemoveMode }: AppButtonProps) => {
-  const { drawerApps, removeDrawerApp } = useOptionsStore()
+  const { drawerApps, removeDrawerApp } = useAppStore()
 
   return (
     <AppMenu app={app}>
