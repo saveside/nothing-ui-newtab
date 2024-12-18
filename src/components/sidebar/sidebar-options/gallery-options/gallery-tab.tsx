@@ -18,7 +18,7 @@ const GalleryTab = () => {
     setImages,
   } = useImageStore()
 
-  const { bgImageIndex, setBgImageIndex } = useOptionsStore()
+  const { isBgImage, bgImageIndex, setBgImageIndex } = useOptionsStore()
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -80,17 +80,17 @@ const GalleryTab = () => {
               key={img.name}
               className="group relative h-48 overflow-hidden rounded-xl border-4 border-transparent shadow-md"
               style={
-                bgImageIndex === index
+                isBgImage && bgImageIndex === index
                   ? {
                       borderColor: "hsl(var(--destructive))",
                     }
                   : {}
               }
-              onClick={() => setBgImageIndex(index)}
+              onClick={() => isBgImage && setBgImageIndex(index)}
             >
               <img
                 loading="lazy"
-                className="size-full object-cover"
+                className="size-full object-cover hover:scale-105"
                 src={img.imageUrl}
                 alt="gallary-image"
               />

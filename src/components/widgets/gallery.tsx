@@ -62,6 +62,7 @@ const Gallery = () => {
 
   const {
     isMonochromeWidgetImg,
+    isBgImage,
     pinnedWidgetImgIndex: pinnedImgIndex,
     setPinnedWidgetImgIndex: setPinnedImgIndex,
     setBgImageIndex,
@@ -136,6 +137,7 @@ const Gallery = () => {
                 label: "Set as background",
                 icon: "solar:gallery-bold",
                 func: () => setBgImageIndex(imageIndex),
+                disabled: !isBgImage,
               },
             ]}
           />
