@@ -1,5 +1,6 @@
 import { useOptionsStore } from "../../../store/options"
 import OptionsGroup from "./shared/options-group"
+import TabSwitchButton from "./shared/tab-switch-button"
 import ToggleOption from "./shared/toggle-option"
 
 const MiscOptions = () => {
@@ -16,6 +17,13 @@ const MiscOptions = () => {
         label="Enable AI tools"
         enabled={isAIToolsEnabled}
         onChange={toggleEnableAITools}
+      />
+      <TabSwitchButton
+        title="AI Tools"
+        desc="Add, edit, update, delete ai links"
+        icon="mingcute:ai-line"
+        tabToSwitch="ai-tools"
+        disabled={!isAIToolsEnabled}
       />
       <ToggleOption
         label="Enable monochrome icon"

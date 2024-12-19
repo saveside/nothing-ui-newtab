@@ -9,6 +9,7 @@ import GalleryOptions from "./gallery-options"
 import GalleryTab from "./gallery-options/gallery-tab"
 import GeneralOptions from "./general-options"
 import MiscOptions from "./misc-options"
+import AIToolsTab from "./tabs/ai-tools"
 import SearchEnginesTab from "./tabs/search-engines"
 import WeatherOptions from "./weather-options"
 
@@ -57,6 +58,11 @@ const SidebarOptions = () => {
       {tab === "apps" && (
         <MotionDiv>
           <DockOptions />
+        </MotionDiv>
+      )}
+      {tab === "ai-tools" && (
+        <MotionDiv>
+          <AIToolsTab />
         </MotionDiv>
       )}
       {tab === "gallery" && (

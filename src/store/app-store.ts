@@ -3,6 +3,7 @@ import { create } from "zustand"
 import { combine, createJSONStorage, persist } from "zustand/middleware"
 import {
   type App,
+  aiTools as initialAITools,
   dockApps as initialDockApps,
   drawerApps as initialDrawerApps,
 } from "../lib/variables"
@@ -13,6 +14,7 @@ export const useAppStore = create(
       {
         drawerApps: sortApps(initialDrawerApps),
         dockApps: sortApps(initialDockApps),
+        aiTools: sortApps(initialAITools),
       },
       (set, get) => ({
         // Drawer Apps
@@ -34,6 +36,25 @@ export const useAppStore = create(
           // This check ain't necessary, but overall a better perf approach
           if (!appListIsMatching(get().drawerApps, initialDrawerApps)) {
             set({ drawerApps: initialDrawerApps })
+          }
+        },
+
+        // AI Tools
+        addAITool: (app: App) => {
+          set((prev) => ({ aiTools: addApp(prev.aiTools, app) }))
+        },
+        updateAITool: (id: number, app: App) => {
+          set((prev) => ({ aiTools: updateApp(prev.aiTools, id, app) }))
+        },
+        removeAITool: (name: string) => {
+          set((prev) => ({
+            aiTools: removeApp(prev.aiTools, name),
+          }))
+        },
+        resetAITools: () => {
+          // This check ain't necessary, but overall a better perf approach
+          if (!appListIsMatching(get().aiTools, initialAITools)) {
+            set({ aiTools: initialAITools })
           }
         },
 
