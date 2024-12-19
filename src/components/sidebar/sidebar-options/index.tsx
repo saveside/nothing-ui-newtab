@@ -1,22 +1,27 @@
 import { motion } from "framer-motion"
+import { lazy } from "react"
 import Button from "~/components/ui/button"
 import { useOptionsStore } from "~/store/options"
 import { useSidebarOptions } from "../sidebar-store"
 import AppOptions from "./app-options"
 import ClockOptions from "./clock-options"
-import DockOptions from "./dock-options"
 import GalleryOptions from "./gallery-options"
-import GalleryTab from "./gallery-options/gallery-tab"
 import GeneralOptions from "./general-options"
 import MiscOptions from "./misc-options"
-import AIToolsTab from "./tabs/ai-tools"
-import SearchEnginesTab from "./tabs/search-engines"
 import WeatherOptions from "./weather-options"
 
-const MotionDiv = ({ children }: { children: React.ReactNode }) => {
+const AIToolsTab = lazy(() => import("./tabs/ai-tools"))
+const DockOptions = lazy(() => import("./dock-options"))
+const GalleryTab = lazy(() => import("./gallery-options/gallery-tab"))
+const SearchEnginesTab = lazy(() => import("./tabs/search-engines"))
+
+const MotionDiv = ({
+  children,
+  direction = "right",
+}: { children: React.ReactNode; direction?: "right" | "left" }) => {
   return (
     <motion.div
-      initial={{ x: 200 }}
+      initial={direction === "right" ? { x: 200 } : { x: -200 }}
       animate={{ x: 0 }}
       exit={{ x: 200, opacity: 0 }}
       transition={{ ease: "linear", duration: 0.2 }}
@@ -51,22 +56,22 @@ const SidebarOptions = () => {
         </MotionDiv>
       )}
       {tab === "search-engines" && (
-        <MotionDiv>
+        <MotionDiv direction="left">
           <SearchEnginesTab />
         </MotionDiv>
       )}
       {tab === "apps" && (
-        <MotionDiv>
+        <MotionDiv direction="left">
           <DockOptions />
         </MotionDiv>
       )}
       {tab === "ai-tools" && (
-        <MotionDiv>
+        <MotionDiv direction="left">
           <AIToolsTab />
         </MotionDiv>
       )}
       {tab === "gallery" && (
-        <MotionDiv>
+        <MotionDiv direction="left">
           <GalleryTab />
         </MotionDiv>
       )}

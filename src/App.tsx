@@ -1,13 +1,14 @@
-import { useEffect } from "react"
+import { Suspense, lazy, useEffect } from "react"
 import BackgroundImage from "./components/background-image"
 import Sidebar from "./components/sidebar"
-import AiTools from "./components/widgets/ai-tools"
-import AppDrawer from "./components/widgets/app-drawer"
-import Dock from "./components/widgets/dock"
 import WidgetContainer from "./components/widgets/widget-container"
 import { useImageStore } from "./store/image-store"
 import { useOptionsStore } from "./store/options"
 import { useThemeStore } from "./store/theme"
+
+const Dock = lazy(() => import("./components/widgets/dock"))
+const AiTools = lazy(() => import("./components/widgets/ai-tools"))
+const AppDrawer = lazy(() => import("./components/widgets/app-drawer"))
 
 function App() {
   const { isDockEnabled, isAIToolsEnabled, isAppDrawerEnabled } =
@@ -34,9 +35,11 @@ function App() {
       <div className="flex min-h-screen w-full select-none items-center justify-center p-4">
         <WidgetContainer />
         <Sidebar />
-        {isDockEnabled && <Dock />}
-        {isAIToolsEnabled && <AiTools />}
-        {isAppDrawerEnabled && <AppDrawer />}
+        <Suspense>
+          {isDockEnabled && <Dock />}
+          {isAIToolsEnabled && <AiTools />}
+          {isAppDrawerEnabled && <AppDrawer />}
+        </Suspense>
       </div>
     </>
   )

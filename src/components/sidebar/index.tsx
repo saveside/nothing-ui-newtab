@@ -1,7 +1,8 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
-import SidebarOptions from "./sidebar-options"
+import { Suspense, lazy, useState } from "react"
+
+const SidebarContent = lazy(() => import("./sidebar-content"))
 
 const Backdrop = ({ onOpenChange }: { onOpenChange: () => void }) => {
   return (
@@ -13,27 +14,6 @@ const Backdrop = ({ onOpenChange }: { onOpenChange: () => void }) => {
       onClick={onOpenChange}
       className="fixed top-0 left-0 z-10 min-h-screen w-full backdrop-blur-md"
     />
-  )
-}
-
-const SidebarContent = () => {
-  return (
-    <motion.div
-      initial={{ x: 400, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: 400, opacity: 0 }}
-      transition={{ ease: "linear", duration: 0.3 }}
-      className="fixed top-0 right-0 z-20 h-full w-96 select-none p-1 font-rubik"
-    >
-      <div className="flex h-full w-full flex-col rounded-xl bg-card p-4 text-card-foreground">
-        <span className="pt-3 pb-8 pl-4 font-lora font-thin text-2xl">
-          Settings
-        </span>
-        <div className="inline-flex size-full justify-between overflow-y-auto overflow-x-hidden px-4">
-          <SidebarOptions />
-        </div>
-      </div>
-    </motion.div>
   )
 }
 
@@ -61,10 +41,10 @@ const Sidebar = () => {
       </AnimatePresence>
       <AnimatePresence mode="wait">
         {open && (
-          <>
+          <Suspense>
             <SidebarContent />
             <Backdrop onOpenChange={() => setOpen(false)} />
-          </>
+          </Suspense>
         )}
       </AnimatePresence>
     </>
