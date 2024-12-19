@@ -94,9 +94,7 @@ function removeApp(list: App[], name: string) {
 }
 
 function updateApp(list: App[], id: number, updatedApp: App) {
-  const updatedList = list
-  updatedList[id] = updatedApp
-  return updatedList
+  return list.map((app, index) => (index === id ? updatedApp : app))
 }
 
 function appListIsMatching(list1: App[], list2: App[]) {

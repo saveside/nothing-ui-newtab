@@ -13,6 +13,8 @@ interface AppButtonProps {
 const AppItem = ({ app, isRemoveMode }: AppButtonProps) => {
   const { drawerApps, removeDrawerApp } = useAppStore()
 
+  if (!app) return null
+
   return (
     <AppMenu app={app}>
       <a
