@@ -1,18 +1,18 @@
 import { Icon } from "@iconify/react"
 import { useEffect, useState } from "react"
 import { useDebounceValue } from "usehooks-ts"
-import { searchProviders } from "../../../lib/variables"
-import { useOptionsStore } from "../../../store/options"
+import { useSearchEngineStore } from "~/store/search-engine"
 import Input from "../../ui/input"
 
 const SearchInput = () => {
-  const { selectedEngine, setSelectedEngine } = useOptionsStore()
+  const { searchEngines, selectedEngine, setSelectedEngine } =
+    useSearchEngineStore()
 
   const [query, setQuery] = useState("")
   const [debouncedQuery] = useDebounceValue<string>(query, 500)
 
   const submitHandler = () => {
-    const baseUrl = searchProviders.find(
+    const baseUrl = searchEngines.find(
       ({ name }) => name === selectedEngine,
     )?.baseUrl
     if (baseUrl) {
@@ -28,7 +28,7 @@ const SearchInput = () => {
       const querySlices = query.split(" ")
       const short = querySlices[0].slice(1)
       if (short && short.length > 0) {
-        const newEngine = searchProviders.find(
+        const newEngine = searchEngines.find(
           (provider) => provider.short === short,
         )
         if (newEngine) {
@@ -37,7 +37,7 @@ const SearchInput = () => {
         }
       }
     }
-  }, [debouncedQuery, setSelectedEngine, query])
+  }, [searchEngines, debouncedQuery, setSelectedEngine, query])
 
   return (
     <div className="inline-flex w-full gap-4 overflow-hidden rounded-xl bg-card p-2">

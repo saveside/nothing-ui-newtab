@@ -1,11 +1,11 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
+import { useSearchEngineStore } from "~/store/search-engine"
 import { searchProviders } from "../../../lib/variables"
-import { useOptionsStore } from "../../../store/options"
 import SearchEngines from "./search-engines"
 import SearchInput from "./search-input"
 
 const SearchBarIcon = () => {
-  const selectedEngine = useOptionsStore((s) => s.selectedEngine)
+  const selectedEngine = useSearchEngineStore((s) => s.selectedEngine)
   const icon = searchProviders.find(({ name }) => name === selectedEngine)?.icon
 
   return (

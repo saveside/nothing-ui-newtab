@@ -12,7 +12,6 @@ export const useOptionsStore = create(
         greetings: true,
 
         customText: "Click here to edit",
-        selectedEngine: "Brave",
 
         // Misc
         weatherAPI: "",
@@ -66,7 +65,6 @@ export const useOptionsStore = create(
         toggleDock: () =>
           set((prev) => ({ isDockEnabled: !prev.isDockEnabled })),
         setCustomText: (text: string) => set({ customText: text }),
-        setSelectedEngine: (engine: string) => set({ selectedEngine: engine }),
 
         // Image setters
         toggleMonochromeWidgetImg: () => {

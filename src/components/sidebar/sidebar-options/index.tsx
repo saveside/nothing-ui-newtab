@@ -9,6 +9,7 @@ import GalleryOptions from "./gallery-options"
 import GalleryTab from "./gallery-options/gallery-tab"
 import GeneralOptions from "./general-options"
 import MiscOptions from "./misc-options"
+import SearchEnginesTab from "./tabs/search-engines"
 import WeatherOptions from "./weather-options"
 
 const MotionDiv = ({ children }: { children: React.ReactNode }) => {
@@ -46,6 +47,11 @@ const SidebarOptions = () => {
           >
             Restore Defaults
           </Button>
+        </MotionDiv>
+      )}
+      {tab === "search-engines" && (
+        <MotionDiv>
+          <SearchEnginesTab />
         </MotionDiv>
       )}
       {tab === "apps" && (

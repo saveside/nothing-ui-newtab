@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-export type Tab = "default" | "apps" | "gallery"
+export type Tab = "default" | "apps" | "gallery" | "search-engines"
 
 interface SiebarOptions {
   tab: Tab

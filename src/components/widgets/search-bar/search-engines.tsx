@@ -1,14 +1,14 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
 import clsx from "clsx"
-import { searchProviders } from "../../../lib/variables"
-import { useOptionsStore } from "../../../store/options"
+import { useSearchEngineStore } from "~/store/search-engine"
 
 const SearchEngines = () => {
-  const { selectedEngine, setSelectedEngine } = useOptionsStore()
+  const { searchEngines, selectedEngine, setSelectedEngine } =
+    useSearchEngineStore()
 
   return (
     <div className="flex flex-wrap gap-3">
-      {searchProviders.map(({ name, icon }) => (
+      {searchEngines.map(({ name, icon }) => (
         <button
           type="button"
           key={name}
