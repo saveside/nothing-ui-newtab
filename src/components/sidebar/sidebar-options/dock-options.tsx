@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react"
 import { useAppStore } from "~/store/app-store"
 import Button from "../../ui/button"
 import Input from "../../ui/input"
@@ -16,30 +15,31 @@ const DockOptions = () => {
       <NewTabHeader
         rightButtons={
           <>
-            <button type="button" onClick={resetDockApp}>
-              <Icon
-                icon="material-symbols:device-reset-rounded"
-                fontSize={22}
-              />
-            </button>
-            <button type="button">
-              <Icon
-                icon="ic:round-plus"
-                fontSize={24}
-                onClick={() => addDockApp()}
-              />
-            </button>
+            <Button
+              variant="secondary"
+              size="icon"
+              iconSize={20}
+              icon="material-symbols:device-reset-rounded"
+              onClick={resetDockApp}
+            />
+            <Button
+              variant="secondary"
+              size="icon"
+              iconSize={20}
+              icon="ic:round-plus"
+              onClick={() => addDockApp()}
+            />
           </>
         }
       />
-      <div className=" h-full space-y-5">
+      <div className="h-full space-y-5">
         {dockApps.map((app, index) => (
           <div
             key={`app-by-${
               // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               index
             }`}
-            className="inline-flex gap-2"
+            className="inline-flex items-center gap-2 w-full"
           >
             <Button
               variant="secondary"
@@ -74,15 +74,13 @@ const DockOptions = () => {
                 className={inputClass}
               />
             </div>
-            <div className="inline-flex items-center">
-              <Button
-                icon="mdi:trash-outline"
-                variant="destructive"
-                size="icon"
-                className="size-8"
-                onClick={() => removeDockApp(app.name)}
-              />
-            </div>
+            <Button
+              icon="mdi:trash-outline"
+              variant="destructive"
+              size="icon"
+              className="size-8"
+              onClick={() => removeDockApp(index)}
+            />
           </div>
         ))}
       </div>

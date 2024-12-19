@@ -12,6 +12,7 @@ const NewTabHeader = ({ rightButtons }: NewTabHeader) => {
       <Button
         variant="secondary"
         size="icon"
+        iconSize={20}
         icon="mingcute:left-line"
         onClick={() => setTab("default")}
       />
