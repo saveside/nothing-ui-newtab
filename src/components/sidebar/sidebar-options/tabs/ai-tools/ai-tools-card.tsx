@@ -15,6 +15,7 @@ interface AIToolCardProps {
 const AIToolCard = (props: AIToolCardProps) => {
   const { aiTools, updateAITool: update, removeAITool: remove } = useAppStore()
   const [aiTool, setAITool] = useState<App>(props.aiTool)
+  const [debouncedIcon] = useDebounceValue(props.aiTool.icon, 500)
   const [debouncedValue] = useDebounceValue(aiTool, 500)
 
   useEffect(() => {
@@ -35,14 +36,14 @@ const AIToolCard = (props: AIToolCardProps) => {
   }, [debouncedValue, aiTools, props, update])
 
   return (
-    <AppCard icon={aiTool.icon} delFunc={() => remove(aiTool.name)}>
+    <AppCard icon={debouncedIcon} delFunc={() => remove(aiTool.name)}>
       <Input
         variant="secondary"
         id="aitool-name"
         placeholder="icon"
         value={aiTool.icon}
         onInput={({ currentTarget: { value } }) =>
-          setAITool((prev) => ({ ...prev, name: value }))
+          setAITool((prev) => ({ ...prev, icon: value }))
         }
         className="text-foreground"
       />

@@ -1,5 +1,6 @@
+import { disableCache, enableCache } from "@iconify/react/dist/iconify.js"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
@@ -26,6 +27,11 @@ const AIToolsTab = () => {
       )
     }
   }
+
+  useEffect(() => {
+    disableCache("all")
+    return () => enableCache("local")
+  }, [])
 
   return (
     <div className="space-y-6">
@@ -68,7 +74,7 @@ const AIToolsTab = () => {
           )}
         </motion.div>
         {aiTools.map((tool, index) => (
-          <motion.div layout key={`ai-tool-${index.toString()}`}>
+          <motion.div layout key={`ai-tool-card-${tool.name}`}>
             <AIToolCard aiTool={tool} index={index} />
           </motion.div>
         ))}
