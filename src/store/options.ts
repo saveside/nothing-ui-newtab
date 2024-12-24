@@ -28,7 +28,7 @@ export const useOptionsStore = create(
         isMonochromeWidgetImg: false,
         pinnedWidgetImgIndex: null as number | null,
         isBgImage: false,
-        bgImageIndex: null as number | null,
+        bgImageId: null as string | null,
         isMonochromeBg: false,
         isBgBlur: true,
         gallaryImageInterval: 10,
@@ -80,7 +80,7 @@ export const useOptionsStore = create(
           set((prev) => ({ isMonochromeBg: !prev.isMonochromeBg }))
         },
         toggleBgBlur: () => set((prev) => ({ isBgBlur: !prev.isBgBlur })),
-        setBgImageIndex: (index: number | null) => set({ bgImageIndex: index }),
+        setBgImageId: (id: string | null) => set({ bgImageId: id }),
         setGallaryImageInterval: (interval: number) => {
           if (get().gallaryImageInterval !== interval) {
             set({ gallaryImageInterval: interval })

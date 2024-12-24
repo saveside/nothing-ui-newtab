@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import { motion } from "framer-motion"
 import { del } from "idb-keyval"
 import { useEffect, useRef } from "react"
 import Button from "~/components/ui/button"
@@ -18,7 +19,7 @@ const GalleryTab = () => {
     setImages,
   } = useImageStore()
 
-  const { isBgImage, bgImageIndex, setBgImageIndex } = useOptionsStore()
+  const { isBgImage, bgImageId, setBgImageId } = useOptionsStore()
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -26,6 +27,7 @@ const GalleryTab = () => {
     const files = event.target.files
     if (files && files.length > 0) {
       const newImages: ImageFile[] = Array.from(files).map((file) => ({
+        id: crypto.randomUUID(),
         file,
         name: file.name,
         type: file.type,
@@ -37,9 +39,9 @@ const GalleryTab = () => {
 
   useEffect(() => {
     if (images.length === 0) {
-      setBgImageIndex(null)
+      setBgImageId(null)
     }
-  }, [images, setBgImageIndex])
+  }, [images, setBgImageId])
 
   return (
     <div className="h-[86%] space-y-6">
@@ -73,24 +75,24 @@ const GalleryTab = () => {
       />
 
       {images?.length > 0 ? (
-        <div className="flex flex-col gap-3">
-          {images?.map((img, index) => (
-            // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-            <div
-              key={img.name}
-              className="group relative h-48 overflow-hidden rounded-xl border-4 border-transparent shadow-md"
-              style={
-                isBgImage && bgImageIndex === index
-                  ? {
-                      borderColor: "hsl(var(--destructive))",
-                    }
-                  : {}
-              }
-              onClick={() => isBgImage && setBgImageIndex(index)}
+        <div className="flex flex-col gap-3 ">
+          {images?.map((img) => (
+            <motion.div
+              layout
+              key={img.id}
+              className="group relative h-48 rounded-xl shadow-md transition-all duration-500"
+              onClick={() => isBgImage && setBgImageId(img.id)}
+              style={bgImageId === img.id ? { padding: "10px" } : {}}
             >
+              {bgImageId === img.id && (
+                <motion.div
+                  layoutId="selected-image"
+                  className="absolute top-0 left-0 z-10 h-full w-full rounded-xl border-4 border-foreground"
+                />
+              )}
               <img
                 loading="lazy"
-                className="size-full object-cover hover:scale-105"
+                className="size-full rounded-md object-cover"
                 src={img.imageUrl}
                 alt="gallary-image"
               />
@@ -101,7 +103,7 @@ const GalleryTab = () => {
                 className="absolute top-2 right-3 hidden size-8 group-hover:flex"
                 onClick={() => removeImage(img.name)}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
       ) : (

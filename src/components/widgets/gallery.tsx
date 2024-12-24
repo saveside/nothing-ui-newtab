@@ -65,7 +65,8 @@ const Gallery = () => {
     isBgImage,
     pinnedWidgetImgIndex: pinnedImgIndex,
     setPinnedWidgetImgIndex: setPinnedImgIndex,
-    setBgImageIndex,
+    bgImageId,
+    setBgImageId,
     gallaryImageInterval,
   } = useOptionsStore()
   const [selectedImage, setSelectedImage] = useState(0)
@@ -136,8 +137,8 @@ const Gallery = () => {
               {
                 label: "Set as background",
                 icon: "solar:gallery-bold",
-                func: () => setBgImageIndex(imageIndex),
-                disabled: !isBgImage,
+                func: () => setBgImageId(images[selectedImage].id),
+                disabled: !isBgImage || bgImageId === images[selectedImage].id,
               },
             ]}
           />
