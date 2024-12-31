@@ -65,21 +65,19 @@ const Gallery = () => {
     isBgImage,
     pinnedWidgetImgIndex: pinnedImgIndex,
     setPinnedWidgetImgIndex: setPinnedImgIndex,
+    currentImageIndex: selectedImage,
+    setCurrentImageIndex: setSelectedImage,
     bgImageId,
     setBgImageId,
     gallaryImageInterval,
   } = useOptionsStore()
-  const [selectedImage, setSelectedImage] = useState(0)
   const imageIndex = wrap(0, images.length, selectedImage)
 
   const next = useCallback(() => {
-    setSelectedImage((prev) => {
-      if (images.length - 1 === prev) {
-        return 0
-      }
-      return prev + 1
-    })
-  }, [images])
+    if (images.length - 1 === selectedImage) {
+      setSelectedImage(0)
+    } else setSelectedImage(selectedImage + 1)
+  }, [images, selectedImage, setSelectedImage])
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval>
@@ -100,7 +98,7 @@ const Gallery = () => {
         className="size-full overflow-hidden rounded-lg"
         style={isMonochromeWidgetImg ? { filter: "grayscale(100%)" } : {}}
       >
-        {images.length > 0 ? (
+        {images.length > 0 && images[selectedImage] ? (
           <Menu
             menuTrigger={
               <AnimatePresence initial={false} mode="wait">

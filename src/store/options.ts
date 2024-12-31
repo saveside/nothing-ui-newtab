@@ -26,6 +26,7 @@ export const useOptionsStore = create(
 
         // Image Options
         isMonochromeWidgetImg: false,
+        currentImageIndex: 0,
         pinnedWidgetImgIndex: null as number | null,
         isBgImage: false,
         bgImageId: null as string | null,
@@ -74,6 +75,9 @@ export const useOptionsStore = create(
         },
         setPinnedWidgetImgIndex: (index: number | null) => {
           set({ pinnedWidgetImgIndex: index })
+        },
+        setCurrentImageIndex: (index: number) => {
+          set({ currentImageIndex: index })
         },
         toggleBgImage: () => set((prev) => ({ isBgImage: !prev.isBgImage })),
         toggleMonochromeBg: () => {
