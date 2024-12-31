@@ -1,6 +1,5 @@
 import clsx from "clsx"
 import { useMemo } from "react"
-import { useDebounceValue } from "usehooks-ts"
 import { useImageStore } from "~/store/image-store"
 import { useOptionsStore } from "~/store/options"
 
@@ -11,8 +10,6 @@ const BackgroundImage = () => {
   const backgroundImage = useMemo(() => {
     return images.find(({ id }) => id === bgImageId)?.imageUrl
   }, [images, bgImageId])
-
-  const [debouncedImg] = useDebounceValue(backgroundImage, 600)
 
   if (
     !isBgImage ||
@@ -27,7 +24,7 @@ const BackgroundImage = () => {
     <>
       <div className="-z-20 fixed size-full select-none bg-white">
         <img
-          src={debouncedImg}
+          src={backgroundImage}
           style={isMonochromeBg ? { filter: "grayscale(100%)" } : {}}
           alt="background-image"
           loading="lazy"

@@ -8,6 +8,7 @@ export default {
         rubik: ["Rubik", "serif"],
         notoSerif: ["Noto Serif", "serif"],
         lora: ["Lora", "serif"],
+        josefin: ["Josefin Sans", "serif"],
       },
       colors: {
         background: "hsl(var(--background))",

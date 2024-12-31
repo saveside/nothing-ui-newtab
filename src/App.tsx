@@ -18,7 +18,8 @@ function App() {
 
   useEffect(() => {
     const html = document.documentElement
-    if (isLightMode) {
+    const mode = html.getAttribute("data-theme")
+    if (mode !== "light" && isLightMode) {
       html.setAttribute("data-theme", "light")
     } else {
       html.setAttribute("data-theme", "dark")
