@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import clsx from "clsx"
 import { motion } from "framer-motion"
 import { del } from "idb-keyval"
 import { useEffect, useRef } from "react"
@@ -100,8 +101,14 @@ const GalleryTab = () => {
                 variant="destructive"
                 icon="lucide:x"
                 size="icon"
-                className="absolute top-2 right-3 hidden size-8 group-hover:flex"
-                onClick={() => removeImage(img.name)}
+                className={clsx([
+                  "absolute top-2 right-3 hidden size-8",
+                  bgImageId !== img.id && "group-hover:flex",
+                ])}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  removeImage(img.name)
+                }}
               />
             </motion.div>
           ))}
