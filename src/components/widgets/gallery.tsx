@@ -74,7 +74,7 @@ const Gallery = () => {
   const imageIndex = wrap(0, images.length, selectedImage)
 
   const next = useCallback(() => {
-    if (images.length - 1 === selectedImage) {
+    if (selectedImage >= images.length - 1) {
       setSelectedImage(0)
     } else setSelectedImage(selectedImage + 1)
   }, [images, selectedImage, setSelectedImage])

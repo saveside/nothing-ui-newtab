@@ -29,7 +29,8 @@ const GalleryTab = () => {
     setImages,
   } = useImageStore()
 
-  const { isBgImage, bgImageId, setBgImageId } = useOptionsStore()
+  const { isBgImage, bgImageId, setBgImageId, setCurrentImageIndex } =
+    useOptionsStore()
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -160,7 +161,10 @@ const GalleryTab = () => {
               size="icon"
               icon="tabler:trash"
               onClick={async () => {
-                await del("gallery-images").then(() => setImages([]))
+                await del("gallery-images").then(() => {
+                  setImages([])
+                  setCurrentImageIndex(0)
+                })
               }}
             />
             <Button
