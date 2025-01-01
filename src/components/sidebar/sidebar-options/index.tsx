@@ -1,5 +1,5 @@
-import { motion } from "framer-motion"
-import { lazy } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { Suspense, lazy, useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import { useOptionsStore } from "~/store/options"
 import { useSidebarOptions } from "../sidebar-store"
@@ -18,13 +18,17 @@ const SearchEnginesTab = lazy(() => import("./tabs/search-engines"))
 const MotionDiv = ({
   children,
   direction = "right",
-}: { children: React.ReactNode; direction?: "right" | "left" }) => {
+}: {
+  children: React.ReactNode
+  direction?: "right" | "left"
+}) => {
+  const x = 280
   return (
     <motion.div
-      initial={direction === "right" ? { x: 200 } : { x: -200 }}
-      animate={{ x: 0 }}
-      exit={{ x: 200, opacity: 0 }}
-      transition={{ ease: "linear", duration: 0.2 }}
+      initial={{ x: direction === "right" ? x : -x, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x, opacity: 0 }}
+      transition={{ duration: 0.5 }}
       className="relative h-full w-full space-y-10"
     >
       {children}
@@ -36,10 +40,16 @@ const SidebarOptions = () => {
   const tab = useSidebarOptions((s) => s.tab)
   const restoreDefaults = useOptionsStore((s) => s.restoreDefaults)
 
+  const [isOpen, setIsOpen] = useState(false)
+  useEffect(() => {
+    setIsOpen(true)
+    return () => setIsOpen(false)
+  }, [])
+
   return (
-    <div className="w-full">
+    <Suspense>
       {tab === "default" && (
-        <MotionDiv>
+        <MotionDiv direction={isOpen ? "left" : "right"}>
           <GeneralOptions />
           <ClockOptions />
           <AppOptions />
@@ -56,26 +66,26 @@ const SidebarOptions = () => {
         </MotionDiv>
       )}
       {tab === "search-engines" && (
-        <MotionDiv direction="left">
+        <MotionDiv>
           <SearchEnginesTab />
         </MotionDiv>
       )}
       {tab === "apps" && (
-        <MotionDiv direction="left">
+        <MotionDiv>
           <DockOptions />
         </MotionDiv>
       )}
       {tab === "ai-tools" && (
-        <MotionDiv direction="left">
+        <MotionDiv>
           <AIToolsTab />
         </MotionDiv>
       )}
       {tab === "gallery" && (
-        <MotionDiv direction="left">
+        <MotionDiv>
           <GalleryTab />
         </MotionDiv>
       )}
-    </div>
+    </Suspense>
   )
 }
 
