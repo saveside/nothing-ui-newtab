@@ -10,23 +10,26 @@ type ImageStore = {
   addImages: (images: ImageFile[]) => void
   fetchImages: () => void
   removeImage: (name: string) => void
-  saveImagesToDB: () => void
+  saveImagesToDB: (images?: ImageFile[]) => void
 }
 export const useImageStore = create<ImageStore>((set, get) => ({
   shouldSave: false,
   loading: true,
   images: [],
   setImages: (images) => set({ images }),
-  addImages: (images) =>
-    set((prev) => ({
-      shouldSave: true,
-      images: prev.images.concat(
-        // Filter out duplicate images
-        images.filter(
-          (img) => !prev.images.find(({ name }) => name === img.name),
-        ),
-      ),
-    })),
+  addImages: (images) => {
+    const prevImages = get().images
+    const newImages = images.filter(
+      (img) => !prevImages.find(({ name }) => name === img.name),
+    )
+
+    if (newImages.length > 0) {
+      set((prev) => ({
+        images: prev.images.concat(newImages),
+        shouldSave: true,
+      }))
+    }
+  },
   fetchImages: async () => {
     const prevImages = get().images
     if (!prevImages || prevImages.length === 0) {
@@ -48,11 +51,11 @@ export const useImageStore = create<ImageStore>((set, get) => ({
       shouldSave: true,
       images: prev.images.filter((img) => img.name !== name),
     })),
-  saveImagesToDB: async () => {
+  saveImagesToDB: async (images?: ImageFile[]) => {
     try {
       await idbSet(
         "gallery-images",
-        get().images.map(({ imageUrl, ...rest }) => rest),
+        [...(images || get().images)].map(({ imageUrl, ...rest }) => rest),
       )
       set({ shouldSave: false })
 

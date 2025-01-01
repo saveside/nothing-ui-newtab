@@ -1,14 +1,23 @@
 import { Icon } from "@iconify/react"
 import clsx from "clsx"
+import Compressor from "compressorjs"
 import { motion } from "framer-motion"
 import { del } from "idb-keyval"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Button from "~/components/ui/button"
 import Input from "~/components/ui/input"
+import Modal from "~/components/ui/modal"
 import { useImageStore } from "~/store/image-store"
 import { useOptionsStore } from "~/store/options"
 import type { ImageFile } from "~/types"
 import NewTabHeader from "../shared/newtab-header"
+
+type ImageSize = {
+  id: string
+  width: number
+  height: number
+  size: number
+}
 
 const GalleryTab = () => {
   const {
@@ -24,8 +33,97 @@ const GalleryTab = () => {
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
+  const [prevImagesLength] = useState(images.length)
+  const [imgSizeData, setImgSizeData] = useState<ImageSize[]>([])
+  const [openModal, setOpenModal] = useState(false)
+
+  const saveImageHandler = async () => {
+    // Reset data
+    setImgSizeData([])
+
+    // Main logic
+    const files = images.map(({ file, id }) => ({ file, id }))
+    if (!files || files.length === 0) return
+
+    const imgData: ImageSize[] = []
+
+    await Promise.all(
+      Array.from(files).map(
+        (imgFile) =>
+          new Promise((resolve) => {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+              const img = new Image()
+              img.onload = () => {
+                if (img.width > 1920 && img.height > 1080) {
+                  imgData.push({
+                    id: imgFile.id,
+                    height: img.height,
+                    width: img.width,
+                    size: imgFile.file.size,
+                  })
+                }
+                resolve({})
+              }
+              img.src = e.target?.result as string
+            }
+            reader.readAsDataURL(imgFile.file)
+          }),
+      ),
+    )
+
+    if (imgData.length > 0 && prevImagesLength !== images.length) {
+      setImgSizeData(imgData)
+      setOpenModal(true)
+    } else {
+      saveImagesToDB()
+    }
+  }
+
+  const compressImageHandler = async () => {
+    const newImageList: ImageFile[] = []
+
+    await Promise.all(
+      Array.from(images).map(
+        (image) =>
+          new Promise((resolve) => {
+            if (!imgSizeData.some(({ id }) => id === image.id)) {
+              newImageList.push(image)
+              resolve({})
+              return
+            }
+
+            new Compressor(image.file, {
+              width: 1920,
+              height: 1080,
+              success(result: Blob) {
+                const compressedFile: ImageFile = {
+                  ...image,
+                  file: new File([result], image.file.name, {
+                    type: image.file.type,
+                  }),
+                }
+                newImageList.push(compressedFile)
+                resolve({})
+              },
+            })
+          }),
+      ),
+    )
+
+    // Set compressed images
+    setImages(newImageList)
+
+    // Save images to db
+    saveImagesToDB(newImageList)
+
+    // Close modal
+    setOpenModal(false)
+  }
+
   const handleOnSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
+
     if (files && files.length > 0) {
       const newImages: ImageFile[] = Array.from(files).map((file) => ({
         id: crypto.randomUUID(),
@@ -69,7 +167,8 @@ const GalleryTab = () => {
               variant={shouldSave ? "accent" : "secondary"}
               size="icon"
               icon="mdi:content-save-all"
-              onClick={saveImagesToDB}
+              onClick={saveImageHandler}
+              disabled={images.length === prevImagesLength}
             />
           </>
         }
@@ -127,6 +226,47 @@ const GalleryTab = () => {
         className="hidden"
         multiple
       />
+      <Modal
+        title="Image sizes"
+        description="Images should be 1920x1080 pixels for optimal performance, red border indicates the image exceeds the recommended size, which may cause laggyness"
+        isOpen={openModal}
+        setIsOpen={setOpenModal}
+      >
+        <div className="space-y-3">
+          <div className="mt-4 h-44 overflow-y-auto">
+            <div className="grid grid-cols-3 gap-2">
+              {images.map(({ id, imageUrl, name }) => (
+                <img
+                  key={id}
+                  src={imageUrl}
+                  alt={name}
+                  className={clsx([
+                    "size-full rounded-md border-2",
+                    imgSizeData.find((img) => img.id === id)
+                      ? "border-destructive"
+                      : "border-transparent",
+                  ])}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="inline-flex w-full justify-end gap-3">
+            <Button
+              variant="destructive"
+              className="w-24"
+              onClick={() => {
+                saveImagesToDB()
+                setOpenModal(false)
+              }}
+            >
+              Save
+            </Button>
+            <Button variant="accent" onClick={compressImageHandler}>
+              Compress &amp; save
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }
