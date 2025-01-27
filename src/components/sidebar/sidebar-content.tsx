@@ -1,5 +1,4 @@
 import { motion } from "framer-motion"
-import { Suspense } from "react"
 import SidebarOptions from "./sidebar-options"
 
 const SidebarContent = () => {
