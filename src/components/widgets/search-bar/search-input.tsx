@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react"
-import { useEffect, useState } from "react"
+import { type FormEvent, useEffect, useState } from "react"
 import { useDebounceValue } from "usehooks-ts"
 import { useSearchEngineStore } from "~/store/search-engine"
 import Input from "../../ui/input"
@@ -11,12 +11,20 @@ const SearchInput = () => {
   const [query, setQuery] = useState("")
   const [debouncedQuery] = useDebounceValue<string>(query, 500)
 
-  const submitHandler = () => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     const baseUrl = searchEngines.find(
       ({ name }) => name === selectedEngine,
     )?.baseUrl
+
     if (baseUrl) {
-      window.open(baseUrl + query, "_blank")
+      try {
+        const url = new URL(baseUrl + query)
+        window.location.href = url.toString()
+      } catch (error) {
+        console.error("Not a valid url", error)
+      }
     }
   }
 
@@ -40,7 +48,10 @@ const SearchInput = () => {
   }, [searchEngines, debouncedQuery, setSelectedEngine, query])
 
   return (
-    <div className="inline-flex w-full gap-4 overflow-hidden rounded-xl bg-card p-2">
+    <form
+      onSubmit={submitHandler}
+      className="inline-flex w-full gap-4 overflow-hidden rounded-xl bg-card p-2"
+    >
       <span>
         <div className="flex size-11 items-center rounded-lg bg-foreground text-background">
           <Icon icon="tabler:search" className="mx-auto" />
@@ -51,17 +62,17 @@ const SearchInput = () => {
         outline="ghost"
         value={query}
         onInput={(e) => setQuery(e.currentTarget.value)}
+        autoFocus
         placeholder="Type here..."
-        className="h-11 w-full bg-card px-0 text-card-foreground"
+        className="h-11 w-full bg-card px-0 text-base text-card-foreground"
       />
       <button
-        type="button"
-        onClick={submitHandler}
+        type="submit"
         className="rounded-lg bg-destructive px-4 font-medium text-destructive-foreground text-sm active:scale-95"
       >
         Search
       </button>
-    </div>
+    </form>
   )
 }
 
