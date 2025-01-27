@@ -49,6 +49,7 @@
 **Requirements**
 
 - `bun`
+- `podman` or `docker` *(optional)*
 
 **Build** 
 
@@ -57,6 +58,57 @@
 3. `bun install`
 4. `bun run build`
 
-**As a chrome extension**
+**NOTE:** You can build [docker/podman image as well](#step-1) 
 
-Click on extension icon somewhere in top right corner, click on extension button > `Manage extensions` > enable `Developer Mode`  > `Load Unpacked` > Select nothing-ui-new-tab/dist
+## Usage
+
+#### Firefox extension
+
+There are multiple ways to use this as a Firefox extension. The first and easiest method is to host this website on a hosting provider and use [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override) to set it as your new tab page. My preferred method is to use this as docker/podman image and start with systemd or add it to init script or something to start when system boots automatically. My preferred method is to use this as a Docker/Podman image and configure it to start automatically with systemd or by adding it to an init script, so it runs at system boot.
+
+##### Step 1
+
+I prefer podman, if you prefer docker ig commands are similar
+
+```sh
+git clone https://github.com/ImRayy/nothing-ui-new-tab
+cd nothing-ui-new-tab
+podman build -t <image-name> .
+podman run -d -p <your-desired-port>:4173 <image-name> 
+```
+
+##### Step 2 [rootless] 
+
+
+###### Legacy Systemd Medhod
+
+```bash
+## Generate systemd service
+podman generate systemd --new --name <container-id> > ~/.config/systemd/user/nothing-ui-new-tab.service
+
+## Restart systemd daemon which will reload and re-execute the systemd
+## user instance without stopping the currently running services
+systemctl --user daemon-reload
+
+## Enable & start container service that you just created
+systemctl --user enable nothing-ui-new-tab.service --now
+```
+___
+
+###### Quadlet Systemd Method [recommended]
+
+1. Copy following content in `in nothing-ui-new-tab.container` and move to `~/.config/containers/systemd`
+```container
+[Container]
+Image=localhost/nothing-newtab
+PublishPort=4173:4173
+```
+
+2. `systemctl --user daemon-reload`
+3. `systemctl --user enable nothing-ui-new-tab.service --now`
+___
+
+#### Chrome/Chromium-based Extension
+
+1. [Install & build](#installation)
+2. Click on extension icon somewhere in top right corner, click on extension button > `Manage extensions` > enable `Developer Mode`  > `Load Unpacked` > Select nothing-ui-new-tab/dist

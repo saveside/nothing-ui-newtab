@@ -1,0 +1,9 @@
+node_modules
+Containerfile*
+.git
+dist
+.gitignore
+README.md
+LICENSE
+.env.local
+biome.json
