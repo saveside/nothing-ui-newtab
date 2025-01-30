@@ -5,3 +5,9 @@ export type ImageFile = {
   type: string
   imageUrl?: string
 }
+
+export type Query = {
+  query: string
+  id: string
+  isIcon: boolean
+}

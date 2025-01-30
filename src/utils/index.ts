@@ -11,3 +11,16 @@ export function ensureHttpPrefix(url: string) {
   }
   return `https://${url}`
 }
+
+export function checkUrlPrefix(query: string) {
+  return (
+    query.startsWith("https://") ||
+    query.startsWith("www.") ||
+    query.startsWith("http://")
+  )
+}
+
+export function getDomain(url: string) {
+  // Remove 'http://' or 'https://' and 'www.' if present
+  return url.replace(/^(https?:\/\/)?(www\.)?/, "")
+}

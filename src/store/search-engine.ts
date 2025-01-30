@@ -11,6 +11,7 @@ export type SearchEngine = {
 
 type SearchEngineStore = {
   selectedEngine: string
+  getSelectedEngine: () => SearchEngine | null
   setSelectedEngine: (name: string) => void
   searchEngines: SearchEngine[]
   add: (e: SearchEngine) => void
@@ -24,6 +25,13 @@ export const useSearchEngineStore = create(
     (set, get) => ({
       searchEngines: searchProviders as SearchEngine[],
       selectedEngine: "Brave",
+      getSelectedEngine: () => {
+        return (
+          get().searchEngines.find(
+            ({ name }) => name === get().selectedEngine,
+          ) || null
+        )
+      },
       setSelectedEngine: (name: string) => set({ selectedEngine: name }),
       add: (engine) => {
         const prevEngines = get().searchEngines

@@ -5,6 +5,8 @@ import ToggleOption from "./shared/toggle-option"
 
 const MiscOptions = () => {
   const {
+    isQuerySuggestions,
+    toggleQuerySuggestions,
     isAIToolsEnabled,
     toggleEnableAITools,
     isMonochromeIcon,
@@ -13,6 +15,11 @@ const MiscOptions = () => {
 
   return (
     <OptionsGroup title="Misc">
+      <ToggleOption
+        label="Eable search suggestions"
+        onChange={toggleQuerySuggestions}
+        enabled={isQuerySuggestions}
+      />
       <ToggleOption
         label="Enable AI tools"
         enabled={isAIToolsEnabled}

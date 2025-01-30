@@ -33,6 +33,9 @@ export const useOptionsStore = create(
         isMonochromeBg: false,
         isBgBlur: true,
         gallaryImageInterval: 10,
+
+        // SearchInput
+        isQuerySuggestions: true,
       },
       (set, get) => ({
         // Clock Setters
@@ -94,6 +97,10 @@ export const useOptionsStore = create(
           localStorage.removeItem("nothing-newtab-options")
           await idb.clear().then(() => window.location.reload())
         },
+
+        // SearchInput Methods
+        toggleQuerySuggestions: () =>
+          set((prev) => ({ isQuerySuggestions: !prev.isQuerySuggestions })),
       }),
     ),
     {
