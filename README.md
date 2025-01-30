@@ -35,6 +35,7 @@
 - Custom greeting text
 - Add search engines, set icon
 - Set shortcut for search engine to quick switching
+- Search suggestions
 
 **Planned Features** 
 - [ ] Random image from unsplash or something
