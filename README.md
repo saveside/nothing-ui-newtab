@@ -65,7 +65,7 @@
 
 #### Firefox extension
 
-There are multiple ways to use this as a Firefox extension. The first and easiest method is to host this website on a hosting provider and use [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override) to set it as your new tab page. My preferred method is to use this as docker/podman image and start with systemd or add it to init script or something to start when system boots automatically. My preferred method is to use this as a Docker/Podman image and configure it to start automatically with systemd or by adding it to an init script, so it runs at system boot.
+There are multiple ways to use this as a Firefox extension. The first and easiest method is to host this website on a hosting provider and use [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override) to set it as your new tab page. My preferred method is to use this as docker/podman image and start with systemd or add it to init script or something to start when system boots automatically.
 
 > [!TIP]
 > When using New Tab Override extension make sure you check `Set focus to the web page instead of the address bar` option
