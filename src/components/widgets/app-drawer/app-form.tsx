@@ -1,14 +1,14 @@
-import { Icon, disableCache, enableCache } from "@iconify/react/dist/iconify.js"
+import { Icon, disableCache, enableCache } from "@iconify/react"
 import clsx from "clsx"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useDebounceValue } from "usehooks-ts"
+import Button from "~/components/ui/button"
+import Input from "~/components/ui/input"
+import Modal from "~/components/ui/modal"
+import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
-import type { App } from "../../../lib/variables"
-import type { Setter } from "../../../types/react"
-import Button from "../../ui/button"
-import Input from "../../ui/input"
-import Modal from "../../ui/modal"
+import type { Setter } from "~/types/react"
 
 const IconPreview = (props: {
   url: string
@@ -69,7 +69,7 @@ const AppForm = ({ isOpen, setIsOpen, app }: AppFormProps) => {
       addDrawerApp({
         name,
         url,
-        icon: `webicon:${url}`,
+        icon: !icon ? `webicon:${url}` : icon,
       })
     } else {
       updateDrawerApp(
