@@ -71,9 +71,9 @@ export const useAppStore = create(
             ],
           }))
         },
-        removeDockApp: (id: number) => {
+        removeDockApp: (name: string) => {
           set((prev) => ({
-            dockApps: prev.dockApps.filter((_, index) => index !== id),
+            dockApps: removeApp(prev.dockApps, name),
           }))
         },
         updateDockApp: (id: number, app: App) => {
