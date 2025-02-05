@@ -3,36 +3,34 @@ import { useDebounceValue } from "usehooks-ts"
 import Input from "~/components/ui/input"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
+import type { Setter } from "~/types/react"
 import AppCard from "../shared/app-card"
 
 interface DockAppCardProps {
-  index: number
   dockApp: App
+  setDockApp?: Setter<App | null>
 }
 
 export default function DockAppCard(props: DockAppCardProps) {
-  const {
-    dockApps,
-    updateDockApp: update,
-    removeDockApp: remove,
-  } = useAppStore()
+  const { updateDockApp: update, removeDockApp: remove } = useAppStore()
 
   const [dockApp, setDockApp] = useState<App>(props.dockApp)
   const [debouncedIcon] = useDebounceValue(props.dockApp.icon, 500)
   const [debouncedValue] = useDebounceValue(dockApp, 500)
 
   useEffect(() => {
+    props.setDockApp?.(dockApp)
+  }, [dockApp, props.setDockApp])
+
+  useEffect(() => {
     if (Object.values(debouncedValue).some((value) => value === "")) {
       return
     }
 
-    if (
-      props.index < dockApps.length - 1 &&
-      JSON.stringify(debouncedValue) !== JSON.stringify(props.dockApp)
-    ) {
-      update(props.index, debouncedValue)
+    if (JSON.stringify(debouncedValue) !== JSON.stringify(props.dockApp)) {
+      update(props.dockApp.id, debouncedValue)
     }
-  }, [debouncedValue, dockApps, props, update])
+  }, [debouncedValue, props, update])
 
   return (
     <AppCard icon={debouncedIcon} delFunc={() => remove(props.dockApp.name)}>
@@ -51,6 +49,7 @@ export default function DockAppCard(props: DockAppCardProps) {
         id={`dockApp-name-${props.dockApp.name}`}
         placeholder="name"
         value={dockApp.name}
+        onBlur={(e) => alert(e.target.value)}
         onInput={({ currentTarget: { value } }) =>
           setDockApp((prev) => ({ ...prev, name: value }))
         }

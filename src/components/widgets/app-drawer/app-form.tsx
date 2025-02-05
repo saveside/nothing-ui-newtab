@@ -1,6 +1,7 @@
 import { Icon, disableCache, enableCache } from "@iconify/react"
 import clsx from "clsx"
 import { motion } from "framer-motion"
+import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 import { useDebounceValue } from "usehooks-ts"
 import Button from "~/components/ui/button"
@@ -51,7 +52,7 @@ interface AppFormProps {
 
 const AppForm = ({ isOpen, setIsOpen, app }: AppFormProps) => {
   // Store functions
-  const { drawerApps, addDrawerApp, updateDrawerApp } = useAppStore()
+  const { addDrawerApp, updateDrawerApp } = useAppStore()
 
   // Modal vars
   const [modalTitle, setModalTitle] = useState("Add app")
@@ -67,15 +68,13 @@ const AppForm = ({ isOpen, setIsOpen, app }: AppFormProps) => {
 
     if (!app) {
       addDrawerApp({
+        id: nanoid(),
         name,
         url,
         icon: !icon ? `webicon:${url}` : icon,
       })
     } else {
-      updateDrawerApp(
-        drawerApps.indexOf(drawerApps.find((_app) => app.name === _app.name)!),
-        { name, url, icon: app.icon },
-      )
+      updateDrawerApp(app.id, { id: app.id, name, url, icon: app.icon })
     }
     setIsOpen(false)
   }

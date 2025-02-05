@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react/dist/iconify.js"
 import type React from "react"
 import Button from "~/components/ui/button"
 
@@ -10,7 +11,9 @@ interface AppCardProps {
 const AppCard = ({ icon, children, delFunc }: AppCardProps) => {
   return (
     <div className="relative flex flex-col items-center rounded-xl bg-background p-4">
-      <Button size="icon" className="size-14 shrink-0" icon={icon} />
+      <span className="flex size-11 items-center justify-center gap-1 rounded-full bg-card text-foreground transition-colors duration-300">
+        <Icon icon={icon || "mynaui:daze-ghost"} fontSize={24} />
+      </span>
       <div className="flex w-full flex-col space-y-2 pt-6">{children}</div>
       <Button
         variant="secondary"

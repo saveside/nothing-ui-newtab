@@ -41,7 +41,7 @@ const AiTools = () => {
                 transition={{ duration: 0.3, ease: "linear" }}
                 className="z-10 h-8 w-1 rounded-full bg-card-foreground/60"
               />
-              {aiTools.map(({ name, icon, url }, index) => {
+              {aiTools.map(({ id, name, icon, url }, index) => {
                 return (
                   <motion.a
                     initial={{ x: -120, opacity: 0 }}
@@ -51,7 +51,7 @@ const AiTools = () => {
                       duration: index / 10 + 0.1,
                       ease: "linear",
                     }}
-                    key={name}
+                    key={`ai-tool-${id || name}`}
                     href={`https://${url}`}
                     className="relative inline-flex h-11 items-center gap-1 rounded-full bg-card px-5 transition-colors hover:bg-card-foreground/20"
                   >

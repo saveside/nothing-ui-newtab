@@ -7,13 +7,12 @@ import type { Setter } from "~/types/react"
 import AppCard from "../../shared/app-card"
 
 interface AIToolCardProps {
-  index: number
   aiTool: App
   setAITool?: Setter<App | null>
 }
 
 const AIToolCard = (props: AIToolCardProps) => {
-  const { aiTools, updateAITool: update, removeAITool: remove } = useAppStore()
+  const { updateAITool: update, removeAITool: remove } = useAppStore()
   const [aiTool, setAITool] = useState<App>(props.aiTool)
   const [debouncedIcon] = useDebounceValue(props.aiTool.icon, 500)
   const [debouncedValue] = useDebounceValue(aiTool, 500)
@@ -27,13 +26,10 @@ const AIToolCard = (props: AIToolCardProps) => {
       return
     }
 
-    if (
-      props.index < aiTools.length - 1 &&
-      JSON.stringify(debouncedValue) !== JSON.stringify(props.aiTool)
-    ) {
-      update(props.index, debouncedValue)
+    if (JSON.stringify(debouncedValue) !== JSON.stringify(props.aiTool)) {
+      update(props.aiTool.id, debouncedValue)
     }
-  }, [debouncedValue, aiTools, props, update])
+  }, [debouncedValue, props, update])
 
   return (
     <AppCard icon={debouncedIcon} delFunc={() => remove(aiTool.name)}>

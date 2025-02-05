@@ -6,12 +6,9 @@ const Dock = () => {
 
   return (
     <div className="fixed bottom-0 left-0 flex w-full justify-center gap-3 p-4">
-      {dockApps.map(({ url, icon }, index) => (
+      {dockApps.map(({ id, url, icon, name }) => (
         <Button
-          key={`dock-app-${
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            index
-          }`}
+          key={`dock-app-${id || name}`}
           onClick={() => window.open(`https://${url}`, "_blank")}
           icon={icon}
           size="icon"

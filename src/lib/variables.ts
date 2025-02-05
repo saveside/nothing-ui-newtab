@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid"
+
 export const monthNames = [
   "January",
   "February",
@@ -69,6 +71,7 @@ export const searchProviders = [
 // ------------
 
 export type App = {
+  id: string
   name: string
   icon: string
   url: string
@@ -79,9 +82,7 @@ export const aiTools = [
   { name: "Gemini", icon: "ri:gemini-fill", url: "gemini.google.com/app" },
   { name: "Copilot", icon: "lineicons:copilot", url: "copilot.microsoft.com" },
   { name: "Perplexity", icon: "ri:perplexity-fill", url: "perplexity.ai" },
-  // { name: "", icon: "", url: "" },
-  // { name: "", icon: "", url: "" },
-] satisfies App[]
+].map((a) => ({ ...a, id: nanoid() })) satisfies App[]
 
 export const drawerApps = [
   {
@@ -124,7 +125,7 @@ export const drawerApps = [
     icon: "mdi:tailwind",
     url: "https://tailwindcss.com/docs/customizing-colors",
   },
-] satisfies App[]
+].map((a) => ({ ...a, id: nanoid() })) satisfies App[]
 
 export const dockApps = drawerApps.filter(({ name }) =>
   [

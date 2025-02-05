@@ -1,5 +1,6 @@
 import { disableCache, enableCache } from "@iconify/react/dist/iconify.js"
 import { motion } from "framer-motion"
+import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
@@ -12,7 +13,7 @@ const AIToolsTab = () => {
   const [newAITool, setNewAITool] = useState<App | null>(null)
 
   const addNewAITool = () => {
-    setNewAITool({ name: "", icon: "mingcute:ai-fill", url: "" })
+    setNewAITool({ id: nanoid(), name: "", icon: "mingcute:ai-fill", url: "" })
   }
 
   const saveEngineHandler = () => {
@@ -59,11 +60,7 @@ const AIToolsTab = () => {
         <motion.div layout>
           {newAITool && (
             <div className="rounded-xl bg-background">
-              <AIToolCard
-                aiTool={newAITool}
-                index={aiTools.length}
-                setAITool={setNewAITool}
-              />
+              <AIToolCard aiTool={newAITool} setAITool={setNewAITool} />
               <div className="grid grid-cols-2 gap-3 p-4 pt-0">
                 <Button onClick={() => setNewAITool(null)}>Cancel</Button>
                 <Button variant="accent" onClick={saveEngineHandler}>
@@ -73,9 +70,9 @@ const AIToolsTab = () => {
             </div>
           )}
         </motion.div>
-        {aiTools.map((tool, index) => (
+        {aiTools.map((tool) => (
           <motion.div layout key={`ai-tool-card-${tool.name}`}>
-            <AIToolCard aiTool={tool} index={index} />
+            <AIToolCard aiTool={tool} />
           </motion.div>
         ))}
       </div>
