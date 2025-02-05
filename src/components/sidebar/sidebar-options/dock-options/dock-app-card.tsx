@@ -49,7 +49,6 @@ export default function DockAppCard(props: DockAppCardProps) {
         id={`dockApp-name-${props.dockApp.name}`}
         placeholder="name"
         value={dockApp.name}
-        onBlur={(e) => alert(e.target.value)}
         onInput={({ currentTarget: { value } }) =>
           setDockApp((prev) => ({ ...prev, name: value }))
         }
