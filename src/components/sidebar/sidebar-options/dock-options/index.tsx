@@ -1,6 +1,7 @@
+import { disableCache, enableCache } from "@iconify/react/dist/iconify.js"
 import { motion } from "framer-motion"
 import { nanoid } from "nanoid"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
@@ -34,6 +35,11 @@ const DockOptions = () => {
       }
     }
   }
+
+  useEffect(() => {
+    disableCache("all")
+    return () => enableCache("local")
+  }, [])
 
   return (
     <div className="space-y-6">
