@@ -29,7 +29,7 @@ const AIToolCard = (props: AIToolCardProps) => {
     if (JSON.stringify(debouncedValue) !== JSON.stringify(props.aiTool)) {
       update(props.aiTool.id, debouncedValue)
     }
-  }, [debouncedValue, props, update])
+  }, [debouncedValue, props.aiTool, update])
 
   return (
     <AppCard icon={debouncedIcon} delFunc={() => remove(aiTool.name)}>

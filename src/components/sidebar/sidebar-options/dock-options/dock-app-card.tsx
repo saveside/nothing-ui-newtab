@@ -30,7 +30,7 @@ export default function DockAppCard(props: DockAppCardProps) {
     if (JSON.stringify(debouncedValue) !== JSON.stringify(props.dockApp)) {
       update(props.dockApp.id, debouncedValue)
     }
-  }, [debouncedValue, props, update])
+  }, [debouncedValue, props.dockApp, update])
 
   return (
     <AppCard icon={debouncedIcon} delFunc={() => remove(props.dockApp.name)}>
