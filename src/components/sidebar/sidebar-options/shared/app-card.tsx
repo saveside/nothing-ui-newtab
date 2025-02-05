@@ -12,7 +12,14 @@ const AppCard = ({ icon, children, delFunc }: AppCardProps) => {
   return (
     <div className="relative flex flex-col items-center rounded-xl bg-background p-4">
       <span className="flex size-11 items-center justify-center gap-1 rounded-full bg-card text-foreground transition-colors duration-300">
-        <Icon icon={icon || "mynaui:daze-ghost"} fontSize={24} />
+        {icon.startsWith("webicon:") ? (
+          <img
+            src={`https://www.google.com/s2/favicons?domain=${icon.split(":")[1]}&sz=128`}
+            alt="app-icon"
+          />
+        ) : (
+          <Icon icon={icon || "mynaui:daze-ghost"} fontSize={24} />
+        )}
       </span>
       <div className="flex w-full flex-col space-y-2 pt-6">{children}</div>
       <Button
