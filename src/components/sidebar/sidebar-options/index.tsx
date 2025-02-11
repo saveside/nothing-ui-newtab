@@ -1,10 +1,9 @@
 import { motion } from "framer-motion"
 import { Suspense, lazy, useEffect, useState } from "react"
-import Button from "~/components/ui/button"
-import { useOptionsStore } from "~/store/options"
 import { useSidebarOptions } from "../sidebar-store"
 import AppOptions from "./app-options"
 import ClockOptions from "./clock-options"
+import DataBackupOptions from "./data-backup-options"
 import GalleryOptions from "./gallery-options"
 import GeneralOptions from "./general-options"
 import MiscOptions from "./misc-options"
@@ -38,7 +37,6 @@ const MotionDiv = ({
 
 const SidebarOptions = () => {
   const tab = useSidebarOptions((s) => s.tab)
-  const restoreDefaults = useOptionsStore((s) => s.restoreDefaults)
 
   const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
@@ -56,13 +54,7 @@ const SidebarOptions = () => {
           <MiscOptions />
           <GalleryOptions />
           <WeatherOptions />
-          <Button
-            variant="accent"
-            className="ml-auto"
-            onClick={restoreDefaults}
-          >
-            Restore Defaults
-          </Button>
+          <DataBackupOptions />
         </MotionDiv>
       )}
       {tab === "search-engines" && (

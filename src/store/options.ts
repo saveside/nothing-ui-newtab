@@ -1,4 +1,3 @@
-import * as idb from "idb-keyval"
 import { create } from "zustand"
 import { combine, persist } from "zustand/middleware"
 
@@ -92,10 +91,6 @@ export const useOptionsStore = create(
           if (get().gallaryImageInterval !== interval) {
             set({ gallaryImageInterval: interval })
           }
-        },
-        restoreDefaults: async () => {
-          localStorage.removeItem("nothing-newtab-options")
-          await idb.clear().then(() => window.location.reload())
         },
 
         // SearchInput Methods
