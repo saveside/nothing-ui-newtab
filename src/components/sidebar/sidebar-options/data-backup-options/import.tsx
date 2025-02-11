@@ -45,7 +45,7 @@ export default function Import() {
 
   const tableData = useMemo(() => {
     return [
-      { field: "Icons (icnoify cache)", isCheck: !!backupFile?.icons },
+      { field: "Icons (iconify cache)", isCheck: !!backupFile?.icons },
       { field: "Images", isCheck: !!backupFile?.["gallery-images"] },
       { field: "Query History", isCheck: !!backupFile?.["query-history"] },
       {
