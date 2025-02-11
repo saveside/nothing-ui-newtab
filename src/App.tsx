@@ -1,6 +1,7 @@
 import * as idbKeyval from "idb-keyval"
 import { nanoid } from "nanoid"
 import { Suspense, lazy, useEffect } from "react"
+import { Toaster } from "sonner"
 import BackgroundImage from "./components/background-image"
 import Sidebar from "./components/sidebar"
 import WidgetContainer from "./components/widgets/widget-container"
@@ -36,6 +37,7 @@ export default function App() {
 
   return (
     <>
+      <Toaster position="top-left" />
       <BackgroundImage />
       <div className="flex min-h-screen w-full select-none items-center justify-center p-4">
         <WidgetContainer />

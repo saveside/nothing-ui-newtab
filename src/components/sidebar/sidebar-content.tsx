@@ -14,7 +14,7 @@ const SidebarContent = () => {
         <span className="pt-3 pb-8 pl-4 font-lora font-thin text-2xl">
           Settings
         </span>
-        <div className="inline-flex size-full justify-between overflow-y-auto overflow-x-hidden p-4">
+        <div className="mb-3 inline-flex size-full justify-between overflow-y-auto overflow-x-hidden p-3">
           <SidebarOptions />
         </div>
       </div>

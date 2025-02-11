@@ -1,5 +1,7 @@
 import { clear } from "idb-keyval"
 import Alert from "~/components/ui/alert"
+import Export from "./export"
+import Import from "./import"
 
 const alertDesc =
   "This process is irreversible and will reset all settings to default. Make sure to back up your data before proceeding! :)"
@@ -18,6 +20,11 @@ export default function DataBackupOptions() {
 
   return (
     <div className="space-y-3">
+      <div className="grid grid-cols-2 gap-3">
+        <Export />
+        <Import />
+      </div>
+
       <Alert
         btnText="Restore Defaults"
         desc={alertDesc}
