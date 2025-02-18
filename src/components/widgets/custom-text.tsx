@@ -35,7 +35,7 @@ export const CustomText = () => {
         const textWidth = hiddenSpanRef.current.scrollWidth
 
         const newWidth = Math.min(
-          Math.max(textWidth + (isFocused ? 40 : 16), 50),
+          Math.max(textWidth + (isFocused ? 40 : 20), 50),
           parentWidth,
         )
         inputRef.current.style.width = `${newWidth}px`
@@ -65,17 +65,28 @@ export const CustomText = () => {
         spellCheck={false}
         rows={1}
         className={clsx(
-          "resize-none overflow-hidden rounded-xl border-none bg-card px-2 py-1 text-foreground text-lg transition-all placeholder:text-foreground focus:border-none focus:ring-0",
+          "resize-none overflow-hidden rounded-xl border-none px-2 py-1 text-foreground text-lg transition-all placeholder:text-foreground focus:border-none focus:ring-0",
+          isBgImage ? "bg-card" : "bg-inherit",
         )}
       />
       {isDigitalClockEnabled ? (
         greetings && (
-          <span className="rounded-xl bg-card px-2 py-1">
+          <span
+            className={clsx(
+              "rounded-xl px-2 py-1",
+              isBgImage ? " bg-card" : "bg-inherit",
+            )}
+          >
             {getGreetings(date)}
           </span>
         )
       ) : (
-        <span className="rounded-xl bg-card px-2 py-1">{`${getFirstWords(weekDay)}, ${getFirstWords(month)} ${day}`}</span>
+        <span
+          className={clsx(
+            "rounded-xl px-2 py-1",
+            isBgImage ? " bg-card" : "bg-inherit",
+          )}
+        >{`${getFirstWords(weekDay)}, ${getFirstWords(month)} ${day}`}</span>
       )}
     </div>
   )
