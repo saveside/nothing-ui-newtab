@@ -17,17 +17,12 @@ export const CustomText = () => {
     isBgImage,
   } = useOptionsStore()
 
-  const [openInput, setOpenInput] = useState(false)
-
+  const [isFocused, setIsFocused] = useState(false)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const parentRef = useRef<HTMLDivElement>(null)
   const hiddenSpanRef = useRef<HTMLSpanElement>(null)
 
   const { day, month, weekDay } = parseDate(date)
-
-  useEffect(() => {
-    openInput && inputRef.current?.focus()
-  }, [openInput])
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -39,11 +34,14 @@ export const CustomText = () => {
         const parentWidth = parentRef.current.scrollWidth
         const textWidth = hiddenSpanRef.current.scrollWidth
 
-        const newWidth = Math.min(Math.max(textWidth + 40, 50), parentWidth)
+        const newWidth = Math.min(
+          Math.max(textWidth + (isFocused ? 40 : 16), 50),
+          parentWidth,
+        )
         inputRef.current.style.width = `${newWidth}px`
       }
     }
-  }, [customText])
+  }, [customText, isFocused])
 
   return (
     <div
@@ -62,7 +60,8 @@ export const CustomText = () => {
         placeholder={textPlaceHolder}
         value={customText}
         onInput={(e) => setCustomText(e.currentTarget.value)}
-        onBlur={() => setOpenInput(false)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         spellCheck={false}
         rows={1}
         className={clsx(
