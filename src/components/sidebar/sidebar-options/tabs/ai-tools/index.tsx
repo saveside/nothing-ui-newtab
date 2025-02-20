@@ -5,11 +5,17 @@ import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
+import AppCard from "../../shared/app-card"
 import NewTabHeader from "../../shared/newtab-header"
-import AIToolCard from "./ai-tools-card"
 
 const AIToolsTab = () => {
-  const { aiTools, addAITool: add, resetAITools: reset } = useAppStore()
+  const {
+    aiTools,
+    addAITool: add,
+    resetAITools: reset,
+    updateAITool,
+    removeAITool,
+  } = useAppStore()
   const [newAITool, setNewAITool] = useState<App | null>(null)
 
   const addNewAITool = () => {
@@ -60,7 +66,7 @@ const AIToolsTab = () => {
         <motion.div layout>
           {newAITool && (
             <div className="rounded-xl bg-background">
-              <AIToolCard aiTool={newAITool} setAITool={setNewAITool} />
+              <AppCard app={newAITool} setApp={setNewAITool} />
               <div className="grid grid-cols-2 gap-3 p-4 pt-0">
                 <Button onClick={() => setNewAITool(null)}>Cancel</Button>
                 <Button variant="accent" onClick={saveEngineHandler}>
@@ -72,7 +78,16 @@ const AIToolsTab = () => {
         </motion.div>
         {aiTools.map((tool) => (
           <motion.div layout key={`ai-tool-card-${tool.name}`}>
-            <AIToolCard aiTool={tool} />
+            <AppCard
+              cardLabel="AI Tool"
+              app={tool}
+              appNames={aiTools.reduce<string[]>((acc, { name }) => {
+                if (name !== tool.name) acc.push(name)
+                return acc
+              }, [])}
+              update={updateAITool}
+              remove={removeAITool}
+            />
           </motion.div>
         ))}
       </div>

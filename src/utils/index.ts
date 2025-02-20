@@ -83,3 +83,16 @@ export function blobToFile(blob: Blob, fileName: string) {
   b.lastModifiedDate = new Date()
   return b as File
 }
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export function areObjectsEqual<T extends Record<string, any>>(
+  obj1: T,
+  obj2: T,
+  keysToIgnore?: string[],
+): boolean {
+  const filteredKeys = keysToIgnore
+    ? Object.keys(obj1).filter((key) => !keysToIgnore.includes(key))
+    : Object.keys(obj1)
+
+  return filteredKeys.every((key) => obj1[key] === obj2[key])
+}

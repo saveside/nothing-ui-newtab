@@ -30,7 +30,20 @@ interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ type, id, className, label, variant, outline, ...props }, ref) => {
+  (
+    {
+      type,
+      id,
+      className,
+      label,
+      variant,
+      outline,
+      isError,
+      errorTxt,
+      ...props
+    },
+    ref,
+  ) => {
     return (
       <div className="w-full space-y-1">
         {label && (
@@ -45,10 +58,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             input({ variant, outline, className }),
             type === "file" &&
               "input px-2 file:rounded-md file:border-none file:bg-destructive file:px-3 file:py-1.5 file:text-destructive-foreground",
+            isError && "border-destructive focus:ring-destructive",
           )}
           ref={ref}
           {...props}
         />
+        {isError && errorTxt && (
+          <span className="ml-1 text-sm text-destructive">{errorTxt}</span>
+        )}
       </div>
     )
   },

@@ -93,3 +93,7 @@ function removeApp(list: App[], name: string) {
 function updateApp(list: App[], id: string, updatedApp: App) {
   return list.map((app) => (app.id === id ? updatedApp : app))
 }
+
+export function isAppsSame(a1: App, a2: App): boolean {
+  return JSON.stringify(a1) !== JSON.stringify(a2)
+}

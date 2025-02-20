@@ -5,12 +5,13 @@ import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
+import AppCard from "../shared/app-card"
 import NewTabHeader from "../shared/newtab-header"
-import DockAppCard from "./dock-app-card"
 
 const DockOptions = () => {
   const [newApp, setNewApp] = useState<App | null>(null)
-  const { addDockApp, dockApps, resetDockApp } = useAppStore()
+  const { addDockApp, dockApps, resetDockApp, updateDockApp, removeDockApp } =
+    useAppStore()
 
   const addNewApp = () => {
     setNewApp({
@@ -66,7 +67,7 @@ const DockOptions = () => {
       <motion.div layout>
         {newApp && (
           <div className="rounded-xl bg-background">
-            <DockAppCard dockApp={newApp} setDockApp={setNewApp} />
+            <AppCard app={newApp} setApp={setNewApp} />
             <div className="grid grid-cols-2 gap-3 p-4 pt-0">
               <Button onClick={() => setNewApp(null)}>Cancel</Button>
               <Button variant="accent" onClick={saveEngineHandler}>
@@ -79,7 +80,16 @@ const DockOptions = () => {
       <div className="h-full space-y-5">
         {dockApps.map((app) => (
           <motion.div layout key={`app-${app.name}`}>
-            <DockAppCard dockApp={app} />
+            <AppCard
+              cardLabel="App"
+              app={app}
+              appNames={dockApps.reduce<string[]>((acc, { name }) => {
+                if (name !== app.name) acc.push(name)
+                return acc
+              }, [])}
+              update={updateDockApp}
+              remove={removeDockApp}
+            />
           </motion.div>
         ))}
       </div>
