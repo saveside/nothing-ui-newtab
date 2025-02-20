@@ -3,11 +3,12 @@ import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import { type SearchEngine, useSearchEngineStore } from "~/store/search-engine"
+import { extractUniqueValues } from "~/utils"
 import NewTabHeader from "../../shared/newtab-header"
 import SearchEngineCard from "./search-engine-card"
 
 const SearchEnginesTab = () => {
-  const { searchEngines, add, reset } = useSearchEngineStore()
+  const { searchEngines, add, reset, update, remove } = useSearchEngineStore()
   const [newEngine, setNewEngine] = useState<SearchEngine | null>(null)
 
   const addNewEngine = () => {
@@ -94,7 +95,22 @@ const SearchEnginesTab = () => {
       <div className="space-y-3">
         {searchEngines.map((engine, index) => (
           <motion.div layout key={`search-engine-card-${engine.name}`}>
-            <SearchEngineCard index={index} engine={engine} />
+            <SearchEngineCard
+              index={index}
+              engine={engine}
+              engineNames={extractUniqueValues(
+                searchEngines,
+                "name",
+                engine.name,
+              )}
+              engineShortcuts={extractUniqueValues(
+                searchEngines,
+                "short",
+                engine.short,
+              )}
+              update={update}
+              remove={remove}
+            />
           </motion.div>
         ))}
       </div>

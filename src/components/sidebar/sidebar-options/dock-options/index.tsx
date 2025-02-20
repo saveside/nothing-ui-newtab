@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
+import { extractUniqueValues } from "~/utils"
 import AppCard from "../shared/app-card"
 import NewTabHeader from "../shared/newtab-header"
 
@@ -83,10 +84,7 @@ const DockOptions = () => {
             <AppCard
               cardLabel="App"
               app={app}
-              appNames={dockApps.reduce<string[]>((acc, { name }) => {
-                if (name !== app.name) acc.push(name)
-                return acc
-              }, [])}
+              appNames={extractUniqueValues(dockApps, "name", app.name)}
               update={updateDockApp}
               remove={removeDockApp}
             />

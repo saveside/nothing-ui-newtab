@@ -96,3 +96,35 @@ export function areObjectsEqual<T extends Record<string, any>>(
 
   return filteredKeys.every((key) => obj1[key] === obj2[key])
 }
+
+/**
+ * Extracts unique values from an array of objects based on a given key.
+ * Optionally excludes a specific value from the result.
+ *
+ * @template T - The object type in the array.
+ * @template K - The key in the object whose values should be extracted.
+ * @param {T[]} array - The array of objects to extract values from.
+ * @param {K} key - The key whose values should be collected.
+ * @param {T[K]} [exclude] - An optional value to exclude from the result.
+ * @returns {T[K][]} - An array of values corresponding to the specified key.
+ *
+ * @example
+ * const searchEngines = [
+ *   { name: "Google", short: "g" },
+ *   { name: "Bing", short: "b" },
+ *   { name: "DuckDuckGo", short: "d" },
+ * ];
+ *
+ * const result = extractUniqueValues(searchEngines, "short", "b");
+ * console.log(result); // Output: ["g", "d"]
+ */
+export function extractUniqueValues<T, K extends keyof T>(
+  array: T[],
+  key: K,
+  exclude?: T[K],
+): T[K][] {
+  return array.reduce<T[K][]>((acc, item) => {
+    if (item[key] !== exclude) acc.push(item[key])
+    return acc
+  }, [])
+}

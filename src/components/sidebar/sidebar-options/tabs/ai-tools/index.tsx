@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
 import type { App } from "~/lib/variables"
 import { useAppStore } from "~/store/app-store"
+import { extractUniqueValues } from "~/utils"
 import AppCard from "../../shared/app-card"
 import NewTabHeader from "../../shared/newtab-header"
 
@@ -81,10 +82,7 @@ const AIToolsTab = () => {
             <AppCard
               cardLabel="AI Tool"
               app={tool}
-              appNames={aiTools.reduce<string[]>((acc, { name }) => {
-                if (name !== tool.name) acc.push(name)
-                return acc
-              }, [])}
+              appNames={extractUniqueValues(aiTools, "name", tool.name)}
               update={updateAITool}
               remove={removeAITool}
             />

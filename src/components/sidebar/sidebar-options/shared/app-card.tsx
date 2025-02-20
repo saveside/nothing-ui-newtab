@@ -9,34 +9,71 @@ import type { App } from "~/lib/variables"
 import type { Setter } from "~/types/react"
 import { areObjectsEqual } from "~/utils"
 
-interface ContainerProps {
+interface AppCardContainerProps {
   icon: string
   children: React.ReactNode
   delFunc: () => void
 }
 
-const Container = ({ icon, children, delFunc }: ContainerProps) => {
+export const AppCardContainer = (props: AppCardContainerProps) => {
   return (
     <div className="relative flex flex-col items-center rounded-xl bg-background p-4 pb-2">
       <span className="flex size-11 items-center justify-center gap-1 rounded-full bg-card text-foreground transition-colors duration-300">
-        {icon.startsWith("webicon:") ? (
+        {props.icon.startsWith("webicon:") ? (
           <img
-            src={`https://www.google.com/s2/favicons?domain=${icon.split(":")[1]}&sz=128`}
+            src={`https://www.google.com/s2/favicons?domain=${props.icon.split(":")[1]}&sz=128`}
             alt="app-icon"
           />
         ) : (
-          <Icon icon={icon || "mynaui:daze-ghost"} fontSize={24} />
+          <Icon icon={props.icon || "mynaui:daze-ghost"} fontSize={24} />
         )}
       </span>
-      <div className="flex w-full flex-col space-y-2 pt-6">{children}</div>
+      <div className="flex w-full flex-col space-y-2 pt-6">
+        {props.children}
+      </div>
       <Button
         variant="secondary"
         icon="mdi:trash-outline"
         size="icon"
         className="absolute top-3 right-3 size-8"
-        onClick={delFunc}
+        onClick={props.delFunc}
       />
     </div>
+  )
+}
+
+interface AppCardFooterProps {
+  open: boolean
+  setOpen: Setter<boolean>
+  saveFunc: () => void
+}
+
+export const AppCardFooter = (props: AppCardFooterProps) => {
+  return (
+    <motion.div
+      initial={{ height: 0, opacity: 0 }}
+      animate={
+        props.open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
+      }
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="overflow-hidden"
+    >
+      <AnimatePresence mode="wait">
+        {props.open && (
+          <motion.div
+            initial={{ y: -10 }}
+            animate={{ y: 0 }}
+            exit={{ y: 10, opacity: 0 }}
+            className="grid grid-cols-2 gap-2 pt-2"
+          >
+            <Button onClick={() => props.setOpen(false)}>Cancel</Button>
+            <Button variant="accent" onClick={props.saveFunc}>
+              Save
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   )
 }
 
@@ -59,7 +96,6 @@ export default function AppCard({
 }: AppCardProps) {
   const [dockApp, setDockApp] = useState<App>(app)
   const [debouncedIcon] = useDebounceValue(app.icon, 500)
-  const [debouncedValue] = useDebounceValue(dockApp, 500)
   const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
@@ -67,22 +103,22 @@ export default function AppCard({
   }, [dockApp, setApp])
 
   const submitHandler = () => {
-    if (Object.values(debouncedValue).some((value) => value === "")) {
+    if (Object.values(dockApp).some((value) => value === "")) {
       return
     }
 
     if (
       update &&
-      !appNames?.includes(debouncedValue.name) &&
-      !areObjectsEqual<App>(debouncedValue, app, ["id"])
+      !appNames?.includes(dockApp.name) &&
+      !areObjectsEqual<App>(dockApp, app, ["id"])
     ) {
-      update(app.id, debouncedValue)
+      update(app.id, dockApp)
       setIsFocused(false)
     }
   }
 
   return (
-    <Container icon={debouncedIcon} delFunc={() => remove?.(app.name)}>
+    <AppCardContainer icon={debouncedIcon} delFunc={() => remove?.(app.name)}>
       <Input
         variant="secondary"
         id={`${cardLabel?.split(" ").join("-") || "App"}-icon-${app.id}`}
@@ -99,7 +135,7 @@ export default function AppCard({
         id={`${cardLabel || "App"}-name-${app.id}`}
         placeholder="name"
         value={dockApp.name}
-        isError={appNames?.includes(debouncedValue.name)}
+        isError={appNames?.includes(dockApp.name)}
         errorTxt={`${cardLabel || "App"} with same name already found`}
         onInput={({ currentTarget: { value } }) =>
           setDockApp((prev) => ({ ...prev, name: value }))
@@ -118,30 +154,11 @@ export default function AppCard({
         onFocus={() => setIsFocused(true)}
         className="text-foreground"
       />
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={
-          isFocused ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
-        }
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="overflow-hidden"
-      >
-        <AnimatePresence mode="wait">
-          {isFocused && (
-            <motion.div
-              initial={{ y: -10 }}
-              animate={{ y: 0 }}
-              exit={{ y: 10, opacity: 0 }}
-              className="grid grid-cols-2 gap-2 pt-2"
-            >
-              <Button onClick={() => setIsFocused(false)}>Cancel</Button>
-              <Button variant="accent" onClick={submitHandler}>
-                Save
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </Container>
+      <AppCardFooter
+        open={isFocused}
+        setOpen={setIsFocused}
+        saveFunc={submitHandler}
+      />
+    </AppCardContainer>
   )
 }

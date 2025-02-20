@@ -1,93 +1,108 @@
 import { useEffect, useState } from "react"
-import { useDebounceValue } from "usehooks-ts"
-import Button from "~/components/ui/button"
+import { toast } from "sonner"
 import Input from "~/components/ui/input"
-import { type SearchEngine, useSearchEngineStore } from "~/store/search-engine"
+import type { SearchEngine } from "~/store/search-engine"
 import type { Setter } from "~/types/react"
+import { AppCardContainer, AppCardFooter } from "../../shared/app-card"
 
 interface SearchEngineCardProps {
   index: number
   engine: SearchEngine
   setEngine?: Setter<SearchEngine | null>
+  engineNames?: string[]
+  engineShortcuts?: string[]
+  update?: (id: number, engine: SearchEngine) => void
+  remove?: (name: string) => void
 }
 
 const SearchEngineCard = (props: SearchEngineCardProps) => {
-  const { searchEngines, update, remove } = useSearchEngineStore()
   const [engine, setEngine] = useState<SearchEngine>(props.engine)
-  const [debouncedEngine] = useDebounceValue(engine, 500)
+  const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
     props.setEngine?.(engine)
   }, [engine, props.setEngine])
 
-  useEffect(() => {
-    if (Object.values(debouncedEngine).some((value) => value === "")) {
+  const onSaveHandler = () => {
+    if (Object.values(engine).some((value) => value === "")) {
       return
     }
 
-    if (
-      props.index < searchEngines.length - 1 &&
-      JSON.stringify(debouncedEngine) !== JSON.stringify(props.engine)
-    ) {
-      update(props.index, debouncedEngine)
+    if (props.engineNames?.includes(engine.name)) {
+      toast.error(`Engine with name "${engine.name}" already found!`)
+      return
     }
-  }, [debouncedEngine, searchEngines, props, update])
+
+    if (props.engineShortcuts?.includes(engine.short)) {
+      toast.error(`Engine with shortcut "${engine.short}" already found`)
+      return
+    }
+
+    if (props.update) {
+      props.update(props.index, engine)
+      setIsFocused(false)
+    }
+  }
 
   return (
-    <div className="relative flex flex-col items-center rounded-xl bg-background p-4">
-      <Button size="icon" className="size-14 shrink-0" icon={engine.icon} />
-      <div className="space-y-2 pt-6">
+    <AppCardContainer
+      icon={engine.icon}
+      delFunc={() => props.remove?.(engine.name)}
+    >
+      <Input
+        variant="secondary"
+        id={`searchengine-icon-${engine.name}`}
+        placeholder="icon url"
+        value={engine.icon}
+        onInput={({ currentTarget: { value } }) =>
+          setEngine((prev) => ({ ...prev, icon: value }))
+        }
+        onFocus={() => setIsFocused(true)}
+        className="text-foreground"
+      />
+      <div className="inline-flex gap-2">
         <Input
           variant="secondary"
-          id="searchengine-icon"
-          placeholder="icon url"
-          value={engine.icon}
+          id={`searchengine-name-${engine.name}`}
+          placeholder="name"
+          value={engine.name}
           onInput={({ currentTarget: { value } }) =>
-            setEngine((prev) => ({ ...prev, icon: value }))
+            setEngine((prev) => ({ ...prev, name: value }))
           }
+          onFocus={() => setIsFocused(true)}
+          isError={props.engineNames?.includes(engine.name)}
           className="text-foreground"
         />
-        <div className="inline-flex gap-2">
-          <Input
-            variant="secondary"
-            id="searchengine-name"
-            placeholder="name"
-            value={engine.name}
-            onInput={({ currentTarget: { value } }) =>
-              setEngine((prev) => ({ ...prev, name: value }))
-            }
-            className="text-foreground"
-          />
-          <Input
-            variant="secondary"
-            id="searchengine-shortcut"
-            placeholder="shortcut"
-            value={engine.short}
-            onInput={({ currentTarget: { value } }) =>
-              setEngine((prev) => ({ ...prev, short: value.trim() }))
-            }
-            className="text-foreground"
-          />
-        </div>
         <Input
           variant="secondary"
-          id="searchengine-base-url"
-          placeholder="base url"
-          value={engine.baseUrl}
+          id={`searchengine-shortcut-${engine.name}`}
+          placeholder="shortcut"
+          value={engine.short}
           onInput={({ currentTarget: { value } }) =>
-            setEngine((prev) => ({ ...prev, baseUrl: value }))
+            setEngine((prev) => ({ ...prev, short: value.trim() }))
           }
+          onFocus={() => setIsFocused(true)}
+          isError={props.engineShortcuts?.includes(engine.short)}
           className="text-foreground"
         />
       </div>
-      <Button
+      <Input
         variant="secondary"
-        icon="mdi:trash-outline"
-        size="icon"
-        className="absolute top-3 right-3 size-8"
-        onClick={() => remove(engine.name)}
+        id={`searchengine-base-url-${engine.name}`}
+        placeholder="base url"
+        value={engine.baseUrl}
+        onInput={({ currentTarget: { value } }) =>
+          setEngine((prev) => ({ ...prev, baseUrl: value }))
+        }
+        onFocus={() => setIsFocused(true)}
+        className="text-foreground"
       />
-    </div>
+      <AppCardFooter
+        open={isFocused}
+        setOpen={setIsFocused}
+        saveFunc={onSaveHandler}
+      />
+    </AppCardContainer>
   )
 }
 
