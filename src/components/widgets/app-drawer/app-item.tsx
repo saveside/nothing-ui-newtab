@@ -42,7 +42,7 @@ const AppItem = ({ app, isRemoveMode }: AppButtonProps) => {
             icon="lucide:x"
             iconSize={15}
             className="absolute top-0 right-0 size-5 p-0"
-            onClick={() => removeDrawerApp(app.name)}
+            onClick={() => removeDrawerApp(app.id)}
           />
         )}
       </a>

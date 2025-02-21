@@ -41,7 +41,7 @@ const AppMenu = ({ children, app }: AppMenuProps) => {
         {
           label: "Remove",
           icon: "tabler:trash",
-          func: () => removeDrawerApp(app.name),
+          func: () => removeDrawerApp(app.id),
         },
       ]}
     />

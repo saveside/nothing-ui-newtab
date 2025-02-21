@@ -83,7 +83,7 @@ interface AppCardProps {
   setApp?: Setter<App | null>
   appNames?: string[]
   update?: (id: string, app: App) => void
-  remove?: (name: string) => void
+  remove?: (id: string) => void
 }
 
 export default function AppCard({
@@ -118,7 +118,7 @@ export default function AppCard({
   }
 
   return (
-    <AppCardContainer icon={debouncedIcon} delFunc={() => remove?.(app.name)}>
+    <AppCardContainer icon={debouncedIcon} delFunc={() => remove?.(app.id)}>
       <Input
         variant="secondary"
         id={`${cardLabel?.split(" ").join("-") || "App"}-icon-${app.id}`}

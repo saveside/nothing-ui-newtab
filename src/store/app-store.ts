@@ -27,9 +27,9 @@ export const useAppStore = create(
         updateDrawerApp: (id: string, app: App) => {
           set((prev) => ({ drawerApps: updateApp(prev.drawerApps, id, app) }))
         },
-        removeDrawerApp: (name: string) => {
+        removeDrawerApp: (id: string) => {
           set((prev) => ({
-            drawerApps: removeApp(prev.drawerApps, name),
+            drawerApps: removeApp(prev.drawerApps, id),
           }))
         },
         resetDrawerApp: () => set({ drawerApps: initialDrawerApps }),
@@ -41,9 +41,9 @@ export const useAppStore = create(
         updateAITool: (id: string, app: App) => {
           set((prev) => ({ aiTools: updateApp(prev.aiTools, id, app) }))
         },
-        removeAITool: (name: string) => {
+        removeAITool: (id: string) => {
           set((prev) => ({
-            aiTools: removeApp(prev.aiTools, name),
+            aiTools: removeApp(prev.aiTools, id),
           }))
         },
         resetAITools: () => set({ aiTools: initialAITools }),
@@ -51,9 +51,9 @@ export const useAppStore = create(
         // Dock Apps
         addDockApp: (app: App) =>
           set((prev) => ({ dockApps: addApp(prev.dockApps, app) })),
-        removeDockApp: (name: string) => {
+        removeDockApp: (id: string) => {
           set((prev) => ({
-            dockApps: removeApp(prev.dockApps, name),
+            dockApps: removeApp(prev.dockApps, id),
           }))
         },
         updateDockApp: (id: string, app: App) => {
@@ -86,8 +86,8 @@ function addApp(list: App[], newApp: App): App[] {
   return list
 }
 
-function removeApp(list: App[], name: string) {
-  return list.filter((app) => app.name !== name)
+function removeApp(list: App[], id: string) {
+  return list.filter((app) => app.id !== id)
 }
 
 function updateApp(list: App[], id: string, updatedApp: App) {

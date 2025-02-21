@@ -210,7 +210,7 @@ const GalleryTab = () => {
                 ])}
                 onClick={(e) => {
                   e.stopPropagation()
-                  removeImage(img.name)
+                  removeImage(img.id)
                 }}
               />
             </motion.div>

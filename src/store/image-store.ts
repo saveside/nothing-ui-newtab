@@ -9,7 +9,7 @@ type ImageStore = {
   setImages: (images: ImageFile[]) => void
   addImages: (images: ImageFile[]) => void
   fetchImages: () => void
-  removeImage: (name: string) => void
+  removeImage: (id: string) => void
   saveImagesToDB: (images?: ImageFile[]) => void
 }
 export const useImageStore = create<ImageStore>((set, get) => ({
@@ -46,10 +46,10 @@ export const useImageStore = create<ImageStore>((set, get) => ({
     }
     set({ loading: false })
   },
-  removeImage: (name) =>
+  removeImage: (id) =>
     set((prev) => ({
       shouldSave: true,
-      images: prev.images.filter((img) => img.name !== name),
+      images: prev.images.filter((img) => img.id !== id),
     })),
   saveImagesToDB: async (images?: ImageFile[]) => {
     try {
