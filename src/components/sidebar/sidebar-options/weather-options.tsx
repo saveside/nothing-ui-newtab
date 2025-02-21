@@ -13,6 +13,8 @@ const WeatherOptions = () => {
     setWeatherLocation,
     isScaleFahrenheit,
     toggleFahrenheitScale,
+    showLocation,
+    toggleShowLocation,
   } = useOptionsStore()
 
   const [api, setApi] = useState(weatherAPI)
@@ -24,6 +26,12 @@ const WeatherOptions = () => {
         label="Fahrenheit"
         enabled={isScaleFahrenheit}
         onChange={toggleFahrenheitScale}
+      />
+      <ToggleOption
+        label="Show Location"
+        desc="If disabled, only the weather condition will be shown instead of the location."
+        enabled={showLocation}
+        onChange={toggleShowLocation}
       />
       <div className="flex h-full flex-col items-end gap-2">
         <Input

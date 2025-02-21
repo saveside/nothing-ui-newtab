@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import Switch from "../../../switch"
+import Switch from "~/components/switch"
 
 interface ToggleOptionProps {
   label: string
@@ -17,17 +17,17 @@ const ToggleOption = ({
   disabled = false,
 }: ToggleOptionProps) => {
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex items-start gap-0">
       <div
         className={clsx(
-          "inline-flex w-full justify-between",
+          "flex w-full flex-col justify-between",
           disabled && "text-card-foreground/40",
         )}
       >
         <span>{label}</span>
-        <Switch {...{ enabled, onChange, disabled }} />
+        <span className="text-foreground/60 text-sm">{desc}</span>
       </div>
-      <span className="text-foreground/60 text-sm">{desc}</span>
+      <Switch {...{ enabled, onChange, disabled }} />
     </div>
   )
 }

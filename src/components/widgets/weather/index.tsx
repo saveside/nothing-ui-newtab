@@ -6,7 +6,8 @@ import { useOptionsStore } from "../../../store/options"
 import type { CurrentWeather } from "../../../types/weather"
 
 const Weather = () => {
-  const { weatherAPI, weatherLocation, isScaleFahrenheit } = useOptionsStore()
+  const { weatherAPI, weatherLocation, isScaleFahrenheit, showLocation } =
+    useOptionsStore()
   const isLightMode = useThemeStore((s) => s.isLightMode)
   const [loading, setLoading] = useState(true)
 
@@ -63,7 +64,9 @@ const Weather = () => {
             width={78}
             style={isLightMode ? { filter: "invert(1)" } : {}}
           />
-          <span>{weatherData.name}</span>
+          <span>
+            {showLocation ? weatherData.weather[0]?.main : weatherData.name}
+          </span>
         </motion.div>
       ) : (
         !loading && (

@@ -16,7 +16,7 @@ const IntervalInput = () => {
   return (
     <div>
       <span>Gallery image switch interval</span>
-      <p className="mb-2 pr-10 text-foreground/60 text-sm">
+      <p className="mb-2 text-foreground/60 text-sm">
         It will be saved automatically upon input, and the time is measured in
         seconds
       </p>

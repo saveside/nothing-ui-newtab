@@ -15,6 +15,7 @@ export const useOptionsStore = create(
         // Misc
         weatherAPI: "",
         weatherLocation: "Delhi",
+        showLocation: true,
         isScaleFahrenheit: false,
         isAIToolsEnabled: true,
         isAppDrawerEnabled: true,
@@ -44,14 +45,18 @@ export const useOptionsStore = create(
         toggelGreetings: () =>
           set((state) => ({ greetings: !state.greetings })),
 
-        // Misc Setters
+        // Weather Options
         setWeatherAPI: (key: string) => set({ weatherAPI: key }),
-        setWeatherLocation: (location: string) =>
-          set({ weatherLocation: location }),
+        setWeatherLocation: (showLocation: string) =>
+          set({ weatherLocation: showLocation }),
+        toggleShowLocation: () =>
+          set((prev) => ({ showLocation: !prev.showLocation })),
         toggleFahrenheitScale: () =>
           set((state) => ({
             isScaleFahrenheit: !state.isScaleFahrenheit,
           })),
+
+        // Misc Options
         toggleEnableAITools: () =>
           set((prev) => ({ isAIToolsEnabled: !prev.isAIToolsEnabled })),
         toggleMonochromeIcon: () => {
