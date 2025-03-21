@@ -1,3 +1,4 @@
+import uFuzzy from "@leeoniya/ufuzzy"
 import { motion } from "framer-motion"
 import { useMemo } from "react"
 import { useQueryStore } from "~/store/query-history"
@@ -20,20 +21,25 @@ export default function QuerySuggestions(props: QuerySuggestionsProps) {
     (prev) => prev.getSelectedEngine,
   )
 
+  const uf = new uFuzzy({ intraMode: 1 })
+
   // Filtering query from db matching user input query
   const filteredList: Query[] = useMemo(() => {
     if (!filterString) return []
 
-    return list.filter(({ query }) => {
-      // Creates a regex to match words starting with the filter string, ignoring
-      // non-word characters. The match is case-insensitive and ensures the
-      // filter string only matches the beginning of words.
-      return new RegExp(
-        `\\b${filterString.replace(/[^\w]/g, "")}.*`,
-        "gi",
-      ).test(query)
-    })
-  }, [list, filterString])
+    const matchedItems: Query[] = []
+
+    const haystack = list.map(({ query }) => query)
+    const idxs = uf.filter(haystack, filterString)
+
+    if (idxs !== null && idxs.length > 0) {
+      for (let i = 0; i < idxs.length; i++) {
+        matchedItems.push(list[idxs[i]])
+      }
+    }
+
+    return matchedItems
+  }, [list, filterString, uf])
 
   if (filteredList.length === 0 || !filterString) {
     return null
@@ -47,7 +53,7 @@ export default function QuerySuggestions(props: QuerySuggestionsProps) {
       layout
       id="query-suggestions"
       className={cn(
-        "z-10 max-h-64 w-full overflow-auto rounded-xl bg-background p-1",
+        "z-10 max-h-64 w-full overflow-auto rounded-xl bg-card p-1",
         className,
       )}
     >

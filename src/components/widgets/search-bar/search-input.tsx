@@ -5,7 +5,7 @@ import Button from "~/components/ui/button"
 import { useOptionsStore } from "~/store/options"
 import { useQueryStore } from "~/store/query-history"
 import { useSearchEngineStore } from "~/store/search-engine"
-import { checkUrlPrefix, getDomain } from "~/utils"
+import { checkUrlPrefix, getDomain, trimSpaces } from "~/utils"
 import Input from "../../ui/input"
 
 const QuerySuggestions = lazy(() => import("./query-suggestions"))
@@ -98,6 +98,7 @@ const SearchInput = () => {
           autoFocus
           placeholder="Type here..."
           className="h-11 w-full bg-card px-0 text-base text-card-foreground"
+          autoComplete="off"
         />
         <Button
           type="submit"
@@ -113,7 +114,7 @@ const SearchInput = () => {
         {isQrySuggEnabled && (
           <QuerySuggestions
             className="absolute mt-2"
-            filterString={query || null}
+            filterString={trimSpaces(query)}
           />
         )}
       </Suspense>

@@ -1,6 +1,8 @@
+import { Icon } from "@iconify/react"
 import { type VariantProps, cva } from "class-variance-authority"
-import React from "react"
+import React, { useState } from "react"
 import { cn } from "../../utils"
+import Button from "./button"
 
 const input = cva(
   "w-full py-2 border-2 focus:border-transparent border-transparent rounded-xl px-4 focus:outline-none focus:ring-2 disabled:opacity-40 text-sm",
@@ -44,6 +46,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
+    const [show, setShow] = useState(false)
+
     return (
       <div className="w-full space-y-1">
         {label && (
@@ -51,20 +55,35 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-        <input
-          id={id}
-          type={type}
-          className={cn(
-            input({ variant, outline, className }),
-            type === "file" &&
-              "input px-2 file:rounded-md file:border-none file:bg-destructive file:px-3 file:py-1.5 file:text-destructive-foreground",
-            isError && "border-destructive focus:ring-destructive",
+        <div className="relative">
+          <input
+            id={id}
+            type={type === "password" ? (show ? "text" : "password") : type}
+            className={cn(
+              input({ variant, outline, className }),
+              type === "file" &&
+                "input relative px-2 file:rounded-md file:border-none file:bg-destructive file:px-3 file:py-1.5 file:text-destructive-foreground focus:border-none",
+              isError && "border-destructive focus:ring-destructive",
+            )}
+            ref={ref}
+            {...props}
+          />
+          {type === "password" && (
+            <Button
+              variant={variant === "default" ? "primary" : "secondary"}
+              size="icon"
+              className="absolute top-1 right-1 size-8 shrink-0 rounded-lg"
+              onClick={() => setShow((prev) => !prev)}
+            >
+              <Icon
+                icon={show ? "ri:eye-off-fill" : "ri:eye-fill"}
+                fontSize={20}
+              />
+            </Button>
           )}
-          ref={ref}
-          {...props}
-        />
+        </div>
         {isError && errorTxt && (
-          <span className="ml-1 text-sm text-destructive">{errorTxt}</span>
+          <span className="ml-1 text-destructive text-sm">{errorTxt}</span>
         )}
       </div>
     )
