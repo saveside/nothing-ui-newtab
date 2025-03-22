@@ -1,4 +1,5 @@
 import { useAppStore } from "~/store/app-store"
+import { ensureHttpPrefix } from "~/utils"
 import Button from "../ui/button"
 
 const Dock = () => {
@@ -9,7 +10,7 @@ const Dock = () => {
       {dockApps.map(({ id, url, icon, name }) => (
         <Button
           key={`dock-app-${id || name}`}
-          onClick={() => window.open(`https://${url}`, "_blank")}
+          onClick={() => window.open(ensureHttpPrefix(url), "_blank")}
           icon={icon}
           size="icon"
           className="hover:-translate-y-1 size-12 transition-transform"
