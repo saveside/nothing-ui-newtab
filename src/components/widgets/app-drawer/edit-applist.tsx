@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react/dist/iconify.js"
 import clsx from "clsx"
 import { useState } from "react"
 import { useAppStore } from "~/store/app-store"
@@ -21,27 +22,27 @@ const EditAppList = ({ removeMode, setRemoveMode }: EditAppListProps) => {
     <>
       <div className="inline-flex gap-2">
         <Button
-          icon="tabler:plus"
           size="icon"
           className="rounded-xl"
-          iconSize={20}
           onClick={() => setIsOpen(true)}
-        />
+        >
+          <Icon icon="tabler:plus" fontSize={20} />
+        </Button>
         <Button
           variant={removeMode ? "destructive" : "primary"}
-          icon="tabler:trash"
           size="icon"
           className={clsx("rounded-xl")}
           onClick={() => setRemoveMode((prev) => !prev)}
-          iconSize={20}
-        />
+        >
+          <Icon icon="tabler:trash" fontSize={20} />
+        </Button>
         <Button
-          icon="material-symbols:device-reset-rounded"
           size="icon"
           className={clsx("rounded-xl")}
           onClick={resetDrawerApp}
-          iconSize={20}
-        />
+        >
+          <Icon icon="material-symbols:device-reset-rounded" fontSize={20} />
+        </Button>
       </div>
       <AppForm
         isOpen={isOpen || selectedApp !== null}

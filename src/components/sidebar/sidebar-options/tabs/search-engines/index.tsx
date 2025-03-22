@@ -1,4 +1,4 @@
-import { disableCache, enableCache } from "@iconify/react/dist/iconify.js"
+import { Icon, disableCache, enableCache } from "@iconify/react/dist/iconify.js"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import Button from "~/components/ui/button"
@@ -48,20 +48,15 @@ const SearchEnginesTab = () => {
       <NewTabHeader
         rightButtons={
           <>
-            <Button
-              variant="secondary"
-              size="icon"
-              iconSize={20}
-              onClick={reset}
-              icon="material-symbols:device-reset-rounded"
-            />
-            <Button
-              variant="secondary"
-              size="icon"
-              iconSize={20}
-              icon="ic:round-plus"
-              onClick={addNewEngine}
-            />
+            <Button variant="secondary" size="icon" onClick={reset}>
+              <Icon
+                icon="material-symbols:device-reset-rounded"
+                fontSize={20}
+              />
+            </Button>
+            <Button variant="secondary" size="icon" onClick={addNewEngine}>
+              <Icon icon="ic:round-plus" />
+            </Button>
           </>
         }
       />

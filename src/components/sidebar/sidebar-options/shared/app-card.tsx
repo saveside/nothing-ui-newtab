@@ -33,11 +33,12 @@ export const AppCardContainer = (props: AppCardContainerProps) => {
       </div>
       <Button
         variant="secondary"
-        icon="mdi:trash-outline"
         size="icon"
         className="absolute top-3 right-3 size-8"
         onClick={props.delFunc}
-      />
+      >
+        <Icon icon="mdi:trash-outline" />
+      </Button>
     </div>
   )
 }

@@ -38,6 +38,7 @@ export type DockProps = {
 
 export type DockItemProps = {
   className?: string
+  onClick: () => void
   children: React.ReactNode
 }
 
@@ -128,8 +129,8 @@ function Dock({
   )
 }
 
-function DockItem({ children, className }: DockItemProps) {
-  const ref = useRef<HTMLDivElement>(null)
+function DockItem({ children, className, onClick }: DockItemProps) {
+  const ref = useRef<HTMLButtonElement>(null)
 
   const { distance, magnification, mouseX, spring } = useDock()
 
@@ -149,7 +150,8 @@ function DockItem({ children, className }: DockItemProps) {
   const width = useSpring(widthTransform, spring)
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
       ref={ref}
       style={{ width }}
       onHoverStart={() => isHovered.set(1)}
@@ -161,14 +163,13 @@ function DockItem({ children, className }: DockItemProps) {
         className,
       )}
       tabIndex={0}
-      // biome-ignore lint/a11y/useSemanticElements: <explanation>
-      role="button"
       aria-haspopup="true"
+      onClick={onClick}
     >
       {Children.map(children, (child) =>
         cloneElement(child as React.ReactElement, { width, isHovered }),
       )}
-    </motion.div>
+    </motion.button>
   )
 }
 

@@ -1,4 +1,6 @@
+import { Icon } from "@iconify/react/dist/iconify.js"
 import clsx from "clsx"
+import AppIcon from "~/components/ui/app-icon"
 import { useAppStore } from "~/store/app-store"
 import type { App } from "../../../lib/variables"
 import { ensureHttpPrefix } from "../../../utils"
@@ -25,18 +27,20 @@ const AppItem = ({ app, isRemoveMode }: AppButtonProps) => {
         )}
         onClick={(e) => isRemoveMode && e.preventDefault()}
       >
-        <Button variant="secondary" icon={app.icon} size="icon" iconSize={20} />
+        <Button variant="secondary" size="icon">
+          <AppIcon icon={app.icon} iconSize={20} />
+        </Button>
         <span className="whitespace-nowrap">
           {stringTruncate(app.name, 10)}
         </span>
         {isRemoveMode && (
           <Button
             variant="destructive"
-            icon="lucide:x"
-            iconSize={15}
             className="absolute top-0 right-0 size-5 p-0"
             onClick={() => removeDrawerApp(app.id)}
-          />
+          >
+            <Icon icon="lucide:x" fontSize={15} />
+          </Button>
         )}
       </a>
     </AppMenu>

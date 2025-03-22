@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { AnimatePresence, motion } from "framer-motion"
 import { Suspense, lazy, useState } from "react"
+import Button from "../ui/button"
 
 const SidebarContent = lazy(() => import("./sidebar-content"))
 
@@ -23,20 +24,25 @@ const Sidebar = () => {
     <>
       <AnimatePresence mode="wait">
         {!open && (
-          <motion.button
-            initial={{ y: 20 }}
-            animate={{ y: 0 }}
-            exit={{ y: 20, opacity: 0 }}
-            type="button"
-            onClick={() => setOpen(true)}
-            className="fixed right-4 bottom-4 z-10 size-12 rounded-full bg-card text-white active:scale-95"
+          <Button
+            size="icon"
+            asChild
+            className="fixed right-4 bottom-4 z-10 rounded-full bg-card text-white active:scale-95"
           >
-            <Icon
-              icon="tabler:circle-dotted-letter-n"
-              fontSize={36}
-              className="mx-auto text-card-foreground"
-            />
-          </motion.button>
+            <motion.button
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+              exit={{ y: 20, opacity: 0 }}
+              type="button"
+              onClick={() => setOpen(true)}
+            >
+              <Icon
+                icon="tabler:settings"
+                fontSize={20}
+                className="mx-auto text-card-foreground"
+              />
+            </motion.button>
+          </Button>
         )}
       </AnimatePresence>
       <AnimatePresence mode="wait">

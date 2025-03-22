@@ -1,4 +1,4 @@
-import { disableCache, enableCache } from "@iconify/react/dist/iconify.js"
+import { Icon, disableCache, enableCache } from "@iconify/react/dist/iconify.js"
 import { motion } from "framer-motion"
 import { nanoid } from "nanoid"
 import { useEffect, useState } from "react"
@@ -48,20 +48,15 @@ const DockOptions = () => {
       <NewTabHeader
         rightButtons={
           <>
-            <Button
-              variant="secondary"
-              size="icon"
-              iconSize={20}
-              icon="material-symbols:device-reset-rounded"
-              onClick={resetDockApp}
-            />
-            <Button
-              variant="secondary"
-              size="icon"
-              iconSize={20}
-              icon="ic:round-plus"
-              onClick={addNewApp}
-            />
+            <Button variant="secondary" size="icon" onClick={resetDockApp}>
+              <Icon
+                icon="material-symbols:device-reset-rounded"
+                fontStyle={20}
+              />
+            </Button>
+            <Button variant="secondary" size="icon" onClick={addNewApp}>
+              <Icon icon="ic:round-plus" fontSize={20} />
+            </Button>
           </>
         }
       />

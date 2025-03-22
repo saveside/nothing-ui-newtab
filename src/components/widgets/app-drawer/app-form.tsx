@@ -49,11 +49,11 @@ const IconPreview = ({
       )}
       <Button
         variant="accent"
-        icon="tabler:pencil"
-        iconSize={18}
         onClick={btnFunc}
         className="absolute right-3 bottom-3 size-6 flex-shrink-0 p-0"
-      />
+      >
+        <Icon icon="tabler:pencil" fontSize={18} />
+      </Button>
     </motion.span>
   )
 }

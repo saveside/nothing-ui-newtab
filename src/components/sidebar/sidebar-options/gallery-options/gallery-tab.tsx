@@ -151,29 +151,32 @@ const GalleryTab = () => {
             <Button
               variant="secondary"
               size="icon"
-              icon="ri:image-add-fill"
               onClick={() => {
                 inputRef.current?.click()
               }}
-            />
+            >
+              <Icon icon="ri:image-add-fill" />
+            </Button>
             <Button
               variant="secondary"
               size="icon"
-              icon="tabler:trash"
               onClick={async () => {
                 await del("gallery-images").then(() => {
                   setImages([])
                   setCurrentImageIndex(0)
                 })
               }}
-            />
+            >
+              <Icon icon="tabler:trash" />
+            </Button>
             <Button
               variant={shouldSave ? "accent" : "secondary"}
               size="icon"
-              icon="mdi:content-save-all"
               onClick={saveImageHandler}
               disabled={images.length === prevImagesLength}
-            />
+            >
+              <Icon icon="mdi:content-save-all" />
+            </Button>
           </>
         }
       />
@@ -202,7 +205,6 @@ const GalleryTab = () => {
               />
               <Button
                 variant="destructive"
-                icon="lucide:x"
                 size="icon"
                 className={clsx([
                   "absolute top-2 right-3 hidden size-8",
@@ -212,7 +214,9 @@ const GalleryTab = () => {
                   e.stopPropagation()
                   removeImage(img.id)
                 }}
-              />
+              >
+                <Icon icon="lucide:x" />
+              </Button>
             </motion.div>
           ))}
         </div>

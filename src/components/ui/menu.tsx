@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react/dist/iconify.js"
 import * as ContextMenu from "@radix-ui/react-context-menu"
 import Button from "./button"
 
@@ -32,11 +33,11 @@ const Menu = ({ menuTrigger, title, data }: MenuProps) => {
                 <ContextMenu.Item key={btn.label}>
                   <Button
                     variant="secondary"
-                    icon={btn.icon}
                     className="h-9 w-full justify-start"
                     onClick={btn.func}
                     disabled={btn.disabled}
                   >
+                    <Icon icon={btn.icon} />
                     {btn.label}
                   </Button>
                 </ContextMenu.Item>

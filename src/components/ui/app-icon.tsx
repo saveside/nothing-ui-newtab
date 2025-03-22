@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react/dist/iconify.js"
 import { useOptionsStore } from "~/store/options"
-import { cn, googleFavIcon } from "~/utils"
+import { googleFavIcon } from "~/utils"
 
 interface AppIconProps {
   icon: string
@@ -11,7 +11,7 @@ interface AppIconProps {
 export default function AppIcon({ icon, iconSize, className }: AppIconProps) {
   const isMonochromeEnabled = useOptionsStore((s) => s.isMonochromeIcon)
   return (
-    <span style={{ width: iconSize }} className={cn("shrink-0", className)}>
+    <div style={{ width: iconSize }} className={className}>
       {icon && !icon.startsWith("webicon:") ? (
         <Icon icon={icon} className="size-full" />
       ) : (
@@ -22,6 +22,6 @@ export default function AppIcon({ icon, iconSize, className }: AppIconProps) {
           className="size-full"
         />
       )}
-    </span>
+    </div>
   )
 }

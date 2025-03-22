@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react/dist/iconify.js"
 import { AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import Button from "../../ui/button"
@@ -13,12 +14,12 @@ const AppDrawer = () => {
       <div className="flex w-full gap-2">
         {isOpen && <EditAppList {...{ removeMode, setRemoveMode }} />}
         <Button
-          icon="tabler:apps"
           size="icon"
           className="ml-auto flex-shrink-0 rounded-xl"
-          iconSize={20}
           onClick={() => setIsOpen((prev) => !prev)}
-        />
+        >
+          <Icon icon="tabler:apps" fontSize={20} />
+        </Button>
       </div>
       <AnimatePresence mode="wait">
         {isOpen && <AppList isRemoveMode={removeMode} />}
