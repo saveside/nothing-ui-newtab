@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import { useAppStore } from "~/store/app-store"
 import { useOptionsStore } from "~/store/options"
+import { ensureHttpPrefix } from "~/utils"
 import * as Motion from "../motion-primitives/dock"
 import AppIcon from "../ui/app-icon"
 
@@ -16,19 +17,18 @@ const Dock = () => {
         ])}
       >
         {dockApps.map((app) => (
-          <Motion.DockItem
-            key={app.id}
-            className={clsx("aspect-square rounded-full", [
-              isDockBg
-                ? "border border-foreground/5 bg-backgroundAlt"
-                : "bg-card",
-            ])}
-          >
-            <Motion.DockLabel>{app.name}</Motion.DockLabel>
-            <Motion.DockIcon>
-              <AppIcon icon={app.icon} className="size-full" />
-            </Motion.DockIcon>
-          </Motion.DockItem>
+          <a href={ensureHttpPrefix(app.url)} key={app.id}>
+            <Motion.DockItem
+              className={clsx("aspect-square rounded-full", [
+                isDockBg ? " bg-backgroundAlt" : "bg-card",
+              ])}
+            >
+              <Motion.DockLabel>{app.name}</Motion.DockLabel>
+              <Motion.DockIcon>
+                <AppIcon icon={app.icon} className="size-full" />
+              </Motion.DockIcon>
+            </Motion.DockItem>
+          </a>
         ))}
       </Motion.Dock>
     </div>
