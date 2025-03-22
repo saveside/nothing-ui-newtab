@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react"
 import { type VariantProps, cva } from "class-variance-authority"
 import React from "react"
 import { useOptionsStore } from "../../store/options"
-import { cn } from "../../utils"
+import { cn, googleFavIcon } from "../../utils"
 
 const buttonVariants = cva(
   "button active:scale-95 flex items-center justify-center rounded-xl transition-colors duration-300 gap-1 disabled:opacity-60 disabled:pointer-events-none",
@@ -51,7 +51,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {icon?.startsWith("webicon:") ? (
           <img
-            src={`https://www.google.com/s2/favicons?domain=${icon.split(":")[1]}&sz=128`}
+            src={googleFavIcon(icon.split(":")[1])}
             alt="icon-image"
             width={18}
             style={isMonochromeEnabled ? { filter: "grayscale(100%)" } : {}}

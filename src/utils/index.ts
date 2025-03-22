@@ -78,6 +78,7 @@ export function base64ToBlob(
 }
 
 export function blobToFile(blob: Blob, fileName: string) {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const b: any = blob;
   b.name = fileName;
   b.lastModifiedDate = new Date();
@@ -130,3 +131,6 @@ export function extractUniqueValues<T, K extends keyof T>(
 }
 
 export const trimSpaces = (str: string) => str.replace(/\s+/g, " ").trim();
+
+export const googleFavIcon = (domain: string) =>
+  `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;

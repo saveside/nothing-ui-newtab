@@ -62,7 +62,8 @@ export default function Modal({
                 <Button
                   variant="secondary"
                   className="ml-auto h-11 min-w-24"
-                  onClick={() => (!btnFunc ? setIsOpen(false) : btnFunc())}
+                  onClick={btnFunc}
+                  onKeyDown={(e) => e.key === "Enter" && btnFunc()}
                   disabled={btnDisabled}
                 >
                   Save
