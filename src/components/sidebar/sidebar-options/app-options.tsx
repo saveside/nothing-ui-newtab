@@ -9,6 +9,8 @@ const AppOptions = () => {
     toggleEnableAppDrawer,
     isDockEnabled,
     toggleDock,
+    isDockBackground,
+    toggleDockBg,
   } = useOptionsStore()
 
   return (
@@ -17,6 +19,11 @@ const AppOptions = () => {
         label="Enable dock"
         enabled={isDockEnabled}
         onChange={toggleDock}
+      />
+      <ToggleOption
+        label="Enable dock background"
+        enabled={isDockBackground}
+        onChange={toggleDockBg}
       />
       <TabSwitchButton
         title="Dock Apps"

@@ -25,14 +25,7 @@ const AppItem = ({ app, isRemoveMode }: AppButtonProps) => {
         )}
         onClick={(e) => isRemoveMode && e.preventDefault()}
       >
-        <span>
-          <Button
-            variant="secondary"
-            icon={app.icon}
-            size="icon"
-            iconSize={24}
-          />
-        </span>
+        <Button variant="secondary" icon={app.icon} size="icon" iconSize={20} />
         <span className="whitespace-nowrap">
           {stringTruncate(app.name, 10)}
         </span>

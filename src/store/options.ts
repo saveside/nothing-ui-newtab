@@ -1,5 +1,5 @@
-import { create } from "zustand"
-import { combine, persist } from "zustand/middleware"
+import { create } from "zustand";
+import { combine, persist } from "zustand/middleware";
 
 export const useOptionsStore = create(
   persist(
@@ -23,6 +23,7 @@ export const useOptionsStore = create(
 
         // DockApp
         isDockEnabled: true,
+        isDockBackground: false,
 
         // Image Options
         isMonochromeWidgetImg: false,
@@ -60,7 +61,7 @@ export const useOptionsStore = create(
         toggleEnableAITools: () =>
           set((prev) => ({ isAIToolsEnabled: !prev.isAIToolsEnabled })),
         toggleMonochromeIcon: () => {
-          set((prev) => ({ isMonochromeIcon: !prev.isMonochromeIcon }))
+          set((prev) => ({ isMonochromeIcon: !prev.isMonochromeIcon }));
         },
 
         // App Drwaer setters
@@ -73,28 +74,30 @@ export const useOptionsStore = create(
         toggleDock: () =>
           set((prev) => ({ isDockEnabled: !prev.isDockEnabled })),
         setCustomText: (text: string) => set({ customText: text }),
+        toggleDockBg: () =>
+          set((prev) => ({ isDockBackground: !prev.isDockBackground })),
 
         // Image setters
         toggleMonochromeWidgetImg: () => {
           set((prev) => ({
             isMonochromeWidgetImg: !prev.isMonochromeWidgetImg,
-          }))
+          }));
         },
         setPinnedWidgetImgIndex: (index: number | null) => {
-          set({ pinnedWidgetImgIndex: index })
+          set({ pinnedWidgetImgIndex: index });
         },
         setCurrentImageIndex: (index: number) => {
-          set({ currentImageIndex: index })
+          set({ currentImageIndex: index });
         },
         toggleBgImage: () => set((prev) => ({ isBgImage: !prev.isBgImage })),
         toggleMonochromeBg: () => {
-          set((prev) => ({ isMonochromeBg: !prev.isMonochromeBg }))
+          set((prev) => ({ isMonochromeBg: !prev.isMonochromeBg }));
         },
         toggleBgBlur: () => set((prev) => ({ isBgBlur: !prev.isBgBlur })),
         setBgImageId: (id: string | null) => set({ bgImageId: id }),
         setGallaryImageInterval: (interval: number) => {
           if (get().gallaryImageInterval !== interval) {
-            set({ gallaryImageInterval: interval })
+            set({ gallaryImageInterval: interval });
           }
         },
 
@@ -107,4 +110,4 @@ export const useOptionsStore = create(
       name: "nothing-newtab-options",
     },
   ),
-)
+);

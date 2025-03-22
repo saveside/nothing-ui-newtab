@@ -1,8 +1,7 @@
-import { Icon } from "@iconify/react"
 import { type VariantProps, cva } from "class-variance-authority"
 import React from "react"
-import { useOptionsStore } from "../../store/options"
-import { cn, googleFavIcon } from "../../utils"
+import { cn } from "../../utils"
+import AppIcon from "./app-icon"
 
 const buttonVariants = cva(
   "button active:scale-95 flex items-center justify-center rounded-xl transition-colors duration-300 gap-1 disabled:opacity-60 disabled:pointer-events-none",
@@ -40,8 +39,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     { type, className, children, variant, size, icon, iconSize, ...props },
     ref,
   ) => {
-    const isMonochromeEnabled = useOptionsStore((s) => s.isMonochromeIcon)
-
     return (
       <button
         type={type || "button"}
@@ -49,16 +46,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {icon?.startsWith("webicon:") ? (
-          <img
-            src={googleFavIcon(icon.split(":")[1])}
-            alt="icon-image"
-            width={18}
-            style={isMonochromeEnabled ? { filter: "grayscale(100%)" } : {}}
-          />
-        ) : (
-          icon && <Icon icon={icon} fontSize={iconSize} />
-        )}
+        {icon && <AppIcon icon={icon} iconSize={iconSize} />}
         {children}
       </button>
     )
