@@ -65,24 +65,37 @@
 
 #### Firefox extension
 
-There are multiple ways to use this as a Firefox extension. The first and easiest method is to host this website on a hosting provider and use [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override) to set it as your new tab page. My preferred method is to use this as docker/podman image and start with systemd or add it to init script or something to start when system boots automatically.
+There are multiple ways to use this as a Firefox extension. The first and easiest method is to host this website on a hosting provider and use [New Tab Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override) to set it as your new tab page. My preferred method is to use this as docker/podman image and start with systemd or add it to init script or something to start when system boots automatically
 
 > [!TIP]
 > When using New Tab Override extension make sure you check `Set focus to the web page instead of the address bar` option
 
-##### Step 1
-
-I prefer podman, if you prefer docker ig commands are similar
+##### Clone & Build
 
 ```sh
 git clone https://github.com/ImRayy/nothing-ui-newtab
 cd nothing-ui-newtab
+
+## Podman
 podman build -t nothing-ui-newtab .
-podman run -d -p <your-desired-port>:4173 nothing-ui-newtab 
+
+## Docker 
+docker build -t nothing-ui-newtab .
 ```
+---
 
-##### Step 2 [rootless] 
+##### Run
 
+```bash
+## Podman
+podman run -d -p <your-desired-port>:4173 nothing-ui-newtab 
+
+## Docker
+docker run -d -p <your-desired-port>:4173 nothingui-newtab:latest
+```
+---
+
+##### Autostart (Podman) [rootless] 
 
 ###### Legacy Systemd Medhod
 
@@ -97,18 +110,30 @@ systemctl --user daemon-reload
 ## Enable & start container service that you just created
 systemctl --user enable nothing-ui-newtab.service --now
 ```
-___
 
 ###### Quadlet Systemd Method [recommended]
 
 1. Copy following content in `nothing-ui-newtab.container` and move to `~/.config/containers/systemd`
 ```container
+[Unit]
+Description=Nothing UI New Tab
+After=graphical-session.target
+
 [Container]
 Image=localhost/nothing-ui-newtab ## Could be something else, check with `podman container ls`
 PublishPort=<your-desired-port>:4173
 ```
 2. `systemctl --user daemon-reload`
 3. `systemctl --user enable nothing-ui-newtab.service --now`
+
+---
+
+##### Autostart (docker) [rootless]
+
+```bash
+docker run --restart unless-stopped -d -p <your-desired-port>:4173 nothingui-newtab:latest
+```
+
 ___
 
 #### Chrome/Chromium-based Extension
